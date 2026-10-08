@@ -22,4 +22,6 @@ if (previewDir) {
 const fit = await page.$$eval('.page', ps => ps.map(p => ({ scroll: p.scrollHeight, client: p.clientHeight })));
 console.log('pages:', fit.length, JSON.stringify(fit));
 if (fit.some(f => f.scroll > f.client + 1)) { console.error('OVERFLOW: content does not fit A4'); process.exitCode = 1; }
+const clipped = await page.$$eval('.ticket .who, .ticket .scan', els => els.filter(e => e.scrollHeight > e.clientHeight + 1).length);
+if (clipped) { console.error(`OVERFLOW: ${clipped} ticket panel(s) clip their content`); process.exitCode = 1; }
 await browser.close();

@@ -21,7 +21,7 @@ All names, numbers, fares, QR codes, payments and identity results are fictional
 | P09 | Split seats consent | Partial availability options; nothing booked until chosen | T10 |
 | P10 | Pay | Buyer OTP once; fare + non-refundable service charge before provider choice | Backlog 6; Audit F2, F12 |
 | P14 | Tickets | Ticket stub per passenger; demo QR; ID reminder | Backlog 7 |
-| P15 | Paper ticket · A4 (pages 1–2) | Matches `design/eticket` PDF: rail-line hero, fact strip, roles and fare, one boarding-pass stub per traveller, checklist, station rules, cancel, help and privacy | Backlog 7 (print layout) |
+| P15 | Paper ticket · A4 (two frames) | Two self-contained tickets per page with 60 mm QR (frame 1); single traveller = ticket + booking summary on one page (frame 2). Mirrors `design/eticket` PDFs | Backlog 7 (print layout) |
 
 ## Passenger: when things change
 

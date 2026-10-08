@@ -1,6 +1,6 @@
 # railfair concept e-ticket (A4)
 
-`railfair-eticket-concept-A4.pdf` redesigns the current Bangladesh Railway e-ticket PDF around the project concept. It keeps the same A4 page size and the English + Bangla layout. It is a **concept demo, not valid for travel and not issued by Bangladesh Railway**: every page carries a DEMO banner and watermark, there is no railway or vendor branding, and all data is fictional.
+`railfair-eticket-concept-A4.pdf` (4 travellers) and `railfair-eticket-concept-A4-single.pdf` (1 traveller) redesign the current Bangladesh Railway e-ticket PDF around the project concept. It keeps the same A4 page size and the English + Bangla layout. It is a **concept demo, not valid for travel and not issued by Bangladesh Railway**: every page carries a DEMO banner and watermark, there is no railway or vendor branding, and all data is fictional.
 
 ## What changed from the current e-ticket
 
@@ -19,12 +19,13 @@
 
 Kept from the current ticket: A4 size, bilingual labels, journey table fields (issue time, journey time, train, from/to, class, coach/seat, adult/child count, fare, VAT, service charge, total), the "soft copy or printout" rule and the 2-hour complaint window.
 
-## Design (UI v0.2 theme)
+## Layout
 
-- **Print-first:** ink on white, with lime as the only accent (seat block, duration chip, timeline stop). Prints legibly in black and white.
-- **Rail-line hero:** large station codes (DHK → CTG) on a dashed track, with departure and arrival times and the booking reference in an ink chip.
-- **Boarding-pass stubs:** one per traveller. Each has the name in English and Bangla, a masked ID, the identity status, a lime coach/seat block, and a perforation with notches before its QR.
-- **Every field the current ticket carries,** plus: train number, departure station, transaction ref, bedding/SMS lines, refund destination, booking channel, a pre-travel checklist, an assistance note, a privacy note and how to verify or cancel.
+- **Two tickets per A4 page, stacked vertically.** Each half is a complete ticket: route, date, train, times, traveller, coach/seat/class, ID to show, status and a **60 mm QR** with a full quiet zone. Nothing needs cutting; fold along the guide if travellers split up.
+- **Odd traveller counts** (1, 3, …) put a compact booking summary in the last free half, so a single traveller gets **one page**. **Even counts** add a full summary page: travellers, booking, payment, cancellation, help.
+- **Print-first theme (UI v0.2):** ink on white, lime only for the seat block and duration chip, 14 mm side margins and 12 mm top margin, consistent 4 mm rhythm.
+- **Neutral, professional wording.** Roles are "Booked by", "Paid by", "Traveller" and "Accompanying adult". No family-relationship terms.
+- **QR verified:** every code decodes from the rendered pages (OpenCV, 100–150 dpi full-page scan).
 
 ## Accessibility
 
@@ -38,8 +39,8 @@ Kept from the current ticket: A4 size, bilingual labels, journey table fields (i
 ```sh
 npm i @fontsource/anek-bangla@5 @fontsource/bricolage-grotesque@5 @fontsource/geist-sans@5 @fontsource/geist-mono@5
 pip install segno
-python3 build_eticket.py node_modules/@fontsource eticket.html
-node render.mjs eticket.html railfair-eticket-concept-A4.pdf   # needs Playwright + Chromium; fails if a page overflows A4
+python3 build_eticket.py node_modules/@fontsource eticket.html 4      # traveller count 1–4
+node render.mjs eticket.html railfair-eticket-concept-A4.pdf   # needs Playwright + Chromium; fails if a page or ticket panel overflows
 ```
 
 Each QR encodes only `RAILFAIR-DEMO|NOT-VALID|<booking>|P<n>|sig=demo`, with no personal data. A production ticket would carry a signed opaque token instead.
