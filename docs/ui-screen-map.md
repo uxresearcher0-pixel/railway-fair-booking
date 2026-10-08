@@ -44,12 +44,16 @@ Prototype: a fourth flow starts at **R0** (returning passenger). Form flow: F05 
 
 | ID | Screen | Purpose / key states | Plan link |
 |---|---|---|---|
-| G1 | Group size · over 4 | 7 travellers become one linked booking: packages A (4) + B (3), one fair-queue place, one hold, one checkout; keep-together preference | Plan acceptance "approved larger groups use one linked request" |
-| G2 | Group travellers · packages | Every traveller named with their own ID per package; each child with an adult in the same package | One entitlement per named passenger |
+| G1 | Group size · over 4 | 7 travellers = 2 linked bookings: packages A (4) + B (3), one fair-queue place, one hold; each package bought by a different adult (max 4 tickets per buyer per day, **rule to confirm**) | Plan acceptance "approved larger groups use one linked request" |
+| G2 | Group travellers · packages | Every traveller named with their own ID; each package header names its buyer; notice that the package B buyer pays from their own account; each child with an adult in the same package | One entitlement per named passenger |
 | G3 | Linked seat offer | One hold for all 7 seats; packages A and B on one coach map with legend; never offered alone, no split without consent | Backlog 4, 5 |
-| G4 | Linked checkout & tickets | Group reference GRP-31 with two booking refs, one payment (7 × fare + service charge), 7 named tickets, per-traveller cancellation | Backlog 6, 7, 8 |
+| G5 | Co-booker invite (package B buyer's phone) | Invite to buy package B inside the shared hold (time left shown); "Accept & pay ৳1,110"; declining releases package B only; their daily allowance shown | 4-per-buyer rule; one hold |
+| G4 | Linked checkout & tickets | Group reference GRP-31 with two booking refs; one payment per package (A: bKash ৳1,480, B: Nagad ৳1,110; group total ৳2,590), "Both paid" status; 7 named tickets; refunds go to each package's payer | Backlog 6, 7, 8 |
+| L1 | Daily limit reached | "4 of 4 tickets used today"; options: ask another traveller to buy, book tomorrow, or use a counter; cancelled tickets don't restore the allowance (**proposed**) | 4-per-buyer rule |
 
-Prototype flow: **Passenger · group of 7 (linked)** starts at G1.
+Prototype flow: **Passenger · group of 7 (linked)** runs G1 → G2 → G3 → G5 → G4.
+
+**Daily buyer limit (rule to confirm):** one buyer can buy at most 4 tickets per day. F03 shows "you've used 0 today" and R0 shows a "Today: 0 of 4 tickets used" pill, so people see the limit before they hit it. A group over 4 therefore needs a second adult to buy the second package; the linked hold keeps both packages together while they pay.
 
 ## Passenger: when things change
 
@@ -103,4 +107,5 @@ Prototype flow: **Passenger · group of 7 (linked)** starts at G1.
 5. The fair-queue trial: eligibility, window, group fairness, counter participation (P04, P21, P22).
 6. Child seating with an adult, and when proof of relationship is required (P07, P09).
 7. Charge tariff and wrong-train rules (S08, S10).
-8. Larger groups: maximum size, package split (4 + n), and whether linked packages share one fair-queue place (G1–G4).
+8. Larger groups: maximum size, package split (4 + n), and whether linked packages share one fair-queue place (G1–G5).
+9. The daily buyer limit (4 tickets per day): is it counted per account or per NID, do counter purchases count, do cancelled or refunded tickets restore the allowance, and how long can a linked hold wait for the second buyer (F03, R0, G5, L1).
