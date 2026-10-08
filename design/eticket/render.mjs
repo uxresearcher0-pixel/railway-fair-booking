@@ -12,7 +12,7 @@ const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 794, height: 1123 }, deviceScaleFactor: 2 });
 await page.goto(pathToFileURL(path.resolve(input)).href);
 await page.evaluate(() => document.fonts.ready);
-await page.pdf({ path: outPdf, format: 'A4', printBackground: true, preferCSSPageSize: true });
+await page.pdf({ path: outPdf, format: 'A4', printBackground: true, preferCSSPageSize: true, tagged: true, outline: true });
 if (previewDir) {
   const pages = await page.$$('.page');
   for (let i = 0; i < pages.length; i++) {

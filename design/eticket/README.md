@@ -19,6 +19,20 @@
 
 Kept from the current ticket: A4 size, bilingual labels, journey table fields (issue time, journey time, train, from/to, class, coach/seat, adult/child count, fare, VAT, service charge, total), the "soft copy or printout" rule and the 2-hour complaint window.
 
+## Design (UI v0.2 theme)
+
+- **Print-first:** ink on white, with lime as the only accent (seat block, duration chip, timeline stop). Prints legibly in black and white.
+- **Rail-line hero:** large station codes (DHK → CTG) on a dashed track, with departure and arrival times and the booking reference in an ink chip.
+- **Boarding-pass stubs:** one per traveller. Each has the name in English and Bangla, a masked ID, the identity status, a lime coach/seat block, and a perforation with notches before its QR.
+- **Every field the current ticket carries,** plus: train number, departure station, transaction ref, bedding/SMS lines, refund destination, booking channel, a pre-travel checklist, an assistance note, a privacy note and how to verify or cancel.
+
+## Accessibility
+
+- Text ≥ 7.2 pt (labels), body 8.4–9 pt, key data 12–50 pt; Bangla line-height ≥ 1.35.
+- Colour pairs reuse the v0.2 tokens, which pass WCAG AA (lowest text pair 5.6:1). Status is never shown by colour alone.
+- **Tagged PDF**, with Bangla runs marked `lang="bn"` so screen readers switch voice; text is selectable.
+- The render script fails if either page overflows A4.
+
 ## Rebuild
 
 ```sh
