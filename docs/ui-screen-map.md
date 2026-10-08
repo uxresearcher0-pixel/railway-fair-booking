@@ -40,6 +40,17 @@ All names, numbers, fares, QR codes, payments and identity results are fictional
 
 Prototype: a fourth flow starts at **R0** (returning passenger). Form flow: F05 → F06 → P10 Pay; F04a Save → R1.
 
+## Passenger: groups over 4 (linked booking, proposed rule)
+
+| ID | Screen | Purpose / key states | Plan link |
+|---|---|---|---|
+| G1 | Group size · over 4 | 7 travellers become one linked booking: packages A (4) + B (3), one fair-queue place, one hold, one checkout; keep-together preference | Plan acceptance "approved larger groups use one linked request" |
+| G2 | Group travellers · packages | Every traveller named with their own ID per package; each child with an adult in the same package | One entitlement per named passenger |
+| G3 | Linked seat offer | One hold for all 7 seats; packages A and B on one coach map with legend; never offered alone, no split without consent | Backlog 4, 5 |
+| G4 | Linked checkout & tickets | Group reference GRP-31 with two booking refs, one payment (7 × fare + service charge), 7 named tickets, per-traveller cancellation | Backlog 6, 7, 8 |
+
+Prototype flow: **Passenger · group of 7 (linked)** starts at G1.
+
 ## Passenger: when things change
 
 | ID | Screen | Purpose / key states | Plan link |
@@ -92,3 +103,4 @@ Prototype: a fourth flow starts at **R0** (returning passenger). Form flow: F05 
 5. The fair-queue trial: eligibility, window, group fairness, counter participation (P04, P21, P22).
 6. Child seating with an adult, and when proof of relationship is required (P07, P09).
 7. Charge tariff and wrong-train rules (S08, S10).
+8. Larger groups: maximum size, package split (4 + n), and whether linked packages share one fair-queue place (G1–G4).
