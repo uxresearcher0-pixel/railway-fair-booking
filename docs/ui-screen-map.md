@@ -23,6 +23,23 @@ All names, numbers, fares, QR codes, payments and identity results are fictional
 | P14 | Tickets | Ticket stub per passenger; demo QR; ID reminder | Backlog 7 |
 | P15 | Paper ticket · A4 (three frames) | Two self-contained tickets per page with 60 mm QR; odd count = last ticket on the upper half, lower half empty; full booking summary page. Mirrors `design/eticket` PDFs | Backlog 7 (print layout) |
 
+## Passenger: booking forms and regular passengers
+
+| ID | Screen | Purpose / key states | Plan link |
+|---|---|---|---|
+| F01 | Station picker | Search in English or Bangla; recent and matching stations with codes (demo codes) | Backlog 2 |
+| F02 | Date picker | Calendar with today, selected date and sale window; dates outside the window are not selectable (window per railway rule) | Backlog 2 |
+| F03 | Travellers & class | Adult/child steppers (age bands to confirm), class choice; group limit marked proposed | Backlog 2, 4 |
+| F04a | Add traveller · NID (adult) | Name and DOB as on NID, NID number (10 or 17 digits, masked), record-check result: name, DOB, no other active ticket on this train | Backlog 3; acceptance "one entitlement per passenger" |
+| F04b | Add traveller · birth registration (child) | Child type, DOB, birth registration with inline error (17 digits), accompanying adult, permission consent | T09 child/no NID |
+| F05 | Contact & delivery | Booked-by (signed in), SMS link and/or email PDF; contact details never printed or in the QR | Backlog 7 |
+| F06 | Review booking | Trip, travellers with seats and edit links, fare with non-refundable service charge, terms consent | Backlog 6; audit F2 |
+| R0 | Search · returning passenger | "Book again" recent trips, Just me / Someone else / Me + others | Regular passenger fast path |
+| R1 | Saved travellers picker | Saved people with ID status; stale record re-checked without retyping (period proposed); "+ New traveller" opens F04a | Regular passenger fast path |
+| R2 | Travellers · Just me | Profile-filled traveller card with masked NID and record-match date; no form | Regular passenger fast path |
+
+Prototype: a fourth flow starts at **R0** (returning passenger). Form flow: F05 → F06 → P10 Pay; F04a Save → R1.
+
 ## Passenger: when things change
 
 | ID | Screen | Purpose / key states | Plan link |
