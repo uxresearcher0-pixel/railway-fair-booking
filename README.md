@@ -10,6 +10,7 @@ A design-first proposal for simpler railway booking, passenger-bound tickets and
 - [Development roadmap](docs/development-plan.md)
 - [Current system audit](docs/current-system-audit.md)
 - [UI v0.2 screen and state map](docs/ui-screen-map.md)
+- [Concept e-ticket, A4](design/eticket/README.md)
 - Project activity, detailed documentation and task tracking are maintained in the private Slack channel `railway-fair-booking`.
 
 ## Passenger experience
