@@ -1,6 +1,6 @@
 # UI v0.2 screen and state map
 
-Figma: page **02 • UI v0.2 — Fresh** in the [project file](https://www.figma.com/design/3Jb4jMo27Pi6N4gncIPPJK). Prototype flows start at **P01** (passenger), **S01** (staff) and **R01** (reviewer). Page 01 keeps v0.1 for comparison.
+Figma: page **02 • UI v0.2 — Fresh** in the [project file](https://www.figma.com/design/3Jb4jMo27Pi6N4gncIPPJK). Prototype flows start at **P01** (passenger), **S01** (staff), **R01** (reviewer), **R0** (returning passenger) and **G1** (group of 7). A coded version of the key screens is in [`prototype/`](../prototype/README.md). Page 01 keeps v0.1 for comparison.
 
 All names, numbers, fares, QR codes, payments and identity results are fictional or simulated. Items marked **proposed** need railway approval (T04–T06).
 
@@ -44,16 +44,33 @@ Prototype: a fourth flow starts at **R0** (returning passenger). Form flow: F05 
 
 | ID | Screen | Purpose / key states | Plan link |
 |---|---|---|---|
-| G1 | Group size · over 4 | 7 travellers = 2 linked bookings: packages A (4) + B (3), one fair-queue place, one hold; each package bought by a different adult (max 4 tickets per buyer per day, **rule to confirm**) | Plan acceptance "approved larger groups use one linked request" |
-| G2 | Group travellers · packages | Every traveller named with their own ID; each package header names its buyer; notice that the package B buyer pays from their own account; each child with an adult in the same package | One entitlement per named passenger |
-| G3 | Linked seat offer | One hold for all 7 seats; packages A and B on one coach map with legend; never offered alone, no split without consent | Backlog 4, 5 |
-| G5 | Co-booker invite (package B buyer's phone) | Invite to buy package B inside the shared hold (time left shown); "Accept & pay ৳1,110"; declining releases package B only; their daily allowance shown | 4-per-buyer rule; one hold |
-| G4 | Linked checkout & tickets | Group reference GRP-31 with two booking refs; one payment per package (A: bKash ৳1,480, B: Nagad ৳1,110; group total ৳2,590), "Both paid" status; 7 named tickets; refunds go to each package's payer | Backlog 6, 7, 8 |
-| L1 | Daily limit reached | "4 of 4 tickets used today"; options: ask another traveller to buy, book tomorrow, or use a counter; cancelled tickets don't restore the allowance (**proposed**) | 4-per-buyer rule |
+| G1 | Group size · over 4 | 7 travellers = 2 linked bookings: packages A (4) + B (3), one fair-queue place, one hold; each package bought by an adult travelling in it; max 4 tickets per buyer per day (**rule to confirm**); max 8 per group (**proposed**) | Plan acceptance "approved larger groups use one linked request" |
+| G2 | Group travellers · packages | Every traveller named with their own ID; notice that Package B is bought by one of its own travellers; each child with an adult in the same package | One entitlement per named passenger |
+| G2a | Invite Package B buyer (first buyer's phone) | Buyer can only be picked from Package B's adult travellers (child disabled with reason); invite reaches the account linked to that traveller's NID via in-app inbox, SMS without a payment link, or single-use code K7Q-48; status Sent / Joined / Declined; expires in 24 h (**proposed**); no seats held yet | Anti-resale rules 1, 3 |
+| G2b | Join Package B (invitee's phone) | "You travel in this package"; daily allowance shown; OTP confirm; Join / Decline; nothing to pay yet; scam warning ("real invites only appear inside the app") | Anti-resale rules 1, 3 |
+| G2c | Invite declined | Nothing was held; invite another adult in Package B, book Package A only, or cancel; the first buyer can't buy Package B (over 4 and not travelling in it) | Anti-resale rules 1, 2 |
+| G3 | Linked seat offer | One hold for all 7 seats, offered only after both buyers have joined; packages on one coach map; no split without consent | Backlog 4, 5 |
+| G5 | Pay for Package B (in hold) | Hold timer; "Pay ৳1,110"; declining or expiry sends Package B seats back to the fair queue, never to another buyer; Package A stays booked | Anti-resale rule 7 |
+| G4 | Linked checkout & tickets | Group reference GRP-31 with two booking refs; one payment per package (A: bKash ৳1,480, B: Nagad ৳1,110; total ৳2,590); "Both paid"; 7 named tickets; refunds go to each package's payer | Backlog 6, 7, 8 |
+| L1 | Daily limit reached | "4 of 4 tickets used today"; ask a traveller in the group to buy (must be on the ticket), book tomorrow, or a counter (same NID allowance, **proposed**); cancelling doesn't restore the allowance (**proposed**) | Anti-resale rules 2, 6 |
 
-Prototype flow: **Passenger · group of 7 (linked)** runs G1 → G2 → G3 → G5 → G4.
+Prototype flow: **Passenger · group of 7 (linked)** runs G1 → G2 → G2a → G2b → G3 → G5 → G4, with G2b Decline → G2c.
 
-**Daily buyer limit (rule to confirm):** one buyer can buy at most 4 tickets per day. F03 shows "you've used 0 today" and R0 shows a "Today: 0 of 4 tickets used" pill, so people see the limit before they hit it. A group over 4 therefore needs a second adult to buy the second package; the linked hold keeps both packages together while they pay.
+**Daily buyer limit (rule to confirm):** one buyer can buy at most 4 tickets per day. F03 shows "you've used 0 today" and R0 shows a "Today: 0 of 4 tickets used" pill, so people see the limit before they hit it.
+
+### Anti-resale rules for linked groups (proposed)
+
+The project's main aim is to stop ticket black marketing. The invite flow must not become a way around the 4-per-day limit, so these rules apply and are shown in G1–G5 and L1:
+
+1. **The Package B buyer must be one of Package B's adult travellers.** Invites can only be sent to them, so a paid stranger (an account renter) can't buy for the group.
+2. **One NID = one account; the daily limit counts per NID**, including counter purchases.
+3. **Invites only work for one person:** bound to the invitee's NID-linked account and mobile, single use, and they expire. SMS invites carry no payment link; real invites only appear inside the app.
+4. **Group size is capped** (8 proposed). Every traveller is named with an ID when the group applies; each NID can be in only one application per train and date.
+5. **One wallet paying for many accounts is flagged for review**, not blocked automatically (families share wallets). This is a back-office signal, so it has no passenger screen.
+6. **No name or ID change after issue.** A cancelled seat returns to the queue or official resale, never to a person the canceller chooses; cancelling doesn't restore the allowance.
+7. **Unpaid holds release to the queue.** If Package B isn't paid, its seats go back to the fair queue, not to the Package A buyer.
+
+The name and ID on every ticket, plus the check on board, are what make resold tickets unusable; the daily limit only slows bulk buying.
 
 ## Passenger: when things change
 
@@ -95,7 +112,8 @@ Prototype flow: **Passenger · group of 7 (linked)** runs G1 → G2 → G3 → G
 
 ## Bangla and accessibility
 
-- **BN · P03, P05, P14:** Bangla drafts with the language switch set to বাংলা. Copy needs review by a native Bangla writer before testing (T11).
+- **BN · P03, P05, P14:** Bangla drafts with the language switch set to বাংলা.
+- **BN · F03, F04a, R0, G2a, G2b, G5, L1:** Bangla drafts of the forms, returning-passenger and group screens (row below the group row). Names, codes and train names stay in Latin script, as entered. All Bangla copy needs review by a native Bangla writer before testing (T11); see [Bangla copy review](bangla-copy-review.md).
 - **Accessibility spec:** computed contrast for 15 token pairs (all pass AA: lowest 3.33:1 for the input border, which needs 3:1); focus ring examples; focus order, live-region, error, seat-map keyboard and target-size rules. Contrast is computed from the tokens; everything else must be verified with axe and NVDA/TalkBack once coded.
 
 ## Open decisions for T08 review
@@ -107,5 +125,9 @@ Prototype flow: **Passenger · group of 7 (linked)** runs G1 → G2 → G3 → G
 5. The fair-queue trial: eligibility, window, group fairness, counter participation (P04, P21, P22).
 6. Child seating with an adult, and when proof of relationship is required (P07, P09).
 7. Charge tariff and wrong-train rules (S08, S10).
-8. Larger groups: maximum size, package split (4 + n), and whether linked packages share one fair-queue place (G1–G5).
-9. The daily buyer limit (4 tickets per day): is it counted per account or per NID, do counter purchases count, do cancelled or refunded tickets restore the allowance, and how long can a linked hold wait for the second buyer (F03, R0, G5, L1).
+8. Larger groups: maximum size (8 proposed), package split (4 + n), and whether linked packages share one fair-queue place (G1–G5).
+9. The daily buyer limit (4 tickets per day): per account or per NID (proposed: per NID), do counter purchases count, do cancelled tickets restore the allowance, and how long an invite stays open (24 h proposed) (F03, R0, G2a–G2c, G5, L1).
+10. Anti-resale rules 1–7 above, in particular "the buyer must travel in the package" and the wallet-review signal (G2a–G2c, G5).
+11. "Book for someone else" outside groups: keep it for real needs (older people, people not online), counted against the buyer's 4 (P03, R0).
+
+All open decisions are collected for the railway in [Railway decisions brief](railway-decisions.md).
