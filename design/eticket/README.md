@@ -22,7 +22,8 @@ Kept from the current ticket: A4 size, bilingual labels, journey table fields (i
 ## Layout
 
 - **Two tickets per A4 page, stacked vertically.** Each half is a complete ticket: route, date, train, times, traveller, coach/seat/class, ID to show, status and a **60 mm QR** with a full quiet zone. Nothing needs cutting; fold along the guide if travellers split up.
-- **Odd traveller counts** (1, 3, …) put a compact booking summary in the last free half, so a single traveller gets **one page**. **Even counts** add a full summary page: travellers, booking, payment, cancellation, help.
+- **Odd traveller counts** (1, 3, …): the last ticket sits in the upper half and the **lower half is left empty**, so every ticket has the same size and position.
+- **A full booking summary page always follows** the tickets: travellers, booking, payment, cancellation, help and privacy. One traveller = 2 pages; four travellers = 3 pages.
 - **Print-first theme (UI v0.2):** ink on white, lime only for the seat block and duration chip, 14 mm side margins and 12 mm top margin, consistent 4 mm rhythm.
 - **Neutral, professional wording.** Roles are "Booked by", "Paid by", "Traveller" and "Accompanying adult". No family-relationship terms.
 - **QR verified:** every code decodes from the rendered pages (OpenCV, 100–150 dpi full-page scan).
@@ -32,7 +33,7 @@ Kept from the current ticket: A4 size, bilingual labels, journey table fields (i
 - Text ≥ 7.2 pt (labels), body 8.4–9 pt, key data 12–50 pt; Bangla line-height ≥ 1.35.
 - Colour pairs reuse the v0.2 tokens, which pass WCAG AA (lowest text pair 5.6:1). Status is never shown by colour alone.
 - **Tagged PDF**, with Bangla runs marked `lang="bn"` so screen readers switch voice; text is selectable.
-- The render script fails if either page overflows A4.
+- The render script fails if any page or ticket panel overflows A4.
 
 ## Rebuild
 

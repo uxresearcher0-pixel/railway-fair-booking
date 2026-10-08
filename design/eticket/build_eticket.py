@@ -1,7 +1,7 @@
 """Build the railfair concept e-ticket (A4, EN + BN, print-first) as self-contained HTML.
 
 Layout: two self-contained tickets stacked per A4 page, each with a large
-scan-ready QR (no cutting needed), then a booking summary page.
+scan-ready QR (no cutting needed), then a full booking summary page.
 Theme: railfair UI v0.2 — ink on white, one lime accent, rail-line motif.
 
 All data is fictional. The output must never be usable as a real ticket:
@@ -9,8 +9,8 @@ every page carries a DEMO banner and watermark and no Bangladesh Railway brandin
 
 Usage: python3 build_eticket.py <fontsource node_modules dir> <out.html> [traveller count 1-4]
 
-Odd counts put a compact booking summary in the last free half page;
-even counts add a full summary page.
+Tickets pair up two per page; with an odd count the last ticket sits in the
+upper half and the lower half stays empty. A full booking summary page always follows.
 """
 import base64
 import math
@@ -81,7 +81,7 @@ ALL_PASSENGERS = PASSENGERS
 PASSENGERS = ALL_PASSENGERS[: int(sys.argv[3]) if len(sys.argv) > 3 else len(ALL_PASSENGERS)]
 N = len(PASSENGERS)
 FARE, SERVICE = 350, 20
-TOTAL_PAGES = math.ceil(N / 2) + (1 if N % 2 == 0 else 0)
+TOTAL_PAGES = math.ceil(N / 2) + 1
 
 
 def taka(v):
@@ -151,25 +151,25 @@ def ticket_half(p):
 
 
 def tickets_page(page_no, group):
+    first = group[0]
     if len(group) == 2:
-        x, y = group
-        label = f"Tickets {x['n']}–{y['n']} of {N} · <span class='bn'>টিকিট {bn_num(x['n'])}–{bn_num(y['n'])} / {bn_num(N)}</span>"
-        lower = ticket_half(y)
-        fold = "Fold here if travelling separately — no cutting needed · <span class='bn'>আলাদা ভ্রমণে এখানে ভাঁজ করুন</span>"
-        note = "two tickets per page"
+        second = group[1]
+        label = f"Tickets {first['n']}–{second['n']} of {N} · <span class='bn'>টিকিট {bn_num(first['n'])}–{bn_num(second['n'])} / {bn_num(N)}</span>"
+        fold = ('<div class="fold" aria-hidden="true"><span>Fold here if travelling separately — no cutting needed · '
+                '<span class="bn">আলাদা ভ্রমণে এখানে ভাঁজ করুন</span></span></div>')
+        lower = ticket_half(second)
     else:
-        x = group[0]
-        label = (f"Ticket {x['n']} of {N} + booking summary · <span class='bn'>টিকিট ও বুকিং সারাংশ</span>")
-        lower = summary_half()
-        fold = "Fold here — the summary below is for the person who booked · <span class='bn'>নিচের অংশ ক্রেতার জন্য</span>"
-        note = "ticket and booking summary"
+        label = f"Ticket {first['n']} of {N} · <span class='bn'>টিকিট {bn_num(first['n'])} / {bn_num(N)}</span>"
+        # Keep the same geometry as a paired page: the lower half is left blank.
+        fold = '<div class="fold blank" aria-hidden="true"><span>&nbsp;</span></div>'
+        lower = '<div class="empty-half" aria-hidden="true"></div>'
     return f"""
 <div class="page tix">
   {chrome(label)}
-  {ticket_half(x)}
-  <div class="fold" aria-hidden="true"><span>{fold}</span></div>
+  {ticket_half(first)}
+  {fold}
   {lower}
-  {footer(page_no, "Fictional data · railfair concept, not an official ticket · " + note)}
+  {footer(page_no, "Fictional data · railfair concept, not an official ticket · one or two tickets per page")}
 </div>"""
 
 
@@ -180,34 +180,6 @@ def fare_rows():
         <dt>Bedding / SMS alert <span class="bn">বেডিং / এসএমএস</span></dt><dd class="mono">৳0</dd>
         <dt>Service charge · not refundable <span class="bn">সেবা খরচ · অফেরতযোগ্য</span></dt><dd class="mono">{taka(N * SERVICE)}</dd>
         <dt class="tot">Total paid <span class="bn">মোট</span></dt><dd class="mono tot">{taka(N * (FARE + SERVICE))}</dd>"""
-
-
-def summary_half():
-    return f"""
-<section class="ticket sumhalf" aria-label="Booking summary">
-  <div class="t-head sh">
-    <div class="th-l"><span class="ov">BOOKING SUMMARY · <span class="bn">বুকিং সারাংশ</span></span><span class="tr">For the person who booked — not needed for travel</span></div>
-    <div class="th-r"><div><span class="ov">ISSUED</span><span class="mono">16 Oct 2026 · 21:10</span></div></div>
-  </div>
-  <div class="sh-body">
-    <div>
-      <div class="h">Booking <span class="bn">· বুকিং</span></div>
-      <dl>
-        <dt>Booked by <span class="bn">ক্রেতা</span></dt><dd>Karim Uddin · 01X ••• 5512</dd>
-        <dt>Paid by <span class="bn">পরিশোধকারী</span></dt><dd>bKash ••9024 · Txn <span class="mono">PAY-88213</span></dd>
-        <dt>Status <span class="bn">অবস্থা</span></dt><dd>Confirmed · {N} ticket{'s' if N > 1 else ''}</dd>
-      </dl>
-      <div class="h mt">Cancel or release <span class="bn">· বাতিল</span><span class="demo">PROPOSED</span></div>
-      <p class="tight">&gt; 24 h before departure: fare back to the payer minus approved deductions. &lt; 24 h: release the seat, no standard refund. If someone else booked, the traveller approves by SMS code or at a counter.</p>
-    </div>
-    <div>
-      <div class="h">Payment <span class="bn">· পেমেন্ট</span><span class="demo">DEMO FARES</span></div>
-      <dl class="money">{fare_rows()}</dl>
-      <div class="note">Refunds go to the payer (bKash ••9024), never to whoever holds the QR. <span class="bn">টাকা ফেরত যাবে পরিশোধকারীর কাছে।</span></div>
-      <p class="tight help">Help within 2 hours: <span class="mono">support@railfair.example</span> (demo) · on board: the Guard · verify or cancel in the app, website or any counter.</p>
-    </div>
-  </div>
-</section>"""
 
 
 def summary_page():  # noqa: C901 - flat template
@@ -238,7 +210,7 @@ def summary_page():  # noqa: C901 - flat template
         <dt>Booked by <span class="bn">ক্রেতা</span></dt><dd>Karim Uddin · 01X ••• 5512</dd>
         <dt>Paid by <span class="bn">পরিশোধকারী</span></dt><dd>bKash ••9024</dd>
         <dt>Issued <span class="bn">ইস্যু</span></dt><dd class="mono">16 Oct 2026 · 21:10</dd>
-        <dt>Status <span class="bn">অবস্থা</span></dt><dd>Confirmed · {N} tickets · railfair app (demo)</dd>
+        <dt>Status <span class="bn">অবস্থা</span></dt><dd>Confirmed · {N} ticket{'s' if N > 1 else ''} · railfair app (demo)</dd>
       </dl>
     </div>
     <div class="box">
@@ -351,14 +323,9 @@ body{font-family:'Geist','Anek',sans-serif;color:#111412;font-size:9.4pt;line-he
 .demo-q{font:600 6.8pt 'GeistMono';letter-spacing:.7pt;color:#6941c6;border:.3mm solid #6941c6;border-radius:2mm;padding:.3mm 2mm}
 .jline{display:flex;justify-content:space-between;gap:4mm;align-items:center;border:.45mm solid #111412;border-radius:3mm;padding:2.4mm 4mm;font-size:9.4pt}
 .jline .mono{font-size:13pt;font-weight:600;white-space:nowrap}
-.sumhalf .sh{grid-template-columns:1fr auto}
-.sh-body{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:6mm;padding:4mm 5mm}
-.sh-body .h{font:600 10.5pt 'Bricolage';margin-bottom:1.2mm;display:flex;align-items:center;gap:1.6mm}
-.sh-body .h.mt{margin-top:3.4mm}
-.sh-body dt,.sh-body dd{padding:.7mm 0;font-size:8.4pt}
-.tight{font-size:8.3pt;line-height:1.38}
-.help{margin-top:2mm;color:#5e625f}
-.fold{display:flex;align-items:center;gap:3mm;font:500 7.2pt 'GeistMono';letter-spacing:.5pt;color:#5e625f;text-transform:uppercase}
+.empty-half{flex:1 1 0;border:.6mm solid transparent}
+.fold.blank{visibility:hidden}
+.fold{height:4mm;display:flex;align-items:center;gap:3mm;font:500 7.2pt 'GeistMono';letter-spacing:.5pt;color:#5e625f;text-transform:uppercase}
 .fold:before,.fold:after{content:'';flex:1;border-top:.35mm dashed #8a8e89}
 .fold .bn{letter-spacing:0;text-transform:none;font-size:7.6pt}
 .keep{background:#eef9c8;border-radius:3mm;padding:2mm 3.6mm;font-size:8.8pt;font-weight:500}
@@ -391,9 +358,7 @@ dd.tot{font-family:'GeistMono'}
 .foot{margin-top:auto;display:flex;justify-content:space-between;font-size:7.6pt;color:#5e625f;border-top:.25mm solid #d9d6cf;padding-top:2mm}
 """
 
-pages = "".join(tickets_page(i // 2 + 1, PASSENGERS[i:i + 2]) for i in range(0, N, 2))
-if N % 2 == 0:
-    pages += summary_page()
+pages = "".join(tickets_page(i // 2 + 1, PASSENGERS[i:i + 2]) for i in range(0, N, 2)) + summary_page()
 html = f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <title>railfair concept e-ticket (demo) · {BOOKING}</title>
 <style>{font_faces()}{CSS}</style></head><body>{pages}</body></html>"""
