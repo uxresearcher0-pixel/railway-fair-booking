@@ -22,20 +22,20 @@ Source: 13 screenshots of the live Rail Sheba app provided by the project owner,
 
 Severity: **High** blocks or misleads, **Medium** slows or confuses, **Low** polish.
 
-| ID | Sev | Finding | Evidence | Proposed response (Figma C-row / v0.2) |
+| ID | Sev | Finding | Evidence | Proposed response (Figma v0.2) |
 |---|---|---|---|---|
-| F1 | High | Several overlapping countdowns with different meanings ("5 minutes to reach payment", "15 minutes to complete payment", "remaining to initiate payment", OTP resend) | Passenger details, OTP and fare screens | One server-controlled hold shown as a single persistent pill from seat choice to payment; OTP resend is secondary (C4, C5) |
-| F2 | High | Non-refundable service and SMS charges are disclosed only at the bottom of the provider list, after the total | Payment screen | Label the charge "not refundable" inside the fare breakdown before choosing a provider (C5) |
-| F3 | High | Account screen shows the full NID and date of birth with a "VERIFIED" label | Account screen | Mask by default with explicit Show; say "NID record matched" and explain that it does not verify who holds a ticket (C6) |
-| F4 | High | Passenger 1 is the account holder by default; the "book for a relative" journey is not visible | Passenger details | Policy question for T04: is a ticket bound to the buyer's NID or to a named passenger? Our design keeps buyer, payer and passenger separate (03, E5), pending railway approval |
-| F5 | Medium | Live "users on this page / trying to book" counters add pressure without helping a decision; "0+" is meaningless | Results | Remove; show per-class availability with a plain status badge (C3) |
-| F6 | Medium | Class cards scroll sideways and are cut off; sold-out classes look similar to available ones | Results | Stack classes vertically; sold-out rows are muted and non-interactive (C3) |
-| F7 | Medium | Seat labels wrap ("DHA-" / "10"); available, selected and booked states have no legend; coach chips show no availability | Seat selection | Full seat numbers, a legend, free-seat counts on coach chips, sold-out coaches dimmed (C4) |
-| F8 | Medium | Safety messaging is a long wall of justified red text that pushes the task off-screen and is repeated on several screens | Search, Home | Three short points shown once before booking, in English and Bangla, with a link to the full terms (C2) |
-| F9 | Medium | First-run disclaimer is dense legal text; the 2-hour grievance rule is easy to miss | Disclaimer | Keep the rule, but surface it as one of three key points (C2) |
-| F10 | Medium | Sign-in error is shown in a separate box below the field; the disabled LOGIN button (white on pale green) has low contrast | Sign in | Inline error under the field with corrective wording; button contrast meets AA in all states (C1) |
-| F11 | Low | OTP warning names a vendor and disclaims responsibility instead of telling the user what to do | OTP | Plain guidance: codes can be slow; the seat hold is the timer that matters (C5) |
-| F12 | Low | Nine payment providers are full-width rows, so the pay button sits below the fold | Payment | Compact 3-column grid; the pay button names the amount and provider (C5) |
+| F1 | High | Several overlapping countdowns with different meanings ("5 minutes to reach payment", "15 minutes to complete payment", "remaining to initiate payment", OTP resend) | Passenger details, OTP and fare screens | One server-controlled hold shown as a single persistent pill from seat choice to payment; OTP resend is secondary (P08, P10) |
+| F2 | High | Non-refundable service and SMS charges are disclosed only at the bottom of the provider list, after the total | Payment screen | Label the charge "not refundable" inside the fare breakdown before choosing a provider (P10) |
+| F3 | High | Account screen shows the full NID and date of birth with a "VERIFIED" label | Account screen | Mask by default with explicit Show; say "NID record matched" and explain that it does not verify who holds a ticket (P23) |
+| F4 | High | Passenger 1 is the account holder by default; the "book for a relative" journey is not visible | Passenger details | Policy question for T04: is a ticket bound to the buyer's NID or to a named passenger? Our design keeps buyer, payer and passenger separate (P05, P06), pending railway approval |
+| F5 | Medium | Live "users on this page / trying to book" counters add pressure without helping a decision; "0+" is meaningless | Results | Remove; show per-class availability with a plain status badge (P04) |
+| F6 | Medium | Class cards scroll sideways and are cut off; sold-out classes look similar to available ones | Results | Stack classes vertically; sold-out rows are muted and non-interactive (P04) |
+| F7 | Medium | Seat labels wrap ("DHA-" / "10"); available, selected and booked states have no legend; coach chips show no availability | Seat selection | Full seat numbers, a legend, free-seat counts on coach chips, sold-out coaches dimmed (P08) |
+| F8 | Medium | Safety messaging is a long wall of justified red text that pushes the task off-screen and is repeated on several screens | Search, Home | Three short points shown once before booking, in English and Bangla, with a link to the full terms (P02) |
+| F9 | Medium | First-run disclaimer is dense legal text; the 2-hour grievance rule is easy to miss | Disclaimer | Keep the rule, but surface it as one of three key points (P02) |
+| F10 | Medium | Sign-in error is shown in a separate box below the field; the disabled LOGIN button (white on pale green) has low contrast | Sign in | Inline error under the field with corrective wording; button contrast meets AA in all states (P01) |
+| F11 | Low | OTP warning names a vendor and disclaims responsibility instead of telling the user what to do | OTP | Plain guidance: codes can be slow; the seat hold is the timer that matters (P10) |
+| F12 | Low | Nine payment providers are full-width rows, so the pay button sits below the fold | Payment | Compact 3-column grid; the pay button names the amount and provider (P10) |
 
 ## Constraints to carry into the design
 
@@ -51,4 +51,4 @@ Hold durations on the server, how counter and online inventory are reconciled, r
 
 ## Figma
 
-Page **02 • UI v0.2 — Fresh**, row *"Aligned to the current Rail Sheba flow"*: C1 Sign in, C2 Before you book, C3 Results · classes, C4 Coach & seat, C5 Confirm & pay, C6 Account. All values in the designs are fictional.
+Page **02 • UI v0.2 — Fresh**, row *"Aligned to the current Rail Sheba flow"*: merged into the canonical flow as P01 Sign in, P02 Before you book, P04 Results, P08 Seats, P10 Pay and P23 Account (see ui-screen-map.md). All values in the designs are fictional.

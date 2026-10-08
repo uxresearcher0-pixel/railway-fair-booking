@@ -9,6 +9,7 @@ A design-first proposal for simpler railway booking, passenger-bound tickets and
 - [Figma UI v0.1](https://www.figma.com/design/3Jb4jMo27Pi6N4gncIPPJK)
 - [Development roadmap](docs/development-plan.md)
 - [Current system audit](docs/current-system-audit.md)
+- [UI v0.2 screen and state map](docs/ui-screen-map.md)
 - Project activity, detailed documentation and task tracking are maintained in the private Slack channel `railway-fair-booking`.
 
 ## Passenger experience
