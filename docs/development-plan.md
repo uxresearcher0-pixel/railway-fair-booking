@@ -69,3 +69,20 @@ Target WCAG 2.2 AA. Check keyboard-only journeys, screen-reader feedback, touch 
 Measure prototype task success and assistance needs. Establish a real baseline before claiming reductions in resale. Pilot measures include queue time, duplicate entitlement attempts, false rejection, refund errors, reported resale and recorded exceptions.
 
 Track work in the project Slack channel. Each update includes task ID, status, owner, dependency, evidence and next action. Lists/Canvas are unavailable in the current workspace, so channel threads hold the checklist and documentation. No background monitoring is configured.
+
+## Revision 11 October 2026 — gap response requirements
+
+Read [Gap response and revised requirements](gap-response-plan.md) before implementation. This revision supersedes conflicting earlier refund/group assumptions.
+
+- G01 P0: reconcile published purchase and refund rules; approve exact boundaries and policy versions.
+- G02 P0: identity misuse reporting, assisted consent, account recovery and appeal.
+- G03 P0: official released-seat allocation, group fairness and protected release information.
+- G04 P1: cross-channel entitlement and proportionate coordinated-abuse review.
+- G05 P1: staff permission matrix, independent review, receipts and offline safeguards.
+- G06 P1: approved assistance and payer-aware agent settlement.
+- G07 P1: revise UI and add the ten specified exception/recovery screens.
+- G08 P1: authorized staging audit and measured operational pilot.
+
+Requirements are documented; implementation, approvals, UI revisions and pilot validation remain pending. Identity access and pilot authorization are blocked dependencies. Owners/dates are unassigned.
+
+The proposed blanket 24-hour refund cutoff is withdrawn as the default. Follow approved current policy with dated exceptions. Larger group requests cannot bypass approved purchase limits. The initial Figma v0.1 screens need revision and are not an approved production specification.
