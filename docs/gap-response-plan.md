@@ -191,3 +191,40 @@ Remaining gaps: prearranged broker premium, unlinked identities, unrecorded boar
 G01 policy decisions -> G02/G03 flow review -> G07 Figma exception module -> mock interactive prototype -> G04/G05 engineering checks -> G08 pilot.
 G06 operating-model work proceeds alongside identity/allocation review.
 Requirements documentation is completed in this revision; screens, code, agreements and pilot evidence are not.
+
+## G09 — Identity hash, passenger notification and colluding verification
+
+Added 12 October 2026, Asia/Dhaka. Requirements proposed; not implemented.
+Concern: non-travelling relatives' identities may be used to buy tickets, and a dishonest TT may report a mismatched traveller as matched.
+
+- Keep a stable internal Passenger ID separate from changing ticket/event IDs. NID + phone + timestamp creates a transaction digest; timestamp/phone changes must not bypass same-train overlapping-segment entitlement rules.
+- Hash is not a digital signature. Use controlled issuer keys to sign minimum ticket claims; signature proves issuer/integrity, not traveller presence.
+- Independently enroll notification contacts after approved identity/contact checks. A buyer-entered phone plus OTP only proves access to that phone. Shared phone is not unique person identity.
+- Notify passenger contact with minimal booking details and "not my booking" assistance. Notification does not equal consent.
+- Where approved risk/policy requires confirmation, bind a short-lived one-use challenge to the booking, limit attempts and enforce replay protection. Passenger confirms directly; no instruction to disclose OTP to helper.
+- Record confirmation result/method/time, not an OTP retained throughout the journey. Issue a separate signed ticket; keep status/revocation checks.
+- Consent does not prove travel. Willing relatives can share codes or approve unused identities. Approved no-phone and guardian alternatives remain necessary.
+- No raw NID/phone/secrets, or simply hashed personal identifiers, on public blockchain. Protected database/audit is the initial baseline; separately governed batch audit anchoring is only a future option after privacy assessment.
+- TT cannot change invalid/cancelled entitlement to active. Staff person-check result is a separate assertion, tied to staff/device/journey/time. A false matched assertion on an active ticket requires independent sampled checks and evidence review.
+- Independent review and appeal, protected audit and safe operations remain essential. No repeated mandatory OTP at every scan and no departure delay.
+
+UI additions: independently verified/shared/assisted contact; booking notification and confirmation; expired challenge; identity misuse case; separate entitlement/person states; discrepancy review.
+
+Acceptance:
+1. Changing timestamp/phone cannot bypass prohibited duplicate entitlement.
+2. Shared family phone does not merge passenger identities.
+3. Buyer cannot silently replace an enrolled passenger contact.
+4. Wrong NID plus buyer-controlled phone OTP is not verified passenger identity.
+5. Expired/replayed codes fail; authentication secrets do not appear in QR/log commitments.
+6. Consent/notification never becomes automatic attendance proof.
+7. TT cannot reactivate invalid tickets; false assertions are independently reviewable.
+8. No-phone passengers retain assisted access and appeal.
+9. Failed SMS delivery does not silently count as consent.
+10. Known-customer brokers, willing identity lending and unobserved collusion remain residual gaps.
+
+Sources:
+https://pages.nist.gov/800-63-4/sp800-63b.html
+https://csrc.nist.gov/pubs/fips/180-4/upd1/final
+https://csrc.nist.gov/pubs/fips/186-5/final
+
+Communication baseline retained: simple Bangla roadmap and journey; ordinary assisted booking stays easy, allocation controls operate in the background, record/person checks remain distinct, and rollout follows pilot evidence.
