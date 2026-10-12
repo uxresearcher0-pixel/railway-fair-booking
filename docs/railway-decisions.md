@@ -8,7 +8,7 @@ All examples use fictional data. This is an independent concept, not a Banglades
 
 | # | Decision | Recommendation | Screens | If the answer differs |
 |---|---|---|---|---|
-| 1 | Daily buyer limit | Max 4 tickets per buyer per day | F03, R0, G1, G2b, G5, L1 | Change the number in the allowance pill and L1 copy |
+| 1 | Buyer limit | Align with the published terms (max 4 seats per transaction, up to 2 transactions / 8 seats per day, subject to train and station conditions; separate Eid rules). The UI currently shows a simplified "4 per day" — confirm which applies | F03, R0, G1, G2b, G5, L1 | Change the number in the allowance pill and L1 copy |
 | 2 | Is the limit per account or per NID? | **Per NID**; one NID = one account | L1, G2a | Per account lets one person with several accounts multiply the limit |
 | 3 | Do counter purchases count? | Yes, against the same NID | L1, D01 | Counters become the bypass route |
 | 4 | Does cancelling restore the allowance? | No | L1 | Cancel-and-rebuy becomes a way to hand seats to a customer |
@@ -27,7 +27,7 @@ All examples use fictional data. This is an independent concept, not a Banglades
 | 12 | Can a ticket be bound to a named passenger other than the account holder? | Yes, with that passenger's ID | P05, F04a, R1 |
 | 13 | Hold length, and does one hold cover seats through payment? | One fixed hold through payment (10 min proposed) | P08, G5, P11–P13 |
 | 14 | Service charge per booking or per ticket; refundable? | ৳20 per ticket, not refundable (as shown today) | P10, F06, G4 |
-| 15 | The 24-hour cancellation boundary and conditional recovery after official resale | Over 24 h: standard refund; under 24 h: release without standard refund | P16, P17 |
+| 15 | Cancellation deductions and boundaries | Follow the published graduated deductions (48+ h, 48–24 h, 24–12 h, 12–6 h; no refund under 6 h; service charge non-refundable), confirmed with the railway. The earlier "no refund under 24 h" proposal is withdrawn | P16, P17 |
 | 16 | Fair-queue trial: eligibility, window, group fairness, counter participation | One application per group, published draw, audit reference | P04, P21, P22 |
 
 ## Identity and travel

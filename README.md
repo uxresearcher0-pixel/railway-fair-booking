@@ -6,7 +6,7 @@ A design-first proposal for simpler railway booking, passenger-bound tickets and
 
 ## Project links
 
-- [Figma UI v0.1](https://www.figma.com/design/3Jb4jMo27Pi6N4gncIPPJK)
+- [Figma design file](https://www.figma.com/design/3Jb4jMo27Pi6N4gncIPPJK): screens by journey, master user flow, information architecture
 - [Development roadmap](docs/development-plan.md)
 - [Current system audit](docs/current-system-audit.md)
 - [UI v0.2 screen and state map](docs/ui-screen-map.md)
@@ -15,6 +15,7 @@ A design-first proposal for simpler railway booking, passenger-bound tickets and
 - [Railway decisions brief](docs/railway-decisions.md)
 - [Bangla copy review](docs/bangla-copy-review.md)
 - [Usability test plan](docs/research/usability-test-plan.md)
+- [Gap response and revised requirements — 11 October](docs/gap-response-plan.md)
 - Project activity, detailed documentation and task tracking are maintained in the private Slack channel `railway-fair-booking`.
 
 ## Passenger experience
@@ -45,3 +46,7 @@ Proposed stack: React + TypeScript for the UI, Django REST for the API, PostgreS
 No effectiveness percentage or elimination of resale is promised. Approved identity alternatives, refund rules, larger-group limits, privacy controls and pilot operations require validation. Blockchain, compulsory biometrics and nationwide entry/exit gates are outside the initial scope.
 
 Use fictional data during design and prototyping. Never commit real identity records, passenger photos, payment details, credentials or production exports.
+
+## Latest planning revision
+
+Eight gap-response work packages are specified with flows, responsibilities and acceptance criteria. Identity recovery, assisted consent, official reallocation and agent repayment now have explicit requirements. The original blanket 24-hour refund cutoff is withdrawn as the default; dated approved policy controls refunds and booking limits. Initial Figma examples need revision. This update completes requirements work, not implementation or effectiveness validation.
