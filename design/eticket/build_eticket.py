@@ -225,10 +225,10 @@ def summary_page():  # noqa: C901 - flat template
 
   <section class="cols">
     <div class="box">
-      <div class="h">Cancel or release <span class="bn">· বাতিল</span><span class="demo">PROPOSED RULES</span></div>
+      <div class="h">Cancel or release <span class="bn">· বাতিল</span><span class="demo">PUBLISHED TERMS</span></div>
       <dl class="cancel">
-        <dt>More than 24 h before departure<span class="bn">যাত্রার ২৪ ঘণ্টার বেশি আগে</span></dt><dd>Cancel per traveller; fare returned to the payer minus approved deductions.</dd>
-        <dt>Less than 24 h<span class="bn">২৪ ঘণ্টার কম</span></dt><dd>Release the seat so someone else can travel; no standard refund.</dd>
+        <dt>48 h or more before departure<span class="bn">যাত্রার ৪৮ ঘণ্টা বা তার বেশি আগে</span></dt><dd>Payer gets the fare minus ৳40 or 10%, whichever is more.</dd>
+        <dt>48 h to 6 h<span class="bn">৪৮ থেকে ৬ ঘণ্টা</span></dt><dd>25% → 50% → 75% deducted. Under 6 h no refund.</dd>
         <dt>Booked for another traveller<span class="bn">অন্য যাত্রীর জন্য বুক করলে</span></dt><dd>The traveller approves by SMS code or at a counter. A QR alone cannot cancel a ticket.</dd>
       </dl>
     </div>

@@ -13,7 +13,7 @@
 | No refund destination | "Refunds go to the payer", with the payment method shown | Refund to original payer |
 | "NID or Photo ID mandatory" | ID shown per traveller, birth registration for a child, assisted check if no ID (proposed) | Inclusive identity alternatives |
 | Child counted only as a number | Child stub names the travelling adult; status "Assisted check · not verified" | No silent "verified" label |
-| No cancellation guidance | Over / under 24 h (proposed), traveller approval when someone else booked | Cancellation and late release |
+| No cancellation guidance | Published graduated deductions (48 h+, 48–6 h, no refund under 6 h), traveller approval when someone else booked | Cancellation and late release |
 | — | "Staff check live status, then ID"; "the train never waits"; "not scanned ≠ invalid" | Accountable verification |
 | Service charge shown in total | Service charge marked non-refundable next to the amount | Audit finding F2 |
 

@@ -8,13 +8,15 @@ All examples use fictional data. This is an independent concept, not a Banglades
 
 | # | Decision | Recommendation | Screens | If the answer differs |
 |---|---|---|---|---|
-| 1 | Buyer limit | Align with the published terms (max 4 seats per transaction, up to 2 transactions / 8 seats per day, subject to train and station conditions; separate Eid rules). The UI currently shows a simplified "4 per day" — confirm which applies | F03, R0, G1, G2b, G5, L1 | Change the number in the allowance pill and L1 copy |
+| 1 | Buyer limit | Align with the published terms (max 4 seats per transaction, up to 2 transactions / 8 seats per day, subject to train and station conditions; separate Eid rules). The UI now follows this baseline (13 Oct) — confirm it applies per NID and to counters | F03, R0, G1, G2b, G5, L1 | Change the number in the allowance pill and L1 copy |
 | 2 | Is the limit per account or per NID? | **Per NID**; one NID = one account | L1, G2a | Per account lets one person with several accounts multiply the limit |
 | 3 | Do counter purchases count? | Yes, against the same NID | L1, D01 | Counters become the bypass route |
 | 4 | Does cancelling restore the allowance? | No | L1 | Cancel-and-rebuy becomes a way to hand seats to a customer |
 | 5 | Who may buy Package B of a linked group? | Only an adult travelling in Package B | G2, G2a, G2c | Paid strangers can buy for groups; the 4-per-day limit stops working for groups |
 | 6 | Maximum group size | 8 (two packages of 4) | G1 | Larger groups win a bigger share per fair-queue draw |
 | 7 | How long does a group invite stay open? | 24 hours or until the sale closes | G2a | Shorter means more declined groups; longer delays the queue |
+| 7a | Package B not paid when the linked hold ends | B seats go to the fair queue; Package A's buyer keeps or cancels A within 30 min (default keep); late B payment refunded automatically | G5, G6 | Whole-group cancellation would punish A; holding B seats would allow parking |
+| 7b | Travellers without a smartphone in a group | Join Package B at any counter with their NID and the group code; same limits | G2a, CT02 | Without it, larger groups require a second account |
 | 8 | Unpaid Package B in a hold | Seats return to the fair queue, never to the other buyer | G5 | Seats could be "parked" for a chosen person |
 | 9 | One wallet paying for many accounts | Flag for review, don't block | Back office only | Blocking hurts families who share a wallet |
 | 10 | "Book for someone else" outside groups | Keep it, counted against the buyer's 4 | P03, R0 | Removing it excludes older people and people not online |
@@ -29,6 +31,21 @@ All examples use fictional data. This is an independent concept, not a Banglades
 | 14 | Service charge per booking or per ticket; refundable? | ৳20 per ticket, not refundable (as shown today) | P10, F06, G4 |
 | 15 | Cancellation deductions and boundaries | Follow the published graduated deductions (48+ h, 48–24 h, 24–12 h, 12–6 h; no refund under 6 h; service charge non-refundable), confirmed with the railway. The earlier "no refund under 24 h" proposal is withdrawn | P16, P17 |
 | 16 | Fair-queue trial: eligibility, window, group fairness, counter participation | One application per group, published draw, audit reference | P04, P21, P22 |
+
+## Verification operations (proposed defaults, 13 Oct)
+
+| # | Decision | Recommendation | Screens |
+|---|---|---|---|
+| 21 | Exit check | **Normal step of every journey** (Entry → TT → Exit). Only a supervisor-approved operational exception (e.g. crowd safety) can pause it, and it is recorded on each journey | EX01–EX04 |
+| 22 | Consent before allocation | Every traveller consents (SMS, app or counter) and has a matched record before seats are offered | F04a, F04b, P05 |
+| 23 | Monitor timeout | No answer in 60 s: nothing saved, screen locks, rescan; no time pressure to guess | EG03 |
+| 24 | Save not confirmed | Recover the original event; never record twice; traveller may pass as provisional after 2 min | EG05, OB11 |
+| 25 | Priority pass | One use; bound to traveller, ticket version, journey, station and case; expiry set by desk; revocable; expired pass loses priority only | DK02, EG07, EG08 |
+| 26 | Desk queue | Departing within 30 min first, then oldest; no case waits over 15 min (supervisor alerted) | DK01 |
+| 27 | Destination handoff | Desk acknowledges within 10 min, else duty supervisor; no detention by the system; train never waits | OB13, DK06 |
+| 28 | Child checks | Birth registration has no photo: check name, age and the accompanying adult on the same booking | EG03, EG11, OB02, TV01 |
+| 29 | Outage message | Public screens say active tickets are accepted and checks are temporary until reconciled — never "your ticket is valid" | TV02, EG09 |
+| 30 | Integrity ownership | An operations integrity team, independent of station management, owns reconciliation, sampling and investigations | Page 03 accountability loop |
 
 ## Identity and travel
 

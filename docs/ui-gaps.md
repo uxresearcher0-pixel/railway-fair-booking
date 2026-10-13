@@ -1,123 +1,48 @@
-# UI gaps after removing older concepts (13 Oct)
+# UI review status (13 Oct)
 
-On 13 October, 55 older concept screens (v0.4–v0.7) were removed from the Figma file because they did not match the current visual style or duplicated newer screens. Their content was recorded before removal. This file lists:
+This file tracks the 24 review issues raised on 13 October and how each was resolved in Figma (file `3Jb4jMo27Pi6N4gncIPPJK`) and the repo. All data is fictional. Rules marked **proposed** still need railway approval; see [railway-decisions.md](railway-decisions.md).
 
-- what the current screens already cover;
-- the scenarios that **no current screen covers**, which are the gaps to design next.
+## Resolved
 
-All screens use fictional data. Figma version history can restore any removed frame.
+| # | Priority | Issue | Resolution | Where |
+|---|---|---|---|---|
+| 1 | P0 | Exit was optional | Exit is a normal step; only a supervisor-approved exception pauses it, and it is recorded | EX01–EX04, master journey, IA, decision 21 |
+| 2 | P0 | Refunds used the withdrawn 24-hour rule | Published graduated deductions on P16, P17, the A4 summary page and the e-ticket PDFs | P16, P17, P15, `design/eticket` |
+| 3 | P0 | Purchase limit didn't match the baseline | 4 seats per booking, 2 bookings (8 seats) a day, second for a different train or route; Eid rules may differ | F03, R0, L1, G1, G2a, G2b, G2c, G5, BN copies, master journey, prototype |
+| 4 | P0 | Large groups needed a second account | Package B traveller can join at any counter with NID and group code | G2a, CT02 |
+| 5 | P0 | Consent not established before allocation | Traveller consent (SMS, app or counter) replaces the purchaser checkbox; P05 blocks seats until all travellers are ready | F04a, F04b, P05, decision 22 |
+| 6 | P0 | Desk decision had one destination | Four outcomes, each linked: pass, correction with second approval, official fare and rebooking, referral | DK01 → DK02, DK03 (→ RV04), DK04, DK05 |
+| 7 | P0 | Priority pass not validated | Pass check screen: binding, expiry, revocation, one-use consumption; invalid-pass state | DK02 → EG07 → EG03; EG08 |
+| 8 | P0 | "Can't check" had no outcome | Linked outcomes | EG03 → EG06; OB02 → OB09 |
+| 9 | P0 | Match confirmation and failed save bypassed | Saved and unknown-save states; outbox recovery | EG04, EG05, OB11 |
+| 10 | P0 | TV outage claimed every ticket is valid | "Active tickets accepted; checks temporary until reconciled" | TV02, decision 29 |
+| 11 | P1 | Payment branch merged three states | Pending/unknown → reconcile; failed → retry in hold; expired → new allocation | Master journey, P10 prototype chips |
+| 12 | P1 | Linked-package completion unclear | Package B unpaid → B seats to queue; A's buyer keeps or cancels A; late B payment refunded | G1, G5, G6, decision 7a |
+| 13 | P1 | Exception paths not traceable | Exception branches table with 18 branches, triggers, outcomes and screens | Page 03 |
+| 14 | P1 | Onboard handoff merged with fare/rebooking | Handoff → destination desk (DK06) is separate from official fare (DK04) | Master journey, OB13, DK06 |
+| 15 | P1 | 20-second timeout pressured staff | 60 s idle → nothing saved, lock, rescan; "never guess" | EG03, decision 23 |
+| 16 | P1 | Children's evidence called photo ID | Child check: name, age and accompanying adult | TV01, EG03, EG11, OB02, decision 28 |
+| 17 | P1 | Desk queue could delay others forever | Departing within 30 min first, then oldest; 15-min cap with supervisor alert | DK01, decision 26 |
+| 18 | P1 | Stale and duplicate IDs | New prefixes (EG, OB, EX, DK, CT, RV, TV, OP); each ID used once; master and IA updated | Pages 02–04, screen map |
+| 19 | P1 | Critical states disconnected | Linked: split consent, payment pending/failed/expired, limit, waitlist, recovery, all guard/TT/desk/exit states | Prototype flows |
+| 20 | P1 | No operations/admin role | Operations & admin role in the IA (quotas, policy versions, staff/device revocation, signing keys, reconciliation, service health, integrity) | Page 04 |
+| 21 | P1 | Information model incomplete | 13 objects incl. consent, hold, waitlist offer, payment & refund, sync event, priority pass, handoff, decision & approval | Page 04 |
+| 22 | P1 | Corruption controls not a flow | Staff accountability loop with owners: record → reconcile → independent sample → triage → investigation → outcome | Page 03, decision 30 |
+| 23 | P2 | Current and earlier concepts competed | All 55 older concept screens removed; one style, one ID per screen | Page 02 |
 
-## Current screen set (kept)
+## Partly resolved
 
-| Area | Screens |
-|---|---|
-| Passenger booking | P01–P04, R0, F01–F03, P21–P22, P05–P07, F04a, F04b, R1, R2, F05, G1–G5, G2a–G2c, L1, P08–P13, F06 |
-| Tickets and changes | P14, P15 (×3), P16–P20, P23 |
-| Station entry | G01 start shift, G02 scan ready, W01 verification monitor |
-| Public TV | Ticket check open, Service notice |
-| Onboard | S01–S10, T02 ticket and person check |
-| Desk | D03 case intake |
-| Review and counter | R01, R02, D02 reviewer workspace, D01 counter booking |
-| Bangla drafts | 10 screens |
-
-## Covered by current screens (no action)
-
-| Removed | Covered by |
-|---|---|
-| Family seat offer | G3, P09 |
-| Payment recovery | P11 |
-| Confirmed ticket | P14 |
-| Refund tracking, including repayment of cash given to a helper | P19 |
-| Cancellation review | P16. Its copy still uses the old 24-hour rule. Update it to the published graduated deductions (decision 15). |
-| TT: cannot check / offline | S05, S09 |
-| TT: incident review | S10 |
-| TT: review and complaint | P20, R01, R02 |
-| Reviewer inbox and reasoned decision | R01, R02, D02 |
-| Guard: unreadable ticket | G02, which has reference lookup |
-
-## Gaps: scenarios with no screen now
-
-Priority: **P1** blocks a flow end to end, **P2** is an important state, **P3** is a confirmation or edge state.
-
-### Station entry (guard)
-
-| # | Scenario | What it must show | Priority |
+| # | Issue | Done | Still open |
 |---|---|---|---|
-| 1 | Entry recorded | Match saved with event ID, "proceed to platform"; onboard and exit checks still pending; screen clears | P3 |
-| 2 | Needs review → desk referral | Entry not approved, referral case number, reason chosen at the desk, no guilt label | P1 |
-| 3 | Can't check outcome | Reason recorded (photo missing, no ID, poor light); no Match saved; sent to the desk | P2 |
-| 4 | Group ticket at the gate | Each traveller checked separately; progress such as "2 matched · 1 review · 1 not checked" | P1 |
-| 5 | Ticket exception at the gate | Cancelled, wrong journey or possible duplicate; explain the reason; an expected onboard or exit scan is not a duplicate | P2 |
-| 6 | Offline, status unknown | Provisional check only; cached journey and last sync time | P1 |
-| 7 | Event pending sync / save unknown / synced | Queued event stays provisional; recover the original event, never create a second one; synced means "received", not "verified" | P2 |
-| 8 | Priority re-check after the desk | One-use pass checked, then a fresh comparison; expired, used or revoked pass loses priority but not a valid ticket | P1 |
-| 9 | Monitor locked | Details hidden on lock, shift end or inactivity | P3 |
-| 10 | Access denied | No assignment, session expired or device revoked; no passenger data shown | P3 |
-| 11 | Staff-side service outage | Lookup failed or verification capacity exceeded; retry, alternative lookup or offline path; no automatic rejection | P2 |
+| 24 | Bangla coverage | Staff screens EG02, EG03, OB02, DK01 now have Bangla drafts | New screens (EG04–EG11, OB11–OB13, EX01–EX04, DK02–DK06, G6, P24, P25, CT02) and the updated G2a counter line are English only. All Bangla still needs native review. |
 
-### Onboard (TT)
+## Cannot be resolved in design
 
-| # | Scenario | What it must show | Priority |
+| # | Issue | Why | What we did |
 |---|---|---|---|
-| 12 | Check recorded | Event linked to the ticket and staff assignment; exit check still pending | P3 |
-| 13 | Official settlement and receipt | Fare and excess charge shown separately from the approved rule; numbered receipt; payment never closes an identity question | P1 |
-| 14 | Payment unresolved | Pending, failed or unknown payment; check before collecting again | P2 |
-| 15 | Destination handoff | Destination desk notified and acknowledges; case, explanation and receipt included; no detention, no train delay | P1 |
-| 16 | Handoff escalation | Desk unavailable → duty supervisor; receiving officer recorded | P2 |
-| 17 | No ticket on board | Separate the seat, standing entitlement and fare; a fine does not create a seat | P2 |
+| 25 | Effectiveness and throughput unvalidated | Needs measurement in a real station | [Pilot validation plan](research/pilot-validation-plan.md): throughput targets, queue tests, false-refusal and fraud measures |
 
-### Exit (optional, by station): whole area missing
+## Still to design
 
-| # | Scenario | What it must show | Priority |
-|---|---|---|---|
-| 18 | Exit compare | Photo, journey history (entry, onboard), linked case and payment | P1 if exit checks are piloted |
-| 19 | Exit completed | Exit recorded; journey complete; screen clears | P2 |
-| 20 | Case outstanding at exit | Person, case and payment checked separately; desk referral; no double charge | P1 |
-| 21 | Exit check unavailable / operational exception | Safe exit recorded; earlier missing checks stay visible; not a Match | P2 |
-
-### Verification desk (only D03 intake exists)
-
-| # | Scenario | What it must show | Priority |
-|---|---|---|---|
-| 22 | Priority pass receipt | Pass bound to traveller, ticket version, journey, station and case; expiry; onboard and exit still apply | P1 |
-| 23 | Correction approved (data error) | Correction with reason and evidence; second approval; no fine | P1 |
-| 24 | Official fare and rebooking | Only if seats and rules allow; no guaranteed seat; payment cannot take another traveller's seat | P1 |
-| 25 | Settlement at the desk | Check existing receipt first; charge only what is outstanding; official receipt | P2 |
-| 26 | Destination resolution | Cases arriving from TT or exit resolved at the destination, not sent back to entry | P1 |
-| 27 | Refer to independent review | Evidence disputed; case reference given to the traveller; no automatic guilt | P2 |
-| 28 | Authorised legal referral | Evidence file for authorised officers only; restricted access | P3 |
-| 29 | Reviewed history for future journeys | Open, settled, cleared, confirmed, appealed or expired; linked to the proven actor, not the ticket's NID owner by default | P3 |
-
-### Independent review
-
-| # | Scenario | What it must show | Priority |
-|---|---|---|---|
-| 30 | Second approval | A different approver for sensitive changes; requester can't approve their own | P1 |
-| 31 | Case cleared | Correction pushed to all systems; traveller notified; original audit kept | P2 |
-| 32 | Independent sample | Random sample of checks reviewed for quality and collusion | P3 |
-
-### Passenger
-
-| # | Scenario | What it must show | Priority |
-|---|---|---|---|
-| 33 | Official waiting list | No seat held; a released seat goes to the next eligible person; the offer has a fixed expiry | P1 |
-| 34 | Ticket recovery | Lost phone or printout: verify access, then reprint the **same** ticket; a replaced version invalidates the old one | P1 |
-| 35 | Alternative journey | Missed or disrupted train: official rebooking or refund options; no seat promise | P2 |
-| 36 | Support and appeal without a password | Track a case by reference; report identity misuse; request recovery | P2 |
-| 37 | Assisted booking by a non-travelling helper | The Ministry notice of 13 May 2026 requires the registered ID holder to travel. Label it "proposed, policy approval pending". | P2 (policy-blocked) |
-| 38 | Identity help: approved alternative evidence | Child plus guardian evidence, or another approved document; no shared-phone rejection | P3 (P06 partly covers this) |
-
-## Other things found during the cleanup
-
-- **Bangla drafts** don't yet include the new staff and TV screens (G01, G02, W01, T02, D03). The TV screens are already bilingual.
-- **Unlinked current screens:** F01–F03, F04b, L1, P09, P11–P13, P17, P20, P23, S03, S05–S08, D01, D02 still have no prototype links in or out.
-- **Policy copy to update:**
-  - P16 and P17 still use the withdrawn "no refund under 24 h" rule.
-  - L1, F03, R0 and G-screens say "4 per day", but the published terms say 4 per transaction and 8 per day (decision 1).
-- **Not updated:** the two FigJam boards (journeys and IA) were not changed. The Figma design file pages 03 and 04 are now the current flow and IA.
-
-## Suggested order
-
-1. **P1 gaps:** guard referral, group and offline at the gate (2, 4, 6, 8); TT settlement and handoff (13, 15); desk outcomes (22–24, 26); second approval (30); waiting list and ticket recovery (33, 34).
-2. **Exit set (18–21)**, but only if exit checks are confirmed for the pilot stations.
-3. **P2 and P3 states**, then link all screens into prototype flows.
+- Operations & admin screens (OP01–OP07), counter refunds (CT03), reviewer samples (RV05). They're dashed chips on the IA.
+- Screens that are still static by design: library, Bangla drafts.

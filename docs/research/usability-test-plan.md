@@ -34,17 +34,18 @@ Run sessions in Bangla by default and in English on request. Pay participants fo
 |---|---|---|
 | T1 | "Book a ticket for yourself to Chattogram on Friday." (R0) | Reaches payment without the form |
 | T2 | "Your colleague Rahim needs a ticket too. Add him using his NID." (F04a) | Correct fields; understands "record matched" |
-| T3 | "You already bought 4 tickets today. Try to buy one more." (L1) | Explains the limit in their own words; picks a valid option |
+| T3 | "You already made 2 bookings today. Try to book once more." (L1) | Explains the limit in their own words; picks a valid option |
 | T4 | "Book for a group of 7." (G1 → G2 → G2a) | Understands why a second buyer is needed and who can be chosen |
 | T5 | "You got this invite. What do you do?" (G2b) | Joins or declines with confidence |
 | T6 | Show a fake SMS with a payment link: "Is this real?" | Says no, and says the real invite is in the app |
 | T7 | "Seats are held. Pay for your package." (G5) | Notices the timer; knows what happens if they don't pay |
-| T8 | Staff: "Check this passenger's ticket." (S02 with a printed ticket) | Under 20 s; checks status, then ID |
+| T8 | Staff: "Check this passenger's ticket." (EG02 → EG03 and OB02, with a printed ticket) | Under 20 s; checks status, then ID |
+| T10 | Staff: "This traveller has no ID." (EG03 → EG06 → DK01 → DK02 → EG07) | Uses Can't check, never guesses; desk pass returns them to the priority lane |
 | T9 | Screen reader: T1 and T4 with NVDA or TalkBack | Completes the task; all controls are announced correctly |
 
 ## Questions after the tasks
 
-- What does "4 tickets per day" mean to you? Is it fair?
+- What do "4 seats per booking" and "2 bookings a day" mean to you? Are they fair?
 - Who should be allowed to buy for a group?
 - Would you trust an invite from a friend inside the app? By SMS?
 - What would stop a ticket seller from using this?

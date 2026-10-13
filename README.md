@@ -15,7 +15,7 @@ A design-first proposal for simpler railway booking, passenger-bound tickets and
 - [Railway decisions brief](docs/railway-decisions.md)
 - [Bangla copy review](docs/bangla-copy-review.md)
 - [Usability test plan](docs/research/usability-test-plan.md)
-- [UI gaps to design (after 13 Oct cleanup)](docs/ui-gaps.md)
+- [UI review status (13 Oct)](docs/ui-gaps.md) and [pilot validation plan](docs/research/pilot-validation-plan.md)
 - [Gap response and revised requirements — 11 October](docs/gap-response-plan.md)
 - Project activity, detailed documentation and task tracking are maintained in the private Slack channel `railway-fair-booking`.
 
