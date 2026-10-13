@@ -16,12 +16,12 @@ export const Success: Story = { args: { tone: 'success', title: 'NID record matc
 export const Warning: Story = {
   args: {
     tone: 'warning',
-    title: 'You can buy up to 4 tickets today',
-    children: 'For more than 4 travellers, use a linked group booking (rule to confirm).',
+    title: 'One booking can have up to 4 seats',
+    children: 'For more than 4 travellers, use a linked group booking. This limit is about seats per booking, not per day.',
     actions: <Button variant="secondary">Start a linked group booking</Button>,
   },
 };
 export const Danger: Story = { args: { tone: 'danger', title: 'Hold expired', children: 'Seats were released. You have not been charged.' } };
 export const StaticNote: Story = {
-  args: { tone: 'info', live: 'off', title: "Cancelling doesn't give tickets back (proposed)", children: "Cancelled tickets don't restore today's allowance." },
+  args: { tone: 'info', live: 'off', title: "Cancelling doesn't give bookings back (proposed)", children: "Cancelled bookings don't restore today's allowance." },
 };

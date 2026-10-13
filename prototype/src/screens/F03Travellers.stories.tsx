@@ -9,4 +9,4 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
 export const FamilyOfFour: Story = { args: { initialAdults: 2, initialChildren: 2 } };
 export const OverLimitGuidance: Story = { args: { initialAdults: 3, initialChildren: 1, showLimitGuidance: true } };
-export const SomeAllowanceUsed: Story = { args: { usedToday: 2, initialAdults: 2 } };
+export const SomeAllowanceUsed: Story = { args: { usedToday: 1, initialAdults: 2 } };

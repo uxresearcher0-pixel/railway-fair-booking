@@ -10,5 +10,5 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const NoneUsed: Story = {};
-export const ThreeUsed: Story = { args: { used: 3 } };
-export const LimitReached: Story = { args: { used: 4 } };
+export const OneUsed: Story = { args: { used: 1 } };
+export const LimitReached: Story = { args: { used: 2 } };

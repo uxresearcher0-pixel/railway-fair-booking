@@ -58,6 +58,13 @@ export function G5PayPackageB({ initialPhase = 'pay', holdSeconds = 9 * 60 + 12,
         />
       ) : null}
 
+      {active ? (
+        <Notice tone="info" title="If the hold ends before you pay" live="off">
+          Package B's seats go back to the fair queue, never to another buyer. {abdul.name} then chooses to keep or cancel
+          Package A. A payment that arrives late is refunded automatically.
+        </Notice>
+      ) : null}
+
       {phase === 'confirm-decline' ? (
         <Notice
           tone="danger"
@@ -163,7 +170,8 @@ export function G5PayPackageB({ initialPhase = 'pay', holdSeconds = 9 * 60 + 12,
       ) : null}
       {phase === 'expired' ? (
         <Notice tone="danger" title="Hold expired">
-          Package B seats were released back to the queue. You have not been charged.
+          Package B seats went back to the fair queue, not to another buyer. You have not been charged, and a late
+          payment is refunded automatically. {abdul.name} will choose whether to keep or cancel Package A.
         </Notice>
       ) : null}
     </ScreenShell>

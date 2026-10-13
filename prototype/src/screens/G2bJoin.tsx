@@ -5,7 +5,7 @@ import { Field } from '../components/Field';
 import { Notice } from '../components/Notice';
 import { AllowancePill } from '../components/AllowancePill';
 import { StatusPill } from '../components/StatusPill';
-import { DAILY_LIMIT, INVITE_CODE, abdul, masked, packageB, salma, trip } from '../data/demo';
+import { BOOKINGS_PER_DAY, INVITE_CODE, abdul, masked, packageB, salma, trip } from '../data/demo';
 
 type Phase = 'invite' | 'joined' | 'declined';
 
@@ -24,7 +24,8 @@ export function G2bJoin({ usedToday = 0, initialPhase = 'invite', initialOtp = '
   const [otpError, setOtpError] = useState(showOtpError ? 'Enter the 6-digit code sent to your phone.' : '');
   const [busy, setBusy] = useState(false);
   const need = packageB.length;
-  const fits = usedToday + need <= DAILY_LIMIT;
+  // Package B is one booking (max 4 seats); the buyer needs a booking left today.
+  const fits = usedToday < BOOKINGS_PER_DAY;
 
   const join = () => {
     if (!/^\d{6}$/.test(otp)) {
@@ -44,7 +45,7 @@ export function G2bJoin({ usedToday = 0, initialPhase = 'invite', initialOtp = '
     <ScreenShell
       screenId="G2b"
       title="Join Package B"
-      lede={`${abdul.name} invited you to buy Package B (${need} tickets).`}
+      lede={`${abdul.name} invited you to buy Package B (${need} seats).`}
       focusHeading={focusHeading}
       footer={
         phase === 'invite' ? (
@@ -102,15 +103,15 @@ export function G2bJoin({ usedToday = 0, initialPhase = 'invite', initialOtp = '
         <h2 id="g2b-allow" className="section-title">
           Your allowance
         </h2>
-        <AllowancePill used={phase === 'joined' ? usedToday + need : usedToday} />
+        <AllowancePill used={phase === 'joined' ? usedToday + 1 : usedToday} />
         {fits ? (
           <p className="small-note">
-            Buying Package B uses {need} of your {DAILY_LIMIT} tickets today.
+            Buying Package B uses 1 of your {BOOKINGS_PER_DAY} bookings today ({need} seats).
           </p>
         ) : (
-          <Notice tone="warning" title="Not enough allowance left today" live="off">
-            Package B needs {need} tickets but you have {DAILY_LIMIT - usedToday} left. Ask {abdul.name} to invite another adult
-            Package B traveller.
+          <Notice tone="warning" title="No bookings left today" live="off">
+            You've used {usedToday} of {BOOKINGS_PER_DAY} bookings today, so you can't buy Package B. Ask {abdul.name} to
+            invite another adult Package B traveller.
           </Notice>
         )}
       </section>
@@ -136,7 +137,7 @@ export function G2bJoin({ usedToday = 0, initialPhase = 'invite', initialOtp = '
           />
           <Notice tone="info" live="off">
             Joining doesn't hold seats yet. Seats for both packages are held together after you join, and you pay for
-            Package B from your own account.
+            Package B from your own account or at any station counter.
           </Notice>
         </section>
       ) : null}

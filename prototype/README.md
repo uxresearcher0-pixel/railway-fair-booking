@@ -1,6 +1,6 @@
 # railfair prototype
 
-Accessible React + TypeScript + Storybook prototype of the railfair booking concept: linked group booking, the daily buyer allowance, NID record checks and the staff ticket check.
+Accessible React + TypeScript + Storybook prototype of the railfair booking concept: linked group booking, the purchase limits (max 4 seats per booking, up to 2 bookings a day per NID), NID record checks and the staff ticket check.
 
 > **Concept demo — not a real booking service.** Everything here is simulated. There is no backend. It is not affiliated with or branded as any railway operator. All people, ID numbers, phone numbers, codes and payments are fictional. Rules marked **(proposed)** or **(rule to confirm)** still need railway approval. See `../docs/ui-screen-map.md`.
 
@@ -55,17 +55,17 @@ Radii are 12–16px, the layout is mobile-first at a 390px width (max 430px), an
 | Notice | info, success, warning, danger, static | Danger uses `role="alert"`. Others use `role="status"`. `live="off"` is for guidance that's already on screen at load. Each has a hidden tone label ("Warning:"). |
 | SeatMap | empty, partly chosen, fully chosen, mostly taken | ARIA grid with row and column headers and a roving tabindex (one Tab stop). Arrows, Home/End and Ctrl+Home/End move focus. Space/Enter toggles `aria-pressed`. Taken or held seats stay focusable with `aria-disabled`. Labels read like "Seat 4C, aisle, chosen". Polite announcements. Legend uses shape, icon and text. |
 | HoldTimer | running, paused, low time, nearly expired, expired | The visible `role="timer"` isn't live. A separate polite region speaks only at whole minutes ("2 minutes left on the hold.") and on expiry, never every second. The progress-bar transition is off under reduced motion. |
-| AllowancePill | 0, 3 and 4 used | "Today: N of 4 tickets used (rule to confirm)". Pips are decorative. At the limit it adds a warning icon. |
+| AllowancePill | 0, 1 and 2 used | "Today: N of 2 bookings · max 4 seats each" (published terms). Pips are decorative. At the limit it adds a warning icon. |
 | ScreenShell / DemoBanner | used by all screens | Skip link, `<header>` with the persistent concept-demo banner, `<main id="main">` with one `h1`, optional `<footer>` for actions. `h1` takes focus when the flow changes screen. |
 
 ### Screens (`src/screens`, stories under "Screens/…")
 
-1. **F03 Travellers & class**: adult/child steppers, class radio cards, "Max 4 tickets per buyer per day (rule to confirm) · you've used 0 today". Pressing + at the limit shows inline guidance to a linked group booking. Shows "Traveller · যাত্রী" and "Class · শ্রেণি" (`lang="bn"`).
+1. **F03 Travellers & class**: adult/child steppers, class radio cards, "Max 4 seats per booking. Up to 2 bookings (8 seats) a day, the second for a different train or route (published terms · Eid rules can differ)". Pressing + past 4 seats shows inline guidance to a linked group booking (seats per booking, not per day). Shows "Traveller · যাত্রী" and "Class · শ্রেণি" (`lang="bn"`).
 2. **F04a Add traveller · NID**: name and DOB as on NID, NID (10 or 17 digits) masked on blur, error summary plus inline errors, simulated record check → "NID record matched" (never "verified").
-3. **G2a Invite Package B buyer**: group of 7 (A 4 + B 3). You can pick the buyer only from Package B's 3 travellers. The child is disabled with a reason. The invite is bound to that traveller's NID-linked account and has single-use code K7Q-48. It goes by in-app notification and SMS, and the SMS has no payment link. Statuses: Sent / Joined / Declined.
-4. **G2b Join Package B**: "Abdul Karim invited you to buy Package B (3 tickets)". Lists the package travellers with "(you)" and an accompanying adult. Shows the allowance check (plus a not-enough-allowance state), OTP confirm and Join / Decline. No seats are held yet.
-5. **G5 Pay for Package B**: HoldTimer and a ৳1,110 total (3 × ৳350 fare + 3 × ৳20 non-refundable service charge). Paid by Salma Karim. Declining asks for confirmation and releases Package B seats to the queue, not to the Package A buyer. States: during hold, low time, confirm decline, paying, paid, declined, expired.
-6. **L1 Daily limit reached**: 4 of 4 used. Options: ask another traveller to buy, book tomorrow, or use a counter. Cancelled tickets don't restore the allowance (proposed).
+3. **G2a Invite Package B buyer**: group of 7 (A 4 + B 3). The lede explains why: a second booking on the same train isn't allowed, so an adult travelling in Package B buys it from their own account, or joins at any station counter with their NID and code K7Q-48. You can pick the buyer only from Package B's 3 travellers. The child is disabled with a reason. The invite is bound to that traveller's NID-linked account and has single-use code K7Q-48. It goes by in-app notification and SMS, and the SMS has no payment link. Statuses: Sent / Joined / Declined.
+4. **G2b Join Package B**: "Abdul Karim invited you to buy Package B (3 seats)". Lists the package travellers with "(you)" and an accompanying adult. Shows the allowance check (plus a no-bookings-left state), OTP confirm and Join / Decline. No seats are held yet.
+5. **G5 Pay for Package B**: HoldTimer and a ৳1,110 total (3 × ৳350 fare + 3 × ৳20 non-refundable service charge). Paid by Salma Karim. Declining asks for confirmation and releases Package B seats to the queue, not to the Package A buyer. A static note explains the hold ending unpaid: seats go back to the fair queue (never to another buyer), the Package A buyer chooses to keep or cancel Package A, and a late payment is refunded automatically. States: during hold, low time, confirm decline, paying, paid, declined, expired.
+6. **L1 Daily limit reached**: 2 of 2 bookings used (8 seats). Options: ask another traveller to buy, book tomorrow, or use a counter. Cancelled bookings don't restore the allowance (proposed).
 7. **S02 Staff check a ticket**: separate "Ticket status · System" and "Person check · Staff" panels. A QR isn't proof of identity. "Couldn't check" is recorded as not checked, never as invalid.
 8. **Flows / App flow**: G2a → G2b → G5 with buttons and a step nav (`aria-current="step"`). Focus moves to each new screen's `h1`.
 
@@ -89,7 +89,7 @@ These are the results from the last run on this machine:
 | `npm test` (Vitest) | **3 files, 93 tests passed** |
 | ↳ axe-core on every story (76 stories: 42 component and 34 screen/flow states) | **0 violations**. Rules: WCAG 2.0/2.1/2.2 A + AA + best practice, run on the whole document. Also asserts exactly one `h1` and one `main` per story. |
 | ↳ axe harness sanity check | A deliberately broken fragment does produce `image-alt`, `label` and `button-name` violations |
-| ↳ keyboard and behaviour | SeatMap: single Tab stop, arrows, Home/End, Ctrl+End, edge clamping, Space/Enter, taken seats. Stepper: labels, bounds keep focus, live value, blocked increment. HoldTimer announces only at minute marks (fake timers). F03 limit guidance. G2a buyer list (only B travellers; child disabled with reason). F04a errors, masking and "NID record matched". |
+| ↳ keyboard and behaviour | SeatMap: single Tab stop, arrows, Home/End, Ctrl+End, edge clamping, Space/Enter, taken seats. Stepper: labels, bounds keep focus, live value, blocked increment. HoldTimer announces only at minute marks (fake timers). F03 limit guidance and allowance wording. G2a lede (4 + 3, counter option). L1 lede. G5 unpaid-hold note. G2a buyer list (only B travellers; child disabled with reason). F04a errors, masking and "NID record matched". |
 | ↳ content rules | 6 tests passed |
 | `npm run test:a11y-storybook` (Chromium 390×844, reduced motion) | **76 stories, 0 axe violations**, including `color-contrast` and `target-size`. One item needs review: on G5 · Confirm decline, the sticky footer button overlaps scrolled content, so axe can't compute its background. That's ink on a solid paper footer, 16.7:1. |
 | `npm run build` | passes (tsc + Vite) |
@@ -121,7 +121,7 @@ Setup:
 
 - [ ] Tab to the adult stepper. You should hear "Adults, grouping, Age 12 and over (age band to confirm)", then "Remove one adult, button, unavailable" (NVDA) or "dimmed" (TalkBack).
 - [ ] "Add one adult, button". Press it and hear "2 adults" politely.
-- [ ] With 2 adults and 2 children, press "Add one adult". The value stays the same and you hear "Warning: You can buy up to 4 tickets today…", followed by the button "Start a linked group booking".
+- [ ] With 2 adults and 2 children, press "Add one adult". The value stays the same and you hear "Warning: One booking can have up to 4 seats…", followed by the button "Start a linked group booking".
 - [ ] The class radios read as "Class · শ্রেণি, grouping, AC chair 42 seats left ৳350, radio button, checked, 1 of 3". Arrow keys change the selection.
 - [ ] The footer button reads "Continue with 4 travellers", followed by the estimate description.
 
@@ -143,11 +143,11 @@ Setup:
 
 ### G2b Join Package B
 
-- [ ] The h1 "Join Package B" is followed by "Abdul Karim invited you to buy Package B (3 tickets)."
+- [ ] The h1 "Join Package B" is followed by "Abdul Karim invited you to buy Package B (3 seats)."
 - [ ] The traveller list is announced as a list of 3 and includes "Salma Karim (you)" and "Accompanying adult: Salma Karim".
-- [ ] The allowance reads as "Today: 0 of 4 tickets used (rule to confirm)".
+- [ ] The allowance reads as "Today: 0 of 2 bookings · max 4 seats each".
 - [ ] "One-time code, edit, Sent by SMS to your phone ending ••62…". If you press Join with an empty code, focus returns to the field with "invalid entry, Error: Enter the 6-digit code…".
-- [ ] In the not-enough-allowance story, "Join as buyer" is unavailable and the warning explains why.
+- [ ] In the not-enough-allowance story (2 of 2 bookings used), "Join as buyer" is unavailable and the warning explains why.
 - [ ] After Join, you hear "Done: You've joined as Package B buyer… No seats are held yet".
 
 ### G5 Pay for Package B
@@ -163,7 +163,7 @@ Setup:
 
 - [ ] The h1 "Daily limit reached" is followed by the lede "You've bought 4 of 4…".
 - [ ] The options are announced as an ordered list of 3, each with a level 3 heading: Ask another traveller to buy, Book tomorrow, and Buy at a station counter.
-- [ ] The static note "Cancelling doesn't give tickets back (proposed)" is read in reading order. It isn't announced as an interruption.
+- [ ] The static note "Cancelling doesn't give bookings back (proposed)" is read in reading order. It isn't announced as an interruption.
 
 ### S02 Staff check a ticket
 

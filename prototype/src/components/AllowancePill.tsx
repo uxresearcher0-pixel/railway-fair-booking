@@ -1,12 +1,14 @@
 import { Icon } from './Icon';
+import { BOOKINGS_PER_DAY, SEATS_PER_BOOKING } from '../data/demo';
 
 export interface AllowancePillProps {
+  /** Bookings already made today on this NID. */
   used: number;
   limit?: number;
 }
 
-/** "Today: N of 4 tickets used (rule to confirm)" — the daily buyer allowance. */
-export function AllowancePill({ used, limit = 4 }: AllowancePillProps) {
+/** "Today: N of 2 bookings · max 4 seats each" — the daily per-NID allowance (published terms). */
+export function AllowancePill({ used, limit = BOOKINGS_PER_DAY }: AllowancePillProps) {
   const full = used >= limit;
   return (
     <p className={`allowance ${full ? 'allowance--full' : ''}`}>
@@ -17,8 +19,8 @@ export function AllowancePill({ used, limit = 4 }: AllowancePillProps) {
       </span>
       {full ? <Icon name="warning" size={16} /> : null}
       <span>
-        Today: <strong className="mono">{used}</strong> of <span className="mono">{limit}</span> tickets used{' '}
-        <span className="rule-tag">(rule to confirm)</span>
+        Today: <strong className="mono">{used}</strong> of <span className="mono">{limit}</span> bookings · max{' '}
+        <span className="mono">{SEATS_PER_BOOKING}</span> seats each
       </span>
     </p>
   );

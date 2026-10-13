@@ -8,6 +8,8 @@ import { HoldTimer } from '../components/HoldTimer';
 import { F03Travellers } from '../screens/F03Travellers';
 import { G2aInvite } from '../screens/G2aInvite';
 import { F04aAddTraveller } from '../screens/F04aAddTraveller';
+import { L1DailyLimit } from '../screens/L1DailyLimit';
+import { G5PayPackageB } from '../screens/G5PayPackageB';
 
 function SeatHarness() {
   const [sel, setSel] = useState<string[]>([]);
@@ -164,14 +166,38 @@ describe('HoldTimer', () => {
 });
 
 describe('Screen behaviour', () => {
-  it('F03: trying to exceed 4 shows linked-group guidance', async () => {
+  it('F03: trying to exceed 4 seats in one booking shows linked-group guidance', async () => {
     const user = userEvent.setup();
     render(<F03Travellers initialAdults={2} initialChildren={2} />);
     expect(screen.queryByText(/linked group booking/i, { selector: '.notice *' })).not.toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Add one adult' }));
-    expect(screen.getByText(/You can buy up to 4 tickets today/)).toBeInTheDocument();
+    expect(screen.getByText('One booking can have up to 4 seats')).toBeInTheDocument();
+    expect(screen.getByText(/at any counter with their NID and the group\s+code/)).toBeInTheDocument();
+    expect(screen.getByText(/Max 4 seats per booking\. Up to 2 bookings \(8 seats\) a day/)).toBeInTheDocument();
+    expect(screen.getByText(/Today:/).closest('p')).toHaveTextContent('Today: 0 of 2 bookings · max 4 seats each');
     expect(screen.getByRole('button', { name: 'Start a linked group booking' })).toBeInTheDocument();
     expect(screen.getAllByTestId('stepper-live')[0]).toHaveTextContent('2 adults');
+  });
+
+  it('G2a: explains the 4 + 3 split and the counter option', () => {
+    render(<G2aInvite />);
+    const lede = screen.getByText(/A group of 7 is Package A \(4/);
+    expect(lede).toHaveTextContent('Package B (3)');
+    expect(lede).toHaveTextContent("A second booking on the same train isn't allowed");
+    expect(lede).toHaveTextContent('code K7Q-48');
+  });
+
+  it('L1: states the published two-bookings rule', () => {
+    render(<L1DailyLimit />);
+    expect(screen.getByText(/You've used 2 of 2 bookings today \(8 seats\)/)).toBeInTheDocument();
+    expect(screen.getByText(/Today:/).closest('p')).toHaveTextContent('Today: 2 of 2 bookings · max 4 seats each');
+  });
+
+  it('G5: explains what happens if the hold ends unpaid', () => {
+    render(<G5PayPackageB timerPaused />);
+    expect(screen.getByText(/go back to the fair queue, never to another buyer/)).toHaveTextContent(
+      /chooses to keep or cancel\s+Package A\. A payment that arrives late is refunded automatically\./,
+    );
   });
 
   it('G2a: only Package B travellers are offered; the child is disabled with a reason', () => {

@@ -4,7 +4,7 @@ import { Stepper } from '../components/Stepper';
 import { Notice } from '../components/Notice';
 import { Button } from '../components/Button';
 import { AllowancePill } from '../components/AllowancePill';
-import { DAILY_LIMIT, FARE, taka, trip } from '../data/demo';
+import { BOOKINGS_PER_DAY, FARE, SEATS_PER_BOOKING, SEATS_PER_DAY, taka, trip } from '../data/demo';
 
 const classes = [
   { id: 'ac-chair', label: 'AC chair', fare: FARE, seats: '42 seats left' },
@@ -15,6 +15,7 @@ const classes = [
 export interface F03Props {
   initialAdults?: number;
   initialChildren?: number;
+  /** Bookings already made today on this NID. */
   usedToday?: number;
   /** Start with the over-limit guidance visible (for the story state). */
   showLimitGuidance?: boolean;
@@ -25,9 +26,9 @@ export function F03Travellers({ initialAdults = 1, initialChildren = 0, usedToda
   const [children, setChildren] = useState(initialChildren);
   const [cls, setCls] = useState('ac-chair');
   const [blocked, setBlocked] = useState(showLimitGuidance);
-  const remaining = DAILY_LIMIT - usedToday;
   const total = adults + children;
-  const canAdd = () => total < remaining;
+  // The cap is seats per booking, not per day.
+  const canAdd = () => total < SEATS_PER_BOOKING;
   const fare = classes.find((c) => c.id === cls)!.fare;
 
   return (
@@ -77,21 +78,22 @@ export function F03Travellers({ initialAdults = 1, initialChildren = 0, usedToda
           onBlockedIncrement={() => setBlocked(true)}
         />
         <p className="small-note">
-          Max {DAILY_LIMIT} tickets per buyer per day <span className="rule-tag">(rule to confirm)</span> · you've used{' '}
-          <span className="mono">{usedToday}</span> today
+          Max {SEATS_PER_BOOKING} seats per booking. Up to {BOOKINGS_PER_DAY} bookings ({SEATS_PER_DAY} seats) a day, the
+          second for a different train or route <span className="rule-tag">(published terms · Eid rules can differ)</span>.
         </p>
         {blocked ? (
           <Notice
             tone="warning"
-            title={`You can buy up to ${remaining} ${remaining === 1 ? 'ticket' : 'tickets'} today`}
+            title={`One booking can have up to ${SEATS_PER_BOOKING} seats`}
             actions={
               <Button variant="secondary" iconAfter="arrow-right">
                 Start a linked group booking
               </Button>
             }
           >
-            For more than {DAILY_LIMIT} travellers, use a linked group booking: you buy one package and another adult
-            traveller buys the other. Both packages share one seat hold <span className="rule-tag">(rule to confirm)</span>.
+            For more than {SEATS_PER_BOOKING} travellers, use a linked group booking: you buy one package and an adult
+            travelling in the other package buys it in the app or at any counter with their NID and the group code. Both
+            packages share one seat hold <span className="rule-tag">(rule to confirm)</span>.
           </Notice>
         ) : null}
         <AllowancePill used={usedToday} />

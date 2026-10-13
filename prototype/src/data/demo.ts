@@ -4,7 +4,10 @@
  */
 export const FARE = 350; // ৳ per ticket (demo)
 export const SERVICE_CHARGE = 20; // ৳ per ticket, non-refundable (demo; per-ticket rule to confirm)
-export const DAILY_LIMIT = 4; // tickets per buyer per day (rule to confirm)
+// Purchase limits (published terms; Eid rules can differ):
+export const SEATS_PER_BOOKING = 4; // max seats in one booking
+export const BOOKINGS_PER_DAY = 2; // per NID; the second must be for a different train or route
+export const SEATS_PER_DAY = SEATS_PER_BOOKING * BOOKINGS_PER_DAY; // 8
 
 export const BOOKING_REF = 'RF-7Q2K-48';
 export const INVITE_CODE = 'K7Q-48';

@@ -3,17 +3,17 @@ import { AllowancePill } from '../components/AllowancePill';
 import { Notice } from '../components/Notice';
 import { Button } from '../components/Button';
 import { Icon } from '../components/Icon';
-import { DAILY_LIMIT } from '../data/demo';
+import { BOOKINGS_PER_DAY } from '../data/demo';
 
 export function L1DailyLimit() {
   return (
     <ScreenShell
       screenId="L1"
       title="Daily limit reached"
-      lede={`You've bought ${DAILY_LIMIT} of ${DAILY_LIMIT} tickets today. Each buyer can buy up to ${DAILY_LIMIT} tickets a day (rule to confirm).`}
+      lede="You've used 2 of 2 bookings today (8 seats). Published terms: max 4 seats per booking and up to 2 bookings a day, the second for a different train or route. Eid rules can be stricter."
       backLabel="Back to search"
     >
-      <AllowancePill used={DAILY_LIMIT} />
+      <AllowancePill used={BOOKINGS_PER_DAY} />
 
       <section className="card" aria-labelledby="l1-options">
         <h2 id="l1-options" className="section-title">
@@ -47,15 +47,15 @@ export function L1DailyLimit() {
             <div>
               <h3>Buy at a station counter</h3>
               <p>
-                Staff check ID at the counter. Whether counter tickets count towards this limit is a rule to confirm.
+                Staff check ID at the counter. Whether counter bookings count towards this limit is a rule to confirm.
               </p>
             </div>
           </li>
         </ol>
       </section>
 
-      <Notice tone="info" title="Cancelling doesn't give tickets back (proposed)" live="off">
-        Cancelled or refunded tickets don't restore today's allowance. This stops the limit being reset by buying and
+      <Notice tone="info" title="Cancelling doesn't give bookings back (proposed)" live="off">
+        Cancelled or refunded bookings don't restore today's allowance. This stops the limit being reset by buying and
         cancelling.
       </Notice>
     </ScreenShell>
