@@ -55,6 +55,8 @@ This file tracks the 24 review issues raised on 13 October and how each was reso
 
 ## Still open
 
+- Accessibility check of the Figma screens (14 Oct): contrast and tap-target failures fixed on both pages, Bangla labels raised to 12px; open items in [accessibility-check-figma.md](accessibility-check-figma.md).
+
 - Native review of all Bangla copy.
 - Screens that are static by design: library, Bangla drafts.
 - The FigJam board is kept for history; it now points to Design pages 03 and 04.
