@@ -34,7 +34,7 @@ This file tracks the 24 review issues raised on 13 October and how each was reso
 
 | # | Issue | Done | Still open |
 |---|---|---|---|
-| 24 | Bangla coverage | Bangla drafts for every new screen: EG04–EG11, OB11–OB13, EX01–EX04, DK02–DK06, CT02, G6, P24, P25, plus the G2a counter line (page 02, section 14) | All Bangla is a draft and needs review by a native Bangla writer (T11). OP, CT03 and RV05 are English only (staff back office) |
+| 24 | Bangla coverage | Bangla drafts for every passenger, public-TV and front-line staff screen (14 Oct), plus every new screen: EG04–EG11, OB11–OB13, EX01–EX04, DK02–DK06, CT02, G6, P24, P25, plus the G2a counter line (page 02, section 14) | All Bangla is a draft and needs review by a native Bangla writer (T11). OP, CT03 and RV05 are English only (staff back office) |
 
 ## Cannot be resolved in design
 
@@ -50,6 +50,7 @@ This file tracks the 24 review issues raised on 13 October and how each was reso
 
 - Prototype links for the new booking screens (14 Oct): P03 To → F01b → P03; station rows in F01/F01b return to P03; G2b Join → G3a → G3b → G5, with "Customise seats" → G3 and "Split needed" bogis → G3 (groups) or P09 (P08). Bangla copies link to each other: BN P03 → BN F01b, BN G2b → BN G3a → BN G3b → BN G5; new flow start "বাংলা · Passenger search".
 - Screen states (14 Oct): G3b "Middle selected" and "Back selected" (options switch between Front/Middle/Back; button holds 1–7, 48–54 or 94–100); P08 "all coaches" (Show all 8 coaches ↔ Show fewer). Same states in Bangla. Page 02 sections restacked so nothing overlaps.
+- Copy fixes found during the Bangla pass (14 Oct): P02 no longer names the real railway e-ticket domain (uses "the official railway website" and support@railfair.example); P07 "Relationship / Parent" became "Role on this booking"; "verified" removed from R2, F04b, P06, P23 ("Check a ticket") and P15 ("Check or cancel"); flow "Passenger · book for family" renamed "book for others".
 
 ## Still open
 

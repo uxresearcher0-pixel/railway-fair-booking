@@ -23,7 +23,7 @@ Run sessions in Bangla by default and in English on request. Pay participants fo
 
 ## Materials
 
-- The Figma prototype flows: book for family, regular (returning), group of 7 (linked), staff onboard round.
+- The Figma prototype flows: book for others, regular (returning), group of 7 (linked), staff onboard round.
 - The coded prototype (`prototype/`) for keyboard and screen-reader tasks.
 - Printed A4 e-tickets for the staff tasks.
 - A consent form for recording, in Bangla and English.
