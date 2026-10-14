@@ -34,7 +34,7 @@ This file tracks the 24 review issues raised on 13 October and how each was reso
 
 | # | Issue | Done | Still open |
 |---|---|---|---|
-| 24 | Bangla coverage | Bangla drafts for every screen (14 Oct): passenger, public TV, front-line staff, reviewer RV01–RV05 and operations OP01–OP07, plus every new screen: EG04–EG11, OB11–OB13, EX01–EX04, DK02–DK06, CT02, G6, P24, P25, plus the G2a counter line (page 02, section 14) | All Bangla is a draft and needs review by a native Bangla writer (T11). BN RV and OP screens use Bangla digits for values (times, percentages, counts, amounts, dates); codes such as RF-21, CASE-0192 and v3 stay in Latin script |
+| 24 | Bangla coverage | Bangla drafts for every screen (14 Oct): passenger, public TV, front-line staff, reviewer RV01–RV05 and operations OP01–OP07, plus every new screen: EG04–EG11, OB11–OB13, EX01–EX04, DK02–DK06, CT02, G6, P24, P25, plus the G2a counter line (page 02b, own Bangla page) | All Bangla is a draft and needs review by a native Bangla writer (T11). All Bangla screens use Bangla digits for values (times, prices, percentages, counts, dates, seat numbers); codes such as RF-21, CASE-0192 and v3 stay in Latin script |
 
 ## Cannot be resolved in design
 
@@ -44,12 +44,13 @@ This file tracks the 24 review issues raised on 13 October and how each was reso
 
 ## Designed on 14 Oct
 
-- Operations & admin OP01–OP07 (new section 13 on page 02; Bangla moved to section 14), counter refunds CT03, reviewer samples RV05. All are green chips on the IA, linked in the master journey and the accountability loop, with prototype links between them.
+- Operations & admin OP01–OP07 (new section 13 on page 02; Bangla moved to its own page, 02b), counter refunds CT03, reviewer samples RV05. All are green chips on the IA, linked in the master journey and the accountability loop, with prototype links between them.
 - Group class rule (decision 7c, proposed): one class for the whole group; Package B can't change it (G1, G2b, CT02).
 - P25 copy: "Verified access" changed to "Access confirmed".
 
 - Prototype links for the new booking screens (14 Oct): P03 To → F01b → P03; station rows in F01/F01b return to P03; G2b Join → G3a → G3b → G5, with "Customise seats" → G3 and "Split needed" bogis → G3 (groups) or P09 (P08). Bangla copies link to each other: BN P03 → BN F01b, BN G2b → BN G3a → BN G3b → BN G5; new flow start "বাংলা · Passenger search". BN RV and OP screens link to each other (flows "বাংলা · Reviewer" and "বাংলা · Ops back office"); no Bangla link points to an English screen.
 - Screen states (14 Oct): G3b "Middle selected" and "Back selected" (options switch between Front/Middle/Back; button holds 1–7, 48–54 or 94–100); P08 "all coaches" (Show all 8 coaches ↔ Show fewer). Same states in Bangla. Page 02 sections restacked so nothing overlaps.
+- Pages split by language (14 Oct): English stays on page 02 (sections 00–13); Bangla moved to new page 02b with the same sections and layout, its own flow starts, and no links between the pages. Section 12 now runs counter (CT01–CT03) then reviewer (RV01–RV05) on both pages; layers on both pages read top to bottom in journey order.
 - Copy fixes found during the Bangla pass (14 Oct): P02 no longer names the real railway e-ticket domain (uses "the official railway website" and support@railfair.example); P07 "Relationship / Parent" became "Role on this booking"; "verified" removed from R2, F04b, P06, P23 ("Check a ticket") and P15 ("Check or cancel"); flow "Passenger · book for family" renamed "book for others".
 
 ## Still open
