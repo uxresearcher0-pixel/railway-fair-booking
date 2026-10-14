@@ -45,7 +45,7 @@ This file tracks the 24 review issues raised on 13 October and how each was reso
 ## Designed on 14 Oct
 
 - Operations & admin OP01–OP07 (new section 13 on page 02; Bangla moved to section 14), counter refunds CT03, reviewer samples RV05. All are green chips on the IA, linked in the master journey and the accountability loop, with prototype links between them.
-- Group class rule (decision 7c, proposed): one class per package; Package B defaults to Package A's class (G1, G2b).
+- Group class rule (decision 7c, proposed): one class for the whole group; Package B can't change it (G1, G2b, CT02).
 - P25 copy: "Verified access" changed to "Access confirmed".
 
 ## Still open

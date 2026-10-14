@@ -144,7 +144,7 @@ Prototype: a fourth flow starts at **R0** (returning passenger). Form flow: F05 
 | DK05 | Referred to review | Case reference and appeal route for the traveller |
 | DK06 | Destination resolution | Cases from TT or exit resolved at the destination; receipt checked first |
 | CT01 | Counter booking (desktop) | Assisted booking, ID checked, cash receipt |
-| CT02 | Counter · join Package B | For travellers without a smartphone; same rules and limits; class defaults to Package A's (decision 7c, proposed) |
+| CT02 | Counter · join Package B | For travellers without a smartphone; same rules and limits; class fixed for the whole group (decision 7c, proposed) |
 | CT03 | Counter · refund and receipt | Cancel at the counter with the published deductions; cash back only for cash payments, otherwise to the original payer; names never changed; signed receipt |
 
 ## Independent review (RV)
