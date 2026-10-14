@@ -29,7 +29,8 @@ All names, numbers, fares, QR codes, payments and identity results are fictional
 
 | ID | Screen | Purpose / key states | Plan link |
 |---|---|---|---|
-| F01 | Station picker | Search in English or Bangla; recent and matching stations with codes (demo codes) | Backlog 2 |
+| F01 | Station picker · from | Search in English or Bangla; recent and matching stations with codes (demo codes) | Backlog 2 |
+| F01b | Station picker · to | Opened from the To field on P03; the From station isn't listed; only stations reachable from it | Backlog 2 |
 | F02 | Date picker | Calendar with today, selected date and sale window; dates outside the window are not selectable (window per railway rule) | Backlog 2 |
 | F03 | Travellers & class | Adult/child steppers (age bands to confirm), class choice; group limit marked proposed | Backlog 2, 4 |
 | F04a | Add traveller · NID (adult) | Name and DOB as on NID, NID number (10 or 17 digits, masked), record-check result: name, DOB, no other active ticket on this train | Backlog 3; acceptance "one entitlement per passenger" |
@@ -51,7 +52,9 @@ Prototype: a fourth flow starts at **R0** (returning passenger). Form flow: F05 
 | G2a | Invite Package B buyer | Buyer chosen only from Package B's adults; invite in app, SMS without payment link, single-use code K7Q-48, **or join at any counter (CT02)** for travellers without a smartphone |
 | G2b | Join Package B | Traveller joins and consents before seats are held; scam warning |
 | G2c | Invite declined | Invite another Package B adult, book A only, or cancel |
-| G3 | Linked seat offer | One hold for all seats, only after both buyers joined |
+| G3a | Choose a coach · 7 together | Every coach in the chosen class with free seats and its longest run of seats together; coaches that can't seat the whole group are shown but marked "Split needed" |
+| G3b | Where in the coach | Strip of free runs from front (seat 1) to back; suggested blocks of 7 (front, middle, back); "Customise seats" opens the seat map |
+| G3 | Customise seats · 7 together | Seat map to pick or change any seats; one hold for all seats, only after both buyers joined |
 | G5 | Pay for Package B | Hold timer; if B isn't paid in time its seats go to the fair queue, never to another buyer |
 | G6 | Package B not paid · choose | Package A's buyer keeps A or cancels A (published deductions); late B payment refunded automatically; default after 30 min: keep A |
 | G4 | Linked checkout & tickets | Payment per package; refunds to each package's payer |
