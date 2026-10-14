@@ -176,7 +176,7 @@ Process views on page 03: master journey, **exception branches** (18 branches) a
 
 ## Bangla and accessibility
 
-- **Wording:** screens say "coach (bogi)"; Bangla drafts should use বগি. Bangla drafts for P08, F01b, G3a and G3b added (14 Oct), using বগি.
+- **Wording:** screens say "coach (bogi)"; Bangla drafts should use বগি. Bangla drafts for P08, F01b, G3a, G3b (with Middle/Back and all-coaches states), P09, G3 and F05 added (14 Oct), using বগি. Bangla screens link to each other wherever a Bangla copy exists.
 
 - **BN · P03, P05, P14:** Bangla drafts with the language switch set to বাংলা.
 - **BN · EG02, EG03, OB02, DK01:** Bangla drafts of the main staff verification screens.
