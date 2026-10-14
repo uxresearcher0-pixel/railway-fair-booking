@@ -54,7 +54,7 @@ Prototype: a fourth flow starts at **R0** (returning passenger). Form flow: F05 
 | G2c | Invite declined | Invite another Package B adult, book A only, or cancel |
 | G3a | Choose a coach (bogi) · 7 together | Every coach in the chosen class with free seats and its longest run of seats together; coaches that can't seat the whole group are shown but marked "Split needed" |
 | G3b | Where in the coach | Strip of free runs from front (seat 1) to back; suggested blocks of 7 (front, middle, back); "Customise seats" opens the seat map |
-| G3 | Customise seats · 7 together | Seat map to pick or change any seats; one hold for all seats, only after both buyers joined |
+| G3 | Customise seats · 7 together | Seat map to pick or change any seats (example: A in GHA 1–4, B in 5–7, free 8–9 and 15–19); one hold for all seats, only after both buyers joined |
 | G5 | Pay for Package B | Hold timer; if B isn't paid in time its seats go to the fair queue, never to another buyer |
 | G6 | Package B not paid · choose | Package A's buyer keeps A or cancels A (published deductions); late B payment refunded automatically; default after 30 min: keep A |
 | G4 | Linked checkout & tickets | Payment per package; refunds to each package's payer |
@@ -176,7 +176,7 @@ Process views on page 03: master journey, **exception branches** (18 branches) a
 
 ## Bangla and accessibility
 
-- **Wording:** screens say "coach (bogi)"; Bangla drafts should use বগি. Bangla for P08, F01b, G3a and G3b is still to draft.
+- **Wording:** screens say "coach (bogi)"; Bangla drafts should use বগি. Bangla drafts for P08, F01b, G3a and G3b added (14 Oct), using বগি.
 
 - **BN · P03, P05, P14:** Bangla drafts with the language switch set to বাংলা.
 - **BN · EG02, EG03, OB02, DK01:** Bangla drafts of the main staff verification screens.
