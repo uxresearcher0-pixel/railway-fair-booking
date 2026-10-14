@@ -12,15 +12,21 @@ export const SEATS_PER_DAY = SEATS_PER_BOOKING * BOOKINGS_PER_DAY; // 8
 export const BOOKING_REF = 'RF-7Q2K-48';
 export const INVITE_CODE = 'K7Q-48';
 
+// Bangla fields (…Bn) are used in Bangla mode. Station codes are demo codes;
+// the official railway abbreviations are still to come (railway-decisions.md #32).
 export const trip = {
-  from: { name: 'Dhaka', code: 'DHK' },
-  to: { name: 'Chattogram', code: 'CTG' },
+  from: { name: 'Dhaka', nameBn: 'ঢাকা', code: 'DHK' },
+  to: { name: 'Chattogram', nameBn: 'চট্টগ্রাম', code: 'CTG' },
   train: 'Demo Intercity 701',
+  trainBn: 'ডেমো আন্তঃনগর ৭০১',
   date: 'Thu 15 Oct',
+  dateBn: 'বৃহস্পতি ১৫ অক্টো',
   departs: '07:30',
   arrives: '13:05',
-  coach: 'C2',
+  coach: 'GHA',
+  coachBn: 'ঘ',
   className: 'AC chair',
+  classNameBn: 'এসি চেয়ার',
 };
 
 export type TravellerKind = 'adult' | 'child';
@@ -28,16 +34,19 @@ export type TravellerKind = 'adult' | 'child';
 export interface Traveller {
   id: string;
   name: string;
+  /** Bangla name, shown on Bangla passenger screens. Tickets and staff checks use the English name. */
+  nameBn: string;
   kind: TravellerKind;
   idType: 'NID' | 'Birth registration';
   idLast4: string;
   seat?: string;
 }
 
-export const abdul: Traveller = { id: 't1', name: 'Abdul Karim', kind: 'adult', idType: 'NID', idLast4: '4821', seat: '3A' };
-export const salma: Traveller = { id: 't2', name: 'Salma Karim', kind: 'adult', idType: 'NID', idLast4: '1177', seat: '4C' };
-export const rahim: Traveller = { id: 't3', name: 'Rahim Karim', kind: 'adult', idType: 'NID', idLast4: '3390', seat: '4D' };
-export const ayesha: Traveller = { id: 't4', name: 'Ayesha Karim', kind: 'child', idType: 'Birth registration', idLast4: '0526', seat: '4E' };
+// Seats are in coach GHA: Package A 1–4, Package B 5–7 (the G3b "front" block).
+export const abdul: Traveller = { id: 't1', name: 'Abdul Karim', nameBn: 'আব্দুল করিম', kind: 'adult', idType: 'NID', idLast4: '4821', seat: '1' };
+export const salma: Traveller = { id: 't2', name: 'Salma Karim', nameBn: 'সালমা করিম', kind: 'adult', idType: 'NID', idLast4: '1177', seat: '5' };
+export const rahim: Traveller = { id: 't3', name: 'Rahim Karim', nameBn: 'রহিম করিম', kind: 'adult', idType: 'NID', idLast4: '3390', seat: '6' };
+export const ayesha: Traveller = { id: 't4', name: 'Ayesha Karim', nameBn: 'আয়েশা করিম', kind: 'child', idType: 'Birth registration', idLast4: '0526', seat: '7' };
 
 /** Package B of the linked group of 7 (A: 4 + B: 3). */
 export const packageB: Traveller[] = [salma, rahim, ayesha];
@@ -45,3 +54,51 @@ export const PACKAGE_A_SIZE = 4;
 
 export const taka = (n: number) => `৳${n.toLocaleString('en-US')}`;
 export const masked = (last4: string) => `••${last4}`;
+
+/** Group of 7 (Package A 4 + Package B 3): one class for the whole group (decision 7c). */
+export const GROUP_SIZE = 7;
+
+export interface Coach {
+  code: string;
+  codeBn: string;
+  /** Free seat numbers in the chosen class. */
+  free: number[];
+}
+
+/**
+ * Coaches in the group's class (AC chair) with their free seats (demo).
+ * GHA has the example from the brief: 1–9, 15–19, 48–54, 92–100 free.
+ */
+export const coaches: Coach[] = [
+  { code: 'GHA', codeBn: 'ঘ', free: [...range(1, 9), ...range(15, 19), ...range(48, 54), ...range(92, 100)] },
+  { code: 'DA', codeBn: 'ড', free: [...range(20, 26), 40, 41] },
+  { code: 'DHA', codeBn: 'ঢ', free: [3, 4, 10, 11, 12, 30, 31, 60, 61] },
+  { code: 'JHA', codeBn: 'ঝ', free: [8, 9, 30, 31, 44, 45] },
+  { code: 'TA', codeBn: 'ট', free: [12, 13, 70, 71, 72] },
+  { code: 'KA', codeBn: 'ক', free: [] },
+];
+
+function range(a: number, b: number) {
+  return Array.from({ length: b - a + 1 }, (_, i) => a + i);
+}
+
+/** Longest run of consecutive free seats. */
+export const longestRun = (free: number[]) => {
+  let best = 0;
+  let run = 0;
+  free.forEach((n, i) => {
+    run = i > 0 && free[i - 1] === n - 1 ? run + 1 : 1;
+    best = Math.max(best, run);
+  });
+  return best;
+};
+
+/** Destination stations for F01b (from Dhaka). Codes are demo codes. */
+export const destinations = [
+  { name: 'Chattogram', nameBn: 'চট্টগ্রাম', code: 'CTG' },
+  { name: 'Chandpur', nameBn: 'চাঁদপুর', code: 'CDP' },
+  { name: 'Chuadanga', nameBn: 'চুয়াডাঙ্গা', code: 'CDG' },
+  { name: 'Rajshahi', nameBn: 'রাজশাহী', code: 'RJH' },
+  { name: 'Sylhet', nameBn: 'সিলেট', code: 'SYT' },
+  { name: 'Khulna', nameBn: 'খুলনা', code: 'KLN' },
+];

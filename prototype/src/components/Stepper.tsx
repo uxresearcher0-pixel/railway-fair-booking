@@ -1,5 +1,6 @@
 import { useId, type ReactNode } from 'react';
 import { Icon } from './Icon';
+import { useT } from '../i18n/lang';
 
 export interface StepperProps {
   label: ReactNode;
@@ -33,6 +34,7 @@ export function Stepper({
   canIncrement,
   onBlockedIncrement,
 }: StepperProps) {
+  const { t, num } = useT();
   const id = useId();
   const labelId = `${id}-label`;
   const hintId = `${id}-hint`;
@@ -69,19 +71,19 @@ export function Stepper({
         <button
           type="button"
           className="stepper__btn"
-          aria-label={`Remove one ${unit[0]}`}
+          aria-label={t(`Remove one ${unit[0]}`, `একজন ${unit[0]} কমান`)}
           aria-disabled={atMin || undefined}
           onClick={dec}
         >
           <Icon name="minus" />
         </button>
         <span className="stepper__value mono" aria-hidden="true">
-          {value}
+          {num(value)}
         </span>
         <button
           type="button"
           className="stepper__btn"
-          aria-label={`Add one ${unit[0]}`}
+          aria-label={t(`Add one ${unit[0]}`, `একজন ${unit[0]} যোগ করুন`)}
           aria-disabled={atMax || undefined}
           onClick={inc}
         >
@@ -90,7 +92,7 @@ export function Stepper({
       </div>
       {/* Current value: readable in browse mode and announced politely when it changes */}
       <span className="visually-hidden" aria-live="polite" aria-atomic="true" data-testid="stepper-live">
-        {`${value} ${noun(value)}`}
+        {`${num(value)} ${noun(value)}`}
       </span>
     </div>
   );

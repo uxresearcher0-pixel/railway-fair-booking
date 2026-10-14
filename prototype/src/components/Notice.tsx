@@ -1,10 +1,12 @@
 import type { ReactNode } from 'react';
 import { Icon, type IconName } from './Icon';
+import { useT } from '../i18n/lang';
 
 export type NoticeTone = 'info' | 'success' | 'warning' | 'danger';
 
 const icons: Record<NoticeTone, IconName> = { info: 'info', success: 'check', warning: 'warning', danger: 'danger' };
 const labels: Record<NoticeTone, string> = { info: 'Information', success: 'Done', warning: 'Warning', danger: 'Problem' };
+const labelsBn: Record<NoticeTone, string> = { info: 'তথ্য', success: 'সম্পন্ন', warning: 'সতর্কতা', danger: 'সমস্যা' };
 
 export interface NoticeProps {
   tone?: NoticeTone;
@@ -21,6 +23,8 @@ export interface NoticeProps {
 }
 
 export function Notice({ tone = 'info', title, children, live = 'auto', actions, id }: NoticeProps) {
+  const { t } = useT();
+  const label = t(labels, labelsBn)[tone];
   const role = live === 'off' ? undefined : tone === 'danger' ? 'alert' : 'status';
   return (
     <div className={`notice notice--${tone}`} role={role} id={id}>
@@ -30,11 +34,11 @@ export function Notice({ tone = 'info', title, children, live = 'auto', actions,
       <div className="notice__body">
         {title ? (
           <p className="notice__title">
-            <span className="visually-hidden">{labels[tone]}: </span>
+            <span className="visually-hidden">{label}: </span>
             {title}
           </p>
         ) : (
-          <span className="visually-hidden">{labels[tone]}: </span>
+          <span className="visually-hidden">{label}: </span>
         )}
         {children ? <div className="notice__text">{children}</div> : null}
         {actions ? <div className="notice__actions">{actions}</div> : null}

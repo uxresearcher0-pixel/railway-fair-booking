@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Icon } from './Icon';
+import { toBnDigits, useT } from '../i18n/lang';
 
 export interface HoldTimerProps {
   /** Seconds left on the hold when mounted. */
@@ -13,12 +14,15 @@ export interface HoldTimerProps {
 
 const fmt = (s: number) => `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
 const minutesText = (m: number) => `${m} minute${m === 1 ? '' : 's'}`;
+const minutesTextBn = (m: number) => `${toBnDigits(String(m))} মিনিট`;
 
 /**
  * Visible mm:ss countdown (role="timer", not live) plus a separate polite live
  * region that only speaks at whole-minute marks and on expiry — never every second.
  */
-export function HoldTimer({ initialSeconds, paused = false, subject = 'Seats', onExpire }: HoldTimerProps) {
+export function HoldTimer({ initialSeconds, paused = false, subject: subjectProp, onExpire }: HoldTimerProps) {
+  const { bn, t, num } = useT();
+  const subject = subjectProp ?? t('Seats', 'আসন');
   const [left, setLeft] = useState(Math.max(0, initialSeconds));
   const [announcement, setAnnouncement] = useState('');
   const expiredRef = useRef(false);
@@ -34,25 +38,25 @@ export function HoldTimer({ initialSeconds, paused = false, subject = 'Seats', o
     if (left === 0) {
       if (!expiredRef.current) {
         expiredRef.current = true;
-        setAnnouncement(`Hold expired. ${subject} have been released.`);
+        setAnnouncement(bn ? `হোল্ড শেষ। ${subject} ছেড়ে দেওয়া হয়েছে।` : `Hold expired. ${subject} have been released.`);
         onExpire?.();
       }
     } else if (left % 60 === 0) {
-      setAnnouncement(`${minutesText(left / 60)} left on the hold.`);
+      setAnnouncement(bn ? `হোল্ডে আর ${minutesTextBn(left / 60)} বাকি।` : `${minutesText(left / 60)} left on the hold.`);
     }
-  }, [left, initialSeconds, subject, onExpire]);
+  }, [left, initialSeconds, subject, onExpire, bn]);
 
   const expired = left === 0;
   const low = !expired && left < 120;
   const pct = initialSeconds > 0 ? (left / initialSeconds) * 100 : 0;
 
   return (
-    <section className={`hold ${low ? 'hold--low' : ''} ${expired ? 'hold--expired' : ''}`} aria-label="Seat hold">
+    <section className={`hold ${low ? 'hold--low' : ''} ${expired ? 'hold--expired' : ''}`} aria-label={t('Seat hold', 'আসন হোল্ড')}>
       <div className="hold__row">
         <Icon name={expired ? 'x' : 'clock'} />
-        <p className="hold__label">{expired ? `${subject} released` : `${subject} held for`}</p>
-        <p className="hold__time mono" role="timer" aria-label={expired ? 'Hold expired' : `${fmt(left)} left`}>
-          {expired ? '00:00' : fmt(left)}
+        <p className="hold__label">{expired ? t(`${subject} released`, `${subject} ছেড়ে দেওয়া হয়েছে`) : t(`${subject} held for`, `${subject} হোল্ড আছে আর`)}</p>
+        <p className="hold__time mono" role="timer" aria-label={expired ? t('Hold expired', 'হোল্ড শেষ') : t(`${fmt(left)} left`, `${num(fmt(left))} বাকি`)}>
+          {num(expired ? '00:00' : fmt(left))}
         </p>
       </div>
       <div className="hold__bar" aria-hidden="true">
@@ -60,8 +64,8 @@ export function HoldTimer({ initialSeconds, paused = false, subject = 'Seats', o
       </div>
       <p className="hold__note">
         {expired
-          ? 'You have not been charged.'
-          : 'Pay before the timer ends. Seats are released when it reaches zero.'}
+          ? t('You have not been charged.', 'আপনার কাছ থেকে কোনো টাকা কাটা হয়নি।')
+          : t('Pay before the timer ends. Seats are released when it reaches zero.', 'টাইমার শেষ হওয়ার আগে পরিশোধ করুন। শূন্যে পৌঁছালে আসন ছেড়ে দেওয়া হয়।')}
       </p>
       <p className="visually-hidden" aria-live="polite" aria-atomic="true" data-testid="hold-live">
         {announcement}

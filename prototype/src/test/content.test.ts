@@ -31,14 +31,6 @@ describe('content rules', () => {
   it('uses the professional role wording', () => {
     for (const w of ['Booked by', 'Paid by', 'Traveller', 'Accompanying adult', 'NID record matched']) expect(text).toContain(w);
   });
-  it('marks Bangla strings with lang="bn" (the ৳ sign is excluded)', () => {
-    for (const f of files) {
-      const src = readFileSync(f, 'utf8');
-      for (const line of src.split('\n')) {
-        if (/[\u0980-\u09F2\u09F4-\u09FF]/.test(line) && !/lang="bn"|titleBn=/.test(line)) {
-          throw new Error(`Bangla text without lang="bn" in ${f}: ${line.trim()}`);
-        }
-      }
-    }
-  });
+  // Bangla text is checked on the rendered DOM instead (stories.a11y.test.tsx):
+  // every Bangla text node must sit inside an element with lang="bn".
 });

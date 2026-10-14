@@ -1,13 +1,30 @@
 import { useEffect, useRef, type ReactNode } from 'react';
 import { Icon } from './Icon';
+import { useT } from '../i18n/lang';
 
 /** Persistent concept banner — shown on every screen. */
 export function DemoBanner() {
+  const { t } = useT();
   return (
     <p className="demo-banner">
       <Icon name="info" size={16} />
-      <span>Concept demo — not a real booking service</span>
+      <span>{t('Concept demo — not a real booking service', 'কনসেপ্ট ডেমো — এটি আসল বুকিং সেবা নয়')}</span>
     </p>
+  );
+}
+
+/** EN / বাংলা switch. Each button is a toggle (aria-pressed) in a labelled group. */
+export function LangSwitch() {
+  const { lang, setLang, t } = useT();
+  return (
+    <div className="lang-switch" role="group" aria-label={t('Language', 'ভাষা')}>
+      <button type="button" lang="en" aria-pressed={lang === 'en'} onClick={() => setLang('en')}>
+        EN
+      </button>
+      <button type="button" lang="bn" aria-pressed={lang === 'bn'} onClick={() => setLang('bn')}>
+        বাংলা
+      </button>
+    </div>
   );
 }
 
@@ -15,7 +32,7 @@ export interface ScreenShellProps {
   /** Screen ID from the UI map, e.g. "F03". Shown small, for reviewers. */
   screenId: string;
   title: ReactNode;
-  /** Optional Bangla gloss shown beside the title (rendered with lang="bn"). */
+  /** Optional Bangla gloss shown beside the English title (rendered with lang="bn"; hidden in Bangla mode). */
   titleBn?: string;
   /** Text under the h1. */
   lede?: ReactNode;
@@ -40,16 +57,17 @@ export function ScreenShell({
   footer,
   children,
 }: ScreenShellProps) {
+  const { lang, bn, t } = useT();
   const h1 = useRef<HTMLHeadingElement>(null);
   useEffect(() => {
     if (focusHeading) h1.current?.focus();
   }, [focusHeading]);
 
   return (
-    <div className="screen">
+    <div className="screen" lang={lang}>
       <header className="topbar">
         <a className="skip-link" href="#main">
-          Skip to main content
+          {t('Skip to main content', 'মূল অংশে যান')}
         </a>
         <DemoBanner />
         <div className="topbar__row">
@@ -65,13 +83,14 @@ export function ScreenShell({
           <span className="screen-id mono" aria-hidden="true">
             {screenId}
           </span>
+          <LangSwitch />
         </div>
       </header>
       <main id="main" className="screen__main">
         <div className="screen__head">
           <h1 ref={h1} tabIndex={-1}>
             {title}
-            {titleBn ? (
+            {titleBn && !bn ? (
               <>
                 {' '}
                 <span className="title-bn" lang="bn">

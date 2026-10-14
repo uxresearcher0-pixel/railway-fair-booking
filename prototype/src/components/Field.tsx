@@ -1,5 +1,6 @@
 import { useId, type InputHTMLAttributes, type ReactNode } from 'react';
 import { Icon } from './Icon';
+import { useT } from '../i18n/lang';
 
 export interface FieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'id'> {
   label: ReactNode;
@@ -16,6 +17,7 @@ export interface FieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 
  * a visually-hidden "Error:" and an icon so they never rely on colour.
  */
 export function Field({ label, hint, error, id, after, className = '', ...inputProps }: FieldProps) {
+  const { t } = useT();
   const autoId = useId();
   const inputId = id ?? `f${autoId}`;
   const hintId = hint ? `${inputId}-hint` : undefined;
@@ -35,7 +37,7 @@ export function Field({ label, hint, error, id, after, className = '', ...inputP
       {error ? (
         <p className="field__error" id={errorId}>
           <Icon name="danger" size={18} />
-          <span className="visually-hidden">Error: </span>
+          <span className="visually-hidden">{t('Error: ', 'ত্রুটি: ')}</span>
           {error}
         </p>
       ) : null}

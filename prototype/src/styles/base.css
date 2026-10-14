@@ -46,3 +46,12 @@ h1[tabindex='-1']:focus-visible { outline: none; }
     scroll-behavior: auto !important;
   }
 }
+
+/* Bangla mode: every text element uses the Bangla font (it also has Latin glyphs for codes),
+   with a little more line height for Bangla vowel signs. */
+.screen[lang='bn'] { line-height: 1.6; }
+.screen[lang='bn'] :where(h1, h2, h3, p, span, a, button, label, legend, th, td, dt, dd, li, input, strong, caption) { font-family: var(--font-bangla); }
+.screen[lang='bn'] .wordmark, .screen[lang='bn'] .wordmark span { font-family: var(--font-display); }
+/* WCAG 2.2 · 2.4.11 Focus Not Obscured: keep focused items clear of the sticky top bar and footer
+   (Bangla text is longer, so more content scrolls under them). */
+html { scroll-padding-top: 104px; scroll-padding-bottom: 160px; }

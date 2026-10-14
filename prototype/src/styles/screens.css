@@ -118,3 +118,4 @@ fieldset:disabled .radio-card { cursor: default; }
 
 /* Storybook component canvas */
 .story-pad { display: block; padding: var(--space-5) var(--space-4); max-width: var(--screen-max); }
+.radio-card__pill { margin-top: var(--space-1, 4px); }

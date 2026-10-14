@@ -1,4 +1,5 @@
 import type { Preview } from '@storybook/react';
+import { LangProvider, type Lang } from '../src/i18n/lang';
 import '../src/styles/fonts';
 import '../src/styles/tokens.css';
 import '../src/styles/base.css';
@@ -6,7 +7,23 @@ import '../src/styles/components.css';
 import '../src/styles/screens.css';
 
 const preview: Preview = {
+  globalTypes: {
+    lang: {
+      description: 'Language of the screens',
+      toolbar: { title: 'Language', icon: 'globe', items: [{ value: 'en', title: 'English' }, { value: 'bn', title: 'বাংলা (Bangla)' }], dynamicTitle: true },
+    },
+  },
+  initialGlobals: { lang: 'en' },
   decorators: [
+    // Language: a story's `parameters.lang` wins (the Bangla stories), else the toolbar.
+    (Story, ctx) => {
+      const lang = ((ctx.parameters.lang as Lang | undefined) ?? (ctx.globals.lang as Lang | undefined) ?? 'en') as Lang;
+      return (
+        <LangProvider key={lang} initial={lang}>
+          <Story />
+        </LangProvider>
+      );
+    },
     // Component stories are shown inside a <main> with a visually-hidden h1 so the
     // page-level axe rules (landmarks, one h1) apply to them as well as to screens.
     (Story, ctx) =>
