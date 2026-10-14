@@ -1,6 +1,6 @@
 # UI v0.2 screen and state map
 
-Figma: page **02 • UI — screens by journey** in the [project file](https://www.figma.com/design/3Jb4jMo27Pi6N4gncIPPJK), sections 00–14 in journey order. Page 03 holds the master journey, exception branches and staff accountability loop; page 04 the information architecture. Prototype flows: Passenger · book for others (P01), regular (R0), group of 7 (G1); Guard · entry check (EG01); TT · onboard round (OB01); Exit (EX01); Desk · case decisions (DK01); Reviewer (RV01); Ops · back office (OP01). Bangla flows (বাংলা · …) start from the BN copies of P01, P03, G1, EG01, OB01, EX01 and DK01. A coded version of key screens is in [`prototype/`](../prototype/README.md).
+Figma: page **02 • UI — screens by journey** in the [project file](https://www.figma.com/design/3Jb4jMo27Pi6N4gncIPPJK), sections 00–14 in journey order. Page 03 holds the master journey, exception branches and staff accountability loop; page 04 the information architecture. Prototype flows: Passenger · book for others (P01), regular (R0), group of 7 (G1); Guard · entry check (EG01); TT · onboard round (OB01); Exit (EX01); Desk · case decisions (DK01); Reviewer (RV01); Ops · back office (OP01). Bangla flows (বাংলা · …) start from the BN copies of P01, P03, G1, EG01, OB01, EX01, DK01, RV01 and OP01. A coded version of key screens is in [`prototype/`](../prototype/README.md).
 
 **ID prefixes:** P passenger · F forms · R0–R2 returning passenger · G groups · L limits · EG entry guard · TV public TV · OB onboard TT · EX exit · DK desk · CT counter · RV review · OP operations (to design). Every ID is used once.
 
@@ -176,7 +176,7 @@ Process views on page 03: master journey, **exception branches** (18 branches) a
 
 ## Bangla and accessibility
 
-- **Coverage (14 Oct):** every passenger screen, the public TV screens (TV01–TV02), the A4 paper tickets (P15) and front-line staff screens (guard EG01–EG11, TT OB01–OB13, exit, desk, counter CT01–CT03) have Bangla drafts in section 14. Reviewer (RV) and operations (OP) back-office screens stay English. Screens say "coach (bogi)"; Bangla uses বগি. Bangla screens link to each other wherever a Bangla copy exists. All Bangla still needs native review (T11).
+- **Coverage (14 Oct):** every passenger screen, the public TV screens (TV01–TV02), the A4 paper tickets (P15) and front-line staff screens (guard EG01–EG11, TT OB01–OB13, exit, desk, counter CT01–CT03) have Bangla drafts in section 14. The reviewer (RV01–RV05) and operations (OP01–OP07) back-office screens have Bangla drafts too, so every screen now has one. Screens say "coach (bogi)"; Bangla uses বগি. Bangla screens link to each other wherever a Bangla copy exists. All Bangla still needs native review (T11).
 
 - **BN · P03, P05, P14:** Bangla drafts with the language switch set to বাংলা.
 - **BN · EG02, EG03, OB02, DK01:** Bangla drafts of the main staff verification screens.
