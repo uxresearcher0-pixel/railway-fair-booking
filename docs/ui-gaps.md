@@ -34,7 +34,7 @@ This file tracks the 24 review issues raised on 13 October and how each was reso
 
 | # | Issue | Done | Still open |
 |---|---|---|---|
-| 24 | Bangla coverage | Bangla drafts for every screen (14 Oct): passenger, public TV, front-line staff, reviewer RV01–RV05 and operations OP01–OP07, plus every new screen: EG04–EG11, OB11–OB13, EX01–EX04, DK02–DK06, CT02, G6, P24, P25, plus the G2a counter line (page 02b, own Bangla page) | All Bangla is a draft and needs review by a native Bangla writer (T11). All Bangla screens use Bangla digits for values (times, prices, percentages, counts, dates, seat numbers); codes such as RF-21, CASE-0192 and v3 stay in Latin script |
+| 24 | Bangla coverage | Bangla drafts for every screen (14 Oct): passenger, public TV, front-line staff, reviewer RV01–RV05 and operations OP01–OP07, plus every new screen: EG04–EG11, OB11–OB13, EX01–EX04, DK02–DK06, CT02, G6, P24, P25, plus the G2a counter line (page 02b, own Bangla page) | All Bangla is a draft and needs review by a native Bangla writer (T11). All Bangla screens use Bangla digits for values (times, prices, percentages, counts, dates, seat numbers) and Bangla coach letters (ক, খ, গ, ঘ … e.g. ঘ-১৩); codes such as RF-21, CASE-0192 and v3 stay in Latin script |
 
 ## Cannot be resolved in design
 
