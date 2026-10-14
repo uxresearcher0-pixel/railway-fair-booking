@@ -19,7 +19,7 @@ All names, numbers, fares, QR codes, payments and identity results are fictional
 | P05 | Travellers | Buyer / payer / travellers separate; identity status per person, never "verified" | Backlog 3 |
 | P06 | Child or no NID | Birth registration, other document, or assisted counter check | T09; acceptance "child/no NID" |
 | P07 | Travelling adult | Links child to an adult; parent vs guardian vs accompanying adult | Doc S42–S43 |
-| P08 | Seats | Coach chips with free counts; 2 + 3 seat map; single hold pill; split preference | Backlog 4, 5; Audit F1, F7 |
+| P08 | Seats | Pick a coach (bogi): list of coaches with free seats, longest run together and "4 together" / "Split needed" (same pattern as G3a); 2 + 3 seat map; single hold pill; split preference | Backlog 4, 5; Audit F1, F7 |
 | P09 | Split seats consent | Partial availability options; nothing booked until chosen | T10 |
 | P10 | Pay | Buyer OTP once; fare + non-refundable service charge before provider choice | Backlog 6; Audit F2, F12 |
 | P14 | Tickets | Ticket stub per passenger; demo QR; ID reminder | Backlog 7 |
@@ -52,7 +52,7 @@ Prototype: a fourth flow starts at **R0** (returning passenger). Form flow: F05 
 | G2a | Invite Package B buyer | Buyer chosen only from Package B's adults; invite in app, SMS without payment link, single-use code K7Q-48, **or join at any counter (CT02)** for travellers without a smartphone |
 | G2b | Join Package B | Traveller joins and consents before seats are held; scam warning |
 | G2c | Invite declined | Invite another Package B adult, book A only, or cancel |
-| G3a | Choose a coach · 7 together | Every coach in the chosen class with free seats and its longest run of seats together; coaches that can't seat the whole group are shown but marked "Split needed" |
+| G3a | Choose a coach (bogi) · 7 together | Every coach in the chosen class with free seats and its longest run of seats together; coaches that can't seat the whole group are shown but marked "Split needed" |
 | G3b | Where in the coach | Strip of free runs from front (seat 1) to back; suggested blocks of 7 (front, middle, back); "Customise seats" opens the seat map |
 | G3 | Customise seats · 7 together | Seat map to pick or change any seats; one hold for all seats, only after both buyers joined |
 | G5 | Pay for Package B | Hold timer; if B isn't paid in time its seats go to the fair queue, never to another buyer |
@@ -175,6 +175,8 @@ Prototype: a fourth flow starts at **R0** (returning passenger). Form flow: F05 
 Process views on page 03: master journey, **exception branches** (18 branches) and the **staff accountability loop** (record → reconcile → independent sampling → triage → investigation → outcome).
 
 ## Bangla and accessibility
+
+- **Wording:** screens say "coach (bogi)"; Bangla drafts should use বগি. Bangla for P08, F01b, G3a and G3b is still to draft.
 
 - **BN · P03, P05, P14:** Bangla drafts with the language switch set to বাংলা.
 - **BN · EG02, EG03, OB02, DK01:** Bangla drafts of the main staff verification screens.
