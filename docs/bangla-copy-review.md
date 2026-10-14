@@ -17,7 +17,7 @@ The Bangla screens in Figma are machine-assisted drafts. A native Bangla writer 
 | Rules marked প্রস্তাবিত (proposed) or নিশ্চিত করতে হবে (to confirm) | Unconfirmed rules must not read as official |
 | Numbers: Bangla digits in prose and amounts (৳১,১১০); Latin digits for codes, seats, times and IDs (GHA-23, 07:00, ••3390) | Codes must match what staff and SMS show |
 | People's names stay as entered (Latin script) | They must match the ID record |
-| Train names, coach letters and numbers are in Bangla (৭০১ সুবর্ণ এক্সপ্রেস, বগি ঘ, আসন ঘ-১৩, ০৭:০০); codes such as RF-7Q2K, MX-701 and S_CHAIR stay in Latin script | Matches how stations and printed tickets show them; codes must match what staff scan or type |
+| Train names, class names, coach letters and numbers are in Bangla (৭০১ সুবর্ণ এক্সপ্রেস, শোভন চেয়ার, বগি ঘ, আসন ঘ-১৩, ০৭:০০); codes such as RF-7Q2K and MX-701 stay in Latin script | Matches how stations and printed tickets show them; codes must match what staff scan or type |
 | Fits the layout: no clipped lines at 390 px width; line height ≥ 1.35 | Bangla conjuncts are taller than Latin text |
 | Scam warning reads clearly: real invites only appear inside the app | Fake ticket SMS with payment links are common |
 
