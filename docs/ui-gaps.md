@@ -1,4 +1,4 @@
-# UI review status (13 Oct)
+# UI review status (13 Oct, updated 14 Oct)
 
 This file tracks the 24 review issues raised on 13 October and how each was resolved in Figma (file `3Jb4jMo27Pi6N4gncIPPJK`) and the repo. All data is fictional. Rules marked **proposed** still need railway approval; see [railway-decisions.md](railway-decisions.md).
 
@@ -30,11 +30,11 @@ This file tracks the 24 review issues raised on 13 October and how each was reso
 | 22 | P1 | Corruption controls not a flow | Staff accountability loop with owners: record → reconcile → independent sample → triage → investigation → outcome | Page 03, decision 30 |
 | 23 | P2 | Current and earlier concepts competed | All 55 older concept screens removed; one style, one ID per screen | Page 02 |
 
-## Partly resolved
+## Resolved on 14 Oct
 
 | # | Issue | Done | Still open |
 |---|---|---|---|
-| 24 | Bangla coverage | Staff screens EG02, EG03, OB02, DK01 now have Bangla drafts | New screens (EG04–EG11, OB11–OB13, EX01–EX04, DK02–DK06, G6, P24, P25, CT02) and the updated G2a counter line are English only. All Bangla still needs native review. |
+| 24 | Bangla coverage | Bangla drafts for every new screen: EG04–EG11, OB11–OB13, EX01–EX04, DK02–DK06, CT02, G6, P24, P25, plus the G2a counter line (page 02, section 14) | All Bangla is a draft and needs review by a native Bangla writer (T11). OP, CT03 and RV05 are English only (staff back office) |
 
 ## Cannot be resolved in design
 
@@ -42,7 +42,14 @@ This file tracks the 24 review issues raised on 13 October and how each was reso
 |---|---|---|---|
 | 25 | Effectiveness and throughput unvalidated | Needs measurement in a real station | [Pilot validation plan](research/pilot-validation-plan.md): throughput targets, queue tests, false-refusal and fraud measures |
 
-## Still to design
+## Designed on 14 Oct
 
-- Operations & admin screens (OP01–OP07), counter refunds (CT03), reviewer samples (RV05). They're dashed chips on the IA.
-- Screens that are still static by design: library, Bangla drafts.
+- Operations & admin OP01–OP07 (new section 13 on page 02; Bangla moved to section 14), counter refunds CT03, reviewer samples RV05. All are green chips on the IA, linked in the master journey and the accountability loop, with prototype links between them.
+- Group class rule (decision 7c, proposed): one class per package; Package B defaults to Package A's class (G1, G2b).
+- P25 copy: "Verified access" changed to "Access confirmed".
+
+## Still open
+
+- Native review of all Bangla copy.
+- Screens that are static by design: library, Bangla drafts.
+- The FigJam board is kept for history; it now points to Design pages 03 and 04.

@@ -26,7 +26,7 @@ export function L1DailyLimit() {
             </span>
             <div>
               <h3>Ask another traveller to buy</h3>
-              <p>An adult traveller on the trip can buy from their own account, within their own daily allowance.</p>
+              <p>An adult traveller on the trip can buy in the app or at any station counter with their NID, within their own daily allowance.</p>
               <Button variant="secondary">Invite a traveller</Button>
             </div>
           </li>

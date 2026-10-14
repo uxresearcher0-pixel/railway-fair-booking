@@ -144,7 +144,8 @@ Prototype: a fourth flow starts at **R0** (returning passenger). Form flow: F05 
 | DK05 | Referred to review | Case reference and appeal route for the traveller |
 | DK06 | Destination resolution | Cases from TT or exit resolved at the destination; receipt checked first |
 | CT01 | Counter booking (desktop) | Assisted booking, ID checked, cash receipt |
-| CT02 | Counter · join Package B | For travellers without a smartphone; same rules and limits |
+| CT02 | Counter · join Package B | For travellers without a smartphone; same rules and limits; class defaults to Package A's (decision 7c, proposed) |
+| CT03 | Counter · refund and receipt | Cancel at the counter with the published deductions; cash back only for cash payments, otherwise to the original payer; names never changed; signed receipt |
 
 ## Independent review (RV)
 
@@ -154,6 +155,19 @@ Prototype: a fourth flow starts at **R0** (returning passenger). Form flow: F05 
 | RV02 | Case detail (mobile) | History, response, decision + reason |
 | RV03 | Workspace (desktop) | Queue, history, decision panel |
 | RV04 | Second approval | Different approver for sensitive changes |
+| RV05 | Random samples | System-picked decisions; never your own station or decisions; findings go to OP07 |
+
+## Operations & admin (OP, console 1440) — restricted back office
+
+| ID | Screen | Purpose |
+|---|---|---|
+| OP01 | Quotas and sale windows | Online / counter / fair-queue shares per train; applies to unsold seats only; changes need a second approver |
+| OP02 | Policy versions | Every ticket records the policy version it was sold under; publishing needs two approvers; retired 24 h refund rule shown |
+| OP03 | Staff and devices | Revoke lost devices or suspend accounts; queued offline checks kept and flagged |
+| OP04 | Ticket signing keys | Rotation with an overlap window; compromise reporting; key IDs only, never private keys |
+| OP05 | Payment reconciliation | Paid-no-ticket, provider-unknown, no-booking and refund-not-received cases; refunds only to the original payer |
+| OP06 | Service health | Per-station checks, offline share and sync lag; outage playbook (TV02, EG09) |
+| OP07 | Integrity and audit | Owned by the integrity team; override and exception rates, triage flags, samples to RV05 |
 
 Process views on page 03: master journey, **exception branches** (18 branches) and the **staff accountability loop** (record → reconcile → independent sampling → triage → investigation → outcome).
 
@@ -161,6 +175,7 @@ Process views on page 03: master journey, **exception branches** (18 branches) a
 
 - **BN · P03, P05, P14:** Bangla drafts with the language switch set to বাংলা.
 - **BN · EG02, EG03, OB02, DK01:** Bangla drafts of the main staff verification screens.
+- **BN · EG04–EG11, OB11–OB13, EX01–EX04, DK02–DK06, CT02, G6, P24, P25 (14 Oct):** Bangla drafts of all the outcome screens added on 13 Oct; BN G2a also has the counter line. Page 02 section 14.
 - **BN · F03, F04a, R0, G2a, G2b, G5, L1:** Bangla drafts of the forms, returning-passenger and group screens (row below the group row). Names, codes and train names stay in Latin script, as entered. All Bangla copy needs review by a native Bangla writer before testing (T11); see [Bangla copy review](bangla-copy-review.md).
 - **Accessibility spec:** computed contrast for 15 token pairs (all pass AA: lowest 3.33:1 for the input border, which needs 3:1); focus ring examples; focus order, live-region, error, seat-map keyboard and target-size rules. Contrast is computed from the tokens; everything else must be verified with axe and NVDA/TalkBack once coded.
 

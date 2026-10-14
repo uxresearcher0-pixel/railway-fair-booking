@@ -54,7 +54,7 @@ export function G2aInvite({ initialStatus = 'draft', initialBuyerId, focusHeadin
     <ScreenShell
       screenId="G2a"
       title="Invite Package B buyer"
-      lede={`A group of 7 is Package A (${PACKAGE_A_SIZE}, booked by ${abdul.name}) + Package B (${packageB.length}). A second booking on the same train isn't allowed, so an adult travelling in Package B buys it from their own account, or joins at any station counter with their NID and code ${INVITE_CODE}.`}
+      lede={`A group of 7 is Package A (${PACKAGE_A_SIZE}, booked by ${abdul.name}) + Package B (${packageB.length}). A second booking on the same train isn't allowed, so an adult travelling in Package B buys it in the app, or joins at any station counter with their NID and code ${INVITE_CODE}.`}
       backLabel="Back to group travellers"
       focusHeading={focusHeading}
       footer={
