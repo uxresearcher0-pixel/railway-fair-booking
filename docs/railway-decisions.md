@@ -58,6 +58,15 @@ All examples use fictional data. This is an independent concept, not a Banglades
 | 19 | Accepted IDs: NID, birth registration, passport, assisted check | All four, with assisted check at counters | F04a, F04b, P06 |
 | 20 | Charge tariff and wrong-train rules | Amount from the approved tariff only; official receipt | S08, S10 |
 
+## Language and naming (decided by the project team, 14 Oct)
+
+| # | Decision | Decision taken | Screens | Still needed from the railway |
+|---|---|---|---|---|
+| 31 | Which name the ticket and staff checks use | **The English name.** Tickets and every staff check (guard, TT, exit, desk, counter, reviewer) show the English name, also on Bangla screens. Passenger booking screens in Bangla may show the Bangla name | P14, P15, P25, EG, OB, EX, DK, CT, RV | Confirm the English name is the one on the NID, birth registration and passport records the checks match against |
+| 32 | Station abbreviations | **Use the railway's official station abbreviations** on the station-picker badges and anywhere a short form is needed | F01, F01b | The official list of station abbreviations (Bangla and English). The demo codes (DHK, CTG) and Bangla short forms (চট্ট, বিমান) are placeholders until then |
+| 33 | Cash wording in Bangla | Cash is written **নগদ টাকা**, so it is never confused with the payment brand নগদ | CT01–CT03, P19 | None |
+| 34 | Language of planning pages | The master journey (page 03) and information architecture (page 04) stay **English only** | Pages 03, 04 | None |
+
 ## How to use this brief
 
 1. Walk through the table with the railway in the T08 review and record each answer here, with the date and who confirmed it.
