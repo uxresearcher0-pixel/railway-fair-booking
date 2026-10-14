@@ -176,7 +176,7 @@ Process views on page 03: master journey, **exception branches** (18 branches) a
 
 ## Bangla and accessibility
 
-- **Wording:** screens say "coach (bogi)"; Bangla drafts should use বগি. Bangla drafts for P08, F01b, G3a, G3b (with Middle/Back and all-coaches states), P09, G3, F05, F06, P10 and payment states P11–P13 added (14 Oct), using বগি. Bangla screens link to each other wherever a Bangla copy exists.
+- **Wording:** screens say "coach (bogi)"; Bangla drafts should use বগি. Bangla drafts for P08, F01b, G3a, G3b (with Middle/Back and all-coaches states), P09, G3, F05, F06, P10, payment states P11–P13, and group screens G1, G2, G2c, G4 added (14 Oct); BN P14 now has the ticket-recovery link to BN P25, using বগি. Bangla screens link to each other wherever a Bangla copy exists.
 
 - **BN · P03, P05, P14:** Bangla drafts with the language switch set to বাংলা.
 - **BN · EG02, EG03, OB02, DK01:** Bangla drafts of the main staff verification screens.
