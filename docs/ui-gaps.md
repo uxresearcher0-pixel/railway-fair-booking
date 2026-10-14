@@ -49,6 +49,7 @@ This file tracks the 24 review issues raised on 13 October and how each was reso
 - P25 copy: "Verified access" changed to "Access confirmed".
 
 - Prototype links for the new booking screens (14 Oct): P03 To → F01b → P03; station rows in F01/F01b return to P03; G2b Join → G3a → G3b → G5, with "Customise seats" → G3 and "Split needed" bogis → G3 (groups) or P09 (P08). Bangla copies link to each other: BN P03 → BN F01b, BN G2b → BN G3a → BN G3b → BN G5; new flow start "বাংলা · Passenger search".
+- Screen states (14 Oct): G3b "Middle selected" and "Back selected" (options switch between Front/Middle/Back; button holds 1–7, 48–54 or 94–100); P08 "all coaches" (Show all 8 coaches ↔ Show fewer). Same states in Bangla. Page 02 sections restacked so nothing overlaps.
 
 ## Still open
 
