@@ -234,4 +234,25 @@ export const AGENTS = [
   { id: 'RA-311', place: 'Gazipur', placeBn: 'গাজীপুর', applications: 88, reports: 1, status: 'normal' },
 ] as const;
 /** Extra-charge report OC-2207 as the review team sees it (OP10·v2). */
-export const REPORT_CASE = { ref: 'OC-2207', paid: 2500, named: 'RA-204' };
+export const REPORT_CASE = { ref: 'OC-2207', paid: 2500, named: 'RA-204', channel: 'sms' as 'sms' | 'app' | 'counter' };
+
+// ---------- Two-way SMS simulation (docs/sms-help-extra.md; proposed) ----------
+// Fictional. No real SMS, number, payment or NID. The two-way number, telecom support, delivery,
+// Unicode segmentation and reply charges are dependencies to confirm.
+
+/** The SMS demo: support reference, case reference, the clock the thread starts at, and the second booking on a shared phone. */
+export const SMS_DEMO = {
+  supportRef: 'SR-4410',
+  caseRef: REPORT_REF,
+  /** Time of the receipt SMS; each later message is a minute after the one before. */
+  start: '09:12',
+  /** Collector named in the demo report (OP10·v2 names the same agent). */
+  collector: 'RA-204',
+  /** Second booking on a shared phone (SM10). 2 travellers: 2 × ৳350 + 2 × ৳20. */
+  secondBooking: { ref: 'RF-3M8D-15', date: 'Fri 17 Oct', dateBn: 'শুক্র ১৭ অক্টো', travellers: 2, total: 740 },
+  /** Proposed first-update time for a case (not guaranteed). */
+  firstUpdateDays: 10,
+};
+
+/** Counter for an assisted report (CT05·v2): passenger with no phone or lost access. */
+export const COUNTER_DESK = { id: 'C-12', station: 'Kamalapur', stationBn: 'কমলাপুর', staff: '207' };

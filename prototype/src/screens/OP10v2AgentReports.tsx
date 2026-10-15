@@ -142,6 +142,15 @@ export function OP10v2AgentReports({ initialDone = 'none', focusHeading }: OP10v
             <dt>{t('Ticket', 'টিকিট')}</dt>
             <dd>{t('Stays valid', 'বৈধ থাকে')}</dd>
           </div>
+          <div>
+            <dt>{t('Channel', 'চ্যানেল')}</dt>
+            <dd>
+              <StatusPill tone="info" icon={r.channel === 'counter' ? 'ticket' : 'send'} srPrefix={t('Reported by:', 'যেভাবে জানানো:')}>
+                {r.channel === 'sms' ? 'SMS' : r.channel === 'app' ? t('App', 'অ্যাপ') : t('Counter', 'কাউন্টার')}
+              </StatusPill>{' '}
+              <span className="small-note">{t('Channels: SMS, app or counter. One case per report.', 'চ্যানেল: SMS, অ্যাপ বা কাউন্টার। প্রতি অভিযোগে একটি কেস।')}</span>
+            </dd>
+          </div>
         </dl>
       </section>
 

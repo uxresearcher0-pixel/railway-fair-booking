@@ -47,6 +47,9 @@ export function P14v2Receipt({ focusHeading, onShowTickets }: P14v2Props) {
           <a className="btn btn--ghost btn--block" href="#/r3v2">
             {t('Report an extra charge', 'বাড়তি টাকার অভিযোগ করুন')}
           </a>
+          <a className="btn btn--ghost btn--block" href="#/sms">
+            {t('View SMS demo', 'SMS ডেমো দেখুন')}
+          </a>
         </div>
       }
     >

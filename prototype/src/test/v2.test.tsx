@@ -222,7 +222,7 @@ describe('Home · journeys by role', () => {
     expect(screen.queryByRole('link', { name: 'Home' })).not.toBeInTheDocument();
 
     const passenger = screen.getByRole('region', { name: 'Passenger' });
-    expect(within(passenger).getAllByRole('link')).toHaveLength(14);
+    expect(within(passenger).getAllByRole('link')).toHaveLength(16);
     const report = within(passenger).getByRole('link', { name: /Report an extra charge \(v2\)/ });
     expect(report).toHaveAttribute('href', '#/r3v2');
     expect(report).toHaveAccessibleName(/Tell the independent review team privately/);

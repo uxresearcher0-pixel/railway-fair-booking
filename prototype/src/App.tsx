@@ -30,6 +30,9 @@ import { DK03v2Correction } from './screens/DK03v2Correction';
 import { OP08v2DrawRun } from './screens/OP08v2DrawRun';
 import { OP09v2SeatReconciliation } from './screens/OP09v2SeatReconciliation';
 import { OP10v2AgentReports } from './screens/OP10v2AgentReports';
+import { SmsDemo } from './screens/SmsDemo';
+import { R3cV2CaseInApp } from './screens/R3cV2CaseInApp';
+import { CT05v2CounterReport } from './screens/CT05v2CounterReport';
 import { LangProvider, useT } from './i18n/lang';
 
 export const screens: { id: string; label: string; C: ComponentType }[] = [
@@ -64,6 +67,9 @@ export const screens: { id: string; label: string; C: ComponentType }[] = [
   { id: 'op08v2', label: 'OP08·v2 Draw run and replay (ops)', C: OP08v2DrawRun },
   { id: 'op09v2', label: 'OP09·v2 Every seat accounted for (ops)', C: OP09v2SeatReconciliation },
   { id: 'op10v2', label: 'OP10·v2 Agents and extra-charge reports (ops)', C: OP10v2AgentReports },
+  { id: 'sms', label: 'SM01–SM13 SMS help and reports (simulation)', C: SmsDemo },
+  { id: 'r3cv2', label: 'R3c·v2 Report OC-2207 in the app', C: R3cV2CaseInApp },
+  { id: 'ct05v2', label: 'CT05·v2 Counter-assisted report (staff)', C: CT05v2CounterReport },
 ];
 
 const fromHash = () => {

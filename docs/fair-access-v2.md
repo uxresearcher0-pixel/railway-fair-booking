@@ -97,8 +97,15 @@ Done on 15 Oct (second pass):
 - **Desktop passenger journey:** page **02e • UI — Desktop passenger journey (1440, website)** has 8 screens (DW01–DW08): search, results, apply, picked and seats, pay, tickets, manage booking and report an extra charge. It is a prototype flow, "Desktop · book a busy train".
 - **Start here:** page **00 • Start here** lists every page and has 12 role cards with links to the first screen of each flow (English, Bangla, v2, desktop).
 
+Done on 15 Oct (third pass):
+
+- **Coded prototype:** all 21 v2 screens are now coded. The 12 added in this pass are G2, F05, H1, P24, P14, P25, CT04, PA1, DK03, OP08, OP09 and OP10.
+- **Desktop group and counter:** page 02e also has the group of 7 on the website (DW09–DW12) and the station counter terminal (CTD01–CTD04). Guard, TT and exit staff stay mobile because they use handheld devices.
+- **Two-way SMS (HELP / EXTRA / STATUS):** page 02c section v2-5 (SMS01–SMS13, R3c·v2, CT05·v2), with Bangla on 02d. There is an optional branch on page 03 and SMS objects on page 04. It is coded at `#/sms`, `#/r3cv2` and `#/ct05v2`. See [sms-help-extra.md](sms-help-extra.md).
+
 Still not done:
 
-- The other v2 screens (G2·v2, F05·v2, H1·v2, P24·v2, P14·v2, P25·v2, CT04·v2, PA1·v2, DK03·v2, OP08–OP10·v2) are in Figma only, not in the coded prototype.
-- Desktop versions of the staff, counter and group journeys. Staff back-office screens are already desktop.
-- Native-speaker review of all Bangla, v1 and v2.
+- Native-speaker review of all Bangla, v1, v2 and SMS.
+- The railway's official station abbreviations (#32).
+- SMS dependencies: a two-way number, telecom support, Unicode segmentation and reply charges.
+- A measured pilot. No reduction in black marketing is claimed.

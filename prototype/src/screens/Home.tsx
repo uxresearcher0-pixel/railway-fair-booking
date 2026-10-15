@@ -32,6 +32,8 @@ export const journeyGroups: JourneyGroup[] = [
       { id: 'h1v2', icon: 'clock', v2: true, title: ['Hold paused', 'হোল্ড সাময়িক বন্ধ'], description: ['After repeated unpaid holds, new holds pause for a while (rule to confirm).', 'বারবার পরিশোধ ছাড়া হোল্ডের পর নতুন হোল্ড কিছুক্ষণ বন্ধ থাকে (নিয়ম নিশ্চিত হবে)।'] },
       { id: 'p24v2', icon: 'clock', v2: true, title: ['Waiting list', 'অপেক্ষমাণ তালিকা'], description: ['Your place is kept when a release is too small for your group.', 'ছাড়া আসন আপনার দলের জন্য কম হলে আপনার স্থান বজায় থাকে।'] },
       { id: 'p14v2', icon: 'ticket', v2: true, title: ['Your receipt', 'আপনার রসিদ'], description: ['Itemised official total and the SMS each adult traveller gets.', 'বিস্তারিত অফিসিয়াল মোট ও প্রত্যেক প্রাপ্তবয়স্ক যাত্রীর SMS।'] },
+      { id: 'sms', icon: 'send', v2: true, title: ['SMS help and reports (demo)', 'SMS-এ সাহায্য ও অভিযোগ (ডেমো)'], description: ['Simulated two-way SMS: receipt, HELP, EXTRA and STATUS. No real SMS.', 'টু-ওয়ে SMS-এর সিমুলেশন: রসিদ, সাহায্য, বাড়তি টাকার অভিযোগ ও অবস্থা। আসল SMS নয়।'] },
+      { id: 'r3cv2', icon: 'shield', v2: true, title: ['Your report in the app', 'অ্যাপে আপনার অভিযোগ'], description: ['Case OC-2207 from SMS: status, optional evidence. Your ticket stays valid.', 'SMS থেকে কেস OC-2207: অবস্থা, ঐচ্ছিক প্রমাণ। আপনার টিকিট বৈধ থাকে।'] },
       { id: 'p25v2', icon: 'ticket', v2: true, title: ['Recover a ticket', 'টিকিট পুনরুদ্ধার'], description: ['At any counter with your own ID. The helper’s phone is not needed.', 'নিজের পরিচয়পত্র নিয়ে যেকোনো কাউন্টারে। সাহায্যকারীর ফোন লাগবে না।'] },
       { id: 'a1v2', icon: 'lock', v2: true, title: ['Manage who can act on my booking', 'আমার বুকিংয়ে কে কী করতে পারেন'], description: ['See helpers and their rights, and remove a helper.', 'সাহায্যকারী ও তাঁদের অধিকার দেখুন, সাহায্যকারীকে সরান।'] },
       { id: 'f03', icon: 'seat', title: ['Travellers & class', 'যাত্রী ও শ্রেণি'], description: ['Choose adults, children and class within the booking limits.', 'বুকিংয়ের সীমার মধ্যে প্রাপ্তবয়স্ক, শিশু ও শ্রেণি বেছে নিন।'] },
@@ -46,6 +48,7 @@ export const journeyGroups: JourneyGroup[] = [
     journeys: [
       { id: 's02', icon: 'ticket', title: ['Check a ticket', 'টিকিট যাচাই'], description: ['Ticket status from the system and a separate person check by staff.', 'সিস্টেম থেকে টিকিটের অবস্থা আর কর্মীর আলাদা ব্যক্তি-যাচাই।'] },
       { id: 'ct04v2', icon: 'ticket', v2: true, title: ['Agent receipt', 'এজেন্টের রসিদ'], description: ['Registered agent: free application, itemised fee, same draw as the app.', 'নিবন্ধিত এজেন্ট: বিনামূল্যে আবেদন, আলাদা করে দেখানো ফি, অ্যাপের মতো একই ড্র।'] },
+      { id: 'ct05v2', icon: 'ticket', v2: true, title: ['Counter-assisted report', 'কাউন্টারে সহায়তায় অভিযোগ'], description: ['No phone? Staff file the report and print an itemised receipt.', 'ফোন নেই? কর্মী অভিযোগ জমা দেন ও বিস্তারিত রসিদ প্রিন্ট করেন।'] },
       { id: 'dk03v2', icon: 'shield', v2: true, title: ['Desk correction', 'ডেস্কে সংশোধন'], description: ['Same person only, with a second approver. Self-approval is blocked.', 'শুধু একই ব্যক্তি, দ্বিতীয় অনুমোদনকারীসহ। নিজে অনুমোদন বন্ধ।'] },
     ],
   },
