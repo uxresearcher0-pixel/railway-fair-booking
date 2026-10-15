@@ -2,12 +2,20 @@
 
 A design-first proposal for simpler railway booking, passenger-bound tickets and accountable verification.
 
-**Stage:** planning and initial UI design. This repository does not yet contain a working application. This is an independent concept, not an official Bangladesh Railway service.
+**Stage:** UI design and a clickable coded prototype with fictional data. This repository does not yet contain a working booking application. This is an independent concept, not an official Bangladesh Railway service.
 
 ## Project links
 
-- [Figma UI v0.1](https://www.figma.com/design/3Jb4jMo27Pi6N4gncIPPJK)
+- [Figma design file](https://www.figma.com/design/3Jb4jMo27Pi6N4gncIPPJK): screens by journey, master user flow, information architecture
 - [Development roadmap](docs/development-plan.md)
+- [Current system audit](docs/current-system-audit.md)
+- [UI v0.2 screen and state map](docs/ui-screen-map.md)
+- [Concept e-ticket, A4](design/eticket/README.md) and its [print and scan test](design/eticket/print-scan-test.md)
+- [Coded prototype: React + Storybook, axe-tested](prototype/README.md)
+- [Railway decisions brief](docs/railway-decisions.md)
+- [Bangla copy review](docs/bangla-copy-review.md)
+- [Usability test plan](docs/research/usability-test-plan.md)
+- [UI review status (13 Oct)](docs/ui-gaps.md) and [pilot validation plan](docs/research/pilot-validation-plan.md)
 - [Gap response and revised requirements — 11 October](docs/gap-response-plan.md)
 - Project activity, detailed documentation and task tracking are maintained in the private Slack channel `railway-fair-booking`.
 
