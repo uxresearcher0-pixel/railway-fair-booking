@@ -67,6 +67,23 @@ All examples use fictional data. This is an independent concept, not a Banglades
 | 33 | Cash wording in Bangla | Cash is written **নগদ টাকা**, so it is never confused with the payment brand নগদ | CT01–CT03, P19 | None |
 | 34 | Language of planning pages | The master journey (page 03) and information architecture (page 04) stay **English only** | Pages 03, 04 | None |
 
+## Fair access v2 (proposed 15 Oct, needs railway approval)
+
+From [fair-access-v2.md](fair-access-v2.md). Screens are on Figma page 02c.
+
+| # | Decision | Proposal | Screens | If the answer differs |
+|---|---|---|---|---|
+| 35 | Which trains use an application window and draw | Only oversubscribed trains, announced before sale; others keep direct booking | P21·v2, P22·v2 | Without a window, speed (and bots) decide who gets seats |
+| 36 | Window and deadlines | Example for testing: apply 08:00–10:00, result 10:30, pay by 11:00; deadlines never restart | P21·v2, P22·v2, P22c·v2 | Restarting deadlines let seats be parked |
+| 37 | One application per traveller | Across app, website, counter and agents; a group gets one place; party locked before the draw | P21·v2, G2·v2 | Duplicate entries give brokers ~111 of 200 seats in the simulation instead of ~40 |
+| 38 | Hold pause | After 3 unpaid holds on one train, a 30-minute pause (values to confirm) | H1·v2 | Repeated holds can keep seats from the public |
+| 39 | Registered agents and assistance fee | Agents registered, same draw, free application, published fee on an itemised receipt; no paid priority | CT04·v2, P10·v2, P14·v2 | Hidden fees stay invisible; unregistered brokers keep the advantage |
+| 40 | Extra-charge reports | Private report from receipt/SMS/counter; seen only by an independent review team; never cancels the ticket | R3·v2, R3b·v2, OP10·v2 | Passengers won't report if it risks their ticket |
+| 41 | Helper rights | Helper can book, pay and view; only the traveller (or accompanying adult) can cancel or change; traveller can remove the helper | F05·v2, A1·v2 | Helpers can hold tickets over passengers |
+| 42 | Recovery without the helper | Any counter with the traveller's own ID; codes to the traveller's own phone | P25·v2 | Losing the helper means losing the ticket |
+| 43 | Corrections vs changing the person | Corrections only for the same person, with a second approver; a different person must cancel and apply | DK03·v2 | Corrections become a way to resell seats |
+| 44 | Draw audit and seat reconciliation | Inputs frozen and committed before the random number; public audit page; independent replay; every seat reconciled | PA1·v2, OP08·v2, OP09·v2 | Insiders could alter quotas or rerun draws unseen |
+
 ## How to use this brief
 
 1. Walk through the table with the railway in the T08 review and record each answer here, with the date and who confirmed it.
