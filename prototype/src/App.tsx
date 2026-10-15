@@ -10,6 +10,7 @@ import { AppFlow } from './screens/AppFlow';
 import { F01bStationTo } from './screens/F01bStationTo';
 import { G3aChooseCoach } from './screens/G3aChooseCoach';
 import { G3bWhereInCoach } from './screens/G3bWhereInCoach';
+import { G3CustomiseSeats } from './screens/G3CustomiseSeats';
 import { LangProvider } from './i18n/lang';
 
 const screens: { id: string; label: string; C: ComponentType }[] = [
@@ -21,6 +22,7 @@ const screens: { id: string; label: string; C: ComponentType }[] = [
   { id: 'g2b', label: 'G2b Join Package B', C: G2bJoin },
   { id: 'g3a', label: 'G3a Choose a coach · 7 together', C: G3aChooseCoach },
   { id: 'g3b', label: 'G3b Where in the coach · 7 together', C: G3bWhereInCoach },
+  { id: 'g3', label: 'G3 Customise seats · 7 together', C: G3CustomiseSeats },
   { id: 'g5', label: 'G5 Pay for Package B', C: G5PayPackageB },
   { id: 'l1', label: 'L1 Daily limit reached', C: L1DailyLimit },
   { id: 's02', label: 'S02 Staff check a ticket', C: S02StaffCheck },

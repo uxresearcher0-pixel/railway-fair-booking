@@ -55,7 +55,8 @@ This file tracks the 24 review issues raised on 13 October and how each was reso
 
 ## Still open
 
-- Accessibility check of the Figma screens (14 Oct): contrast and tap-target failures fixed on both pages, Bangla labels raised to 12px; open items in [accessibility-check-figma.md](accessibility-check-figma.md).
+- Accessibility check of the Figma screens (14 Oct): contrast and tap-target failures fixed on both pages, Bangla labels raised to 12px; open items in [accessibility-check-figma.md](accessibility-check-figma.md). 15 Oct: English labels raised to 12px, A4 ticket text to at least 8pt, coded seat map G3 added.
+- Needs people: screen reader test, official station abbreviations, native Bangla review — ready-to-send requests in [handoff-requests.md](handoff-requests.md).
 
 - Native review of all Bangla copy.
 - Screens that are static by design: library, Bangla drafts.

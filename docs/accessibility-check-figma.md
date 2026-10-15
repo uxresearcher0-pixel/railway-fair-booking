@@ -23,9 +23,16 @@ Automated check of every screen on page 02 (English, 104 screens, 3,885 text lay
 
 After the fixes: **0 contrast failures and 0 tap targets under 24px on either page.**
 
+## Done on 15 Oct
+
+| Item | Change | Result |
+|---|---|---|
+| English labels at 11px | 247 labels raised to 12px on page 02 (all screens except the A4 ticket) | No truncated text; OP01 and G3b checked by screenshot |
+| A4 paper ticket (P15) text at 6.8–7.8pt | 72 text layers per language raised to 8pt (both pages, all three P15 pages) | Everything still inside the A4 page |
+| Bangla gloss on the English ticket | "আবদুল" corrected to "আব্দুল" | Matches the Bangla page |
+
 ## Still open
 
-- **English labels at 11px (about 300).** The uppercase section labels on the English page are 11px. They pass WCAG (no minimum size), but they're below the project's 12px rule. Raising them is a visual design change, so it's left for the next design pass.
 - **Demo chips at 28–40px.** The prototype-state chips on P10 and some filter chips (RV02, RV03, EX01) are under 44px but over 24px, so they pass WCAG 2.2.
-- **A4 paper ticket (P15) text at 7–11px.** It's a printed page at A4 scale, so the type is 7–11pt on paper. Printed tickets should use at least 8pt; small legal lines (about 7pt) need a check at print-test time.
-- **Screen reader testing.** Needs a person with NVDA and TalkBack on the coded prototype; the script is in `prototype/README.md`.
+- **Print test.** Print P15 on a real A4 printer and check the 8pt text, the QR code scan and the fold line.
+- **Screen reader testing.** Needs a person with NVDA and TalkBack on the coded prototype; see [handoff-requests.md](handoff-requests.md).

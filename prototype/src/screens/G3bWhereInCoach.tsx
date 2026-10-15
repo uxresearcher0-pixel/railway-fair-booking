@@ -32,13 +32,15 @@ export interface G3bProps {
   focusHeading?: boolean;
   onBack?: () => void;
   onNext?: (seats: number[]) => void;
+  /** "Customise seats" → the seat map (G3). */
+  onCustomise?: () => void;
 }
 
 /**
  * G3b · Where in the coach. With seats 1–9, 15–19, 48–54 and 92–100 free in coach GHA,
  * the front block is 1–7, the middle 48–54 and the back 94–100. "Customise" opens the seat map.
  */
-export function G3bWhereInCoach({ coachCode = 'GHA', initialPlace = 'front', holdSeconds = 8 * 60 + 40, timerPaused = false, focusHeading, onBack, onNext }: G3bProps) {
+export function G3bWhereInCoach({ coachCode = 'GHA', initialPlace = 'front', holdSeconds = 8 * 60 + 40, timerPaused = false, focusHeading, onBack, onNext, onCustomise }: G3bProps) {
   const { bn, t, num } = useT();
   const tr = useTrip();
   const coach = coaches.find((c) => c.code === coachCode) ?? coaches[0];
@@ -67,7 +69,7 @@ export function G3bWhereInCoach({ coachCode = 'GHA', initialPlace = 'front', hol
       onBack={onBack}
       focusHeading={focusHeading}
       footer={
-        <Button block iconAfter="arrow-right" onClick={() => onNext?.(seats)}>
+        <Button block iconAfter="arrow-right" onClick={() => (start !== undefined ? onNext?.(seats) : onCustomise?.())}>
           {start !== undefined
             ? t(`Hold seats ${coach.code} ${start}–${start + 6}`, `আসন ${coachName} ${range(start, start + 6)} হোল্ড করুন`)
             : t('Open the seat map', 'আসন ম্যাপ খুলুন')}
@@ -110,7 +112,7 @@ export function G3bWhereInCoach({ coachCode = 'GHA', initialPlace = 'front', hol
         </section>
       ) : (
         <Notice tone="info" live="off" title={t('Customise on the seat map', 'আসন ম্যাপে নিজে সাজান')}>
-          {t('The seat map (G3) shows only free seats in this coach. In this prototype it is in the Figma file.', 'আসন ম্যাপে (G3) এই বগির শুধু খালি আসন দেখায়। এই প্রোটোটাইপে এটি Figma ফাইলে আছে।')}
+          {t('The seat map shows only free seats in this class. You choose each of the 7 seats; the hold keeps running.', 'আসন ম্যাপে এই শ্রেণির শুধু খালি আসন দেখায়। ৭টি আসনের প্রতিটি আপনি বেছে নেবেন; হোল্ড চলতে থাকবে।')}
         </Notice>
       )}
     </ScreenShell>

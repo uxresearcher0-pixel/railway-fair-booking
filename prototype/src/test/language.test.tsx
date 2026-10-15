@@ -155,3 +155,34 @@ describe('Bangla digit check (sanity)', () => {
     expect(text).toMatch(/[০-৯]/);
   });
 });
+
+describe('G3 · customise seats (numbered 1–100)', () => {
+  it('shows only free seats as choosable and builds the hold label from runs', async () => {
+    const { G3CustomiseSeats, runs } = await import('../screens/G3CustomiseSeats');
+    expect(runs([17, 15, 16, 8, 9])).toEqual([[8, 9], [15, 17]]);
+    const user = userEvent.setup();
+    render(<G3CustomiseSeats timerPaused initialSeats={[15, 16, 17, 18, 19, 8]} />);
+    expect(screen.getByRole('button', { name: 'Choose 1 more' })).toBeDisabled();
+    const taken = screen.getByRole('button', { name: 'Seat 10, window, taken' });
+    expect(taken).toHaveAttribute('aria-disabled', 'true');
+    await user.click(screen.getByRole('button', { name: 'Seat 9, middle, available' }));
+    expect(screen.getByTestId('seat-live')).toHaveTextContent('Seat 9 chosen. 7 of 7 chosen.');
+    expect(screen.getByRole('button', { name: 'Hold seats GHA 8–9, 15–19' })).toBeEnabled();
+    expect(screen.getByText('The group sits in 2 places')).toBeInTheDocument();
+  });
+
+  it('reads seats in Bangla', async () => {
+    const { G3CustomiseSeats } = await import('../screens/G3CustomiseSeats');
+    inBangla(<G3CustomiseSeats timerPaused initialSeats={[48, 49, 50, 51, 52, 53, 54]} />);
+    expect(screen.getByRole('button', { name: 'আসন ঘ ৪৮–৫৪ হোল্ড করুন' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'আসন ৪৮, আইলের পাশে, বেছে নেওয়া' })).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  it('G3b "Customise seats" opens the seat map in the flow', async () => {
+    const user = userEvent.setup();
+    render(<AppFlow start="g3b" />);
+    await user.click(screen.getByRole('radio', { name: /Customise seats/ }));
+    await user.click(screen.getByRole('button', { name: 'Open the seat map' }));
+    expect(screen.getByRole('heading', { level: 1, name: 'Customise seats' })).toHaveFocus();
+  });
+});

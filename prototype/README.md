@@ -85,7 +85,8 @@ Every screen state has an English story and a Bangla ("বাংলা · …") 
 8. **F01b Station picker · to**: search in English or Bangla, results as a radio group, the number of matches announced politely ("3 stations match" / "৩টি স্টেশন মিলেছে"), and a "no match" state.
 9. **G3a Choose a coach · 7 together**: coaches (bogi) in the group's one class (decision 7c), coaches with 7 seats side by side first, "7 together" or "Split needed" shown with icon and text, full coaches disabled with the reason, "Show all 6 coaches" toggle (`aria-expanded`). Runs inside the same seat hold, so the timer keeps going (decision 7d).
 10. **G3b Where in the coach · 7 together**: with seats 1–9, 15–19, 48–54 and 92–100 free in coach GHA, it offers the front (1–7), middle (48–54) and back (94–100) blocks, or "Customise seats". It shows which seats Package A (4) and Package B (3) get and announces the change politely. A coach with no block of 7 offers only "Customise".
-11. **Flows / App flow**: G2a → G2b → G3a → G3b → G5 with buttons and a step nav (`aria-current="step"`). Focus moves to each new screen's `h1`.
+11. **G3 Customise seats · 7 together**: the coach GHA seat map with seats numbered 1–100 (SeatMap with `seatNumber`), only free seats choosable, "Choose N more" until 7 are chosen, Package A/B split and a warning when the group sits in more than one place. Reached from G3b "Customise seats".
+12. **Flows / App flow**: G2a → G2b → G3a → G3b (→ G3) → G5 with buttons and a step nav (`aria-current="step"`). Focus moves to each new screen's `h1`.
 
 ### Content rules (enforced by `src/test/content.test.ts`)
 
@@ -104,13 +105,13 @@ These are the results from the last run on this machine:
 
 | Check | Result |
 |---|---|
-| `npm test` (Vitest) | **4 files, 162 tests passed** |
-| ↳ axe-core on every story (130 stories: 42 component and 88 screen/flow states, English and Bangla) | **0 violations**. Rules: WCAG 2.0/2.1/2.2 A + AA + best practice, run on the whole document. Also asserts exactly one `h1` and one `main` per story, that all Bangla text is inside `lang="bn"`, and that Bangla stories use Bangla digits. |
-| ↳ language (`language.test.tsx`, 13 tests) | Language switch (aria-pressed, `lang` on the screen, back to English). Staff check keeps the English name. G3a ordering, show-all and the disabled full coach. G3b front/middle/back blocks for the 1–9, 15–19, 48–54, 92–100 example, button and split update, Bangla coach letter and digits, no-block coach. F01b search in English and Bangla with the announced count. Flow G2b → G3a → G3b → G5 with focus on each h1. |
+| `npm test` (Vitest) | **4 files, 170 tests passed** |
+| ↳ axe-core on every story (135 stories: 42 component and 93 screen/flow states, English and Bangla) | **0 violations**. Rules: WCAG 2.0/2.1/2.2 A + AA + best practice, run on the whole document. Also asserts exactly one `h1` and one `main` per story, that all Bangla text is inside `lang="bn"`, and that Bangla stories use Bangla digits. |
+| ↳ language (`language.test.tsx`, 16 tests) | Language switch (aria-pressed, `lang` on the screen, back to English). Staff check keeps the English name. G3a ordering, show-all and the disabled full coach. G3b front/middle/back blocks for the 1–9, 15–19, 48–54, 92–100 example, button and split update, Bangla coach letter and digits, no-block coach. F01b search in English and Bangla with the announced count. Flow G2b → G3a → G3b → G5 with focus on each h1. G3 numbered seats, taken seats, announcements in English and Bangla, run-based hold label, G3b → G3 link. |
 | ↳ axe harness sanity check | A deliberately broken fragment does produce `image-alt`, `label` and `button-name` violations |
 | ↳ keyboard and behaviour | SeatMap: single Tab stop, arrows, Home/End, Ctrl+End, edge clamping, Space/Enter, taken seats. Stepper: labels, bounds keep focus, live value, blocked increment. HoldTimer announces only at minute marks (fake timers). F03 limit guidance and allowance wording. G2a lede (4 + 3, counter option). L1 lede. G5 unpaid-hold note. G2a buyer list (only B travellers; child disabled with reason). F04a errors, masking and "NID record matched". |
 | ↳ content rules | 6 tests passed |
-| `npm run test:a11y-storybook` (Chromium 390×844, reduced motion) | **130 stories, 0 axe violations**, including `color-contrast` and `target-size`. Two Bangla items need review: on F03 · Over limit guidance and G5 · Low time, the longer Bangla text puts an element under the sticky footer in the full-page capture, so axe can't compute its background. Both are ink on solid fills. `scroll-padding` on `<html>` keeps focused items clear of the sticky bars (WCAG 2.2 · 2.4.11). |
+| `npm run test:a11y-storybook` (Chromium 390×844, reduced motion) | **135 stories, 0 axe violations**, including `color-contrast` and `target-size`. Two Bangla items need review: on F03 · Over limit guidance and G5 · Low time, the longer Bangla text puts an element under the sticky footer in the full-page capture, so axe can't compute its background. Both are ink on solid fills. `scroll-padding` on `<html>` keeps focused items clear of the sticky bars (WCAG 2.2 · 2.4.11). On the Bangla G3 seat map axe marks `label-content-name-mismatch` as needs review: each seat's name ("আসন ১৭, …") does contain the visible number, but check it with a screen reader. |
 | `npm run build` | passes (tsc + Vite) |
 | `npm run build-storybook` | passes (warns about large chunks from Storybook's own docs and axe bundles, which is expected) |
 
@@ -198,6 +199,7 @@ Setup:
 - [ ] G2b: enter 6 digits → Join → "Continue to choose seats". Focus lands on the h1 "Choose a coach".
 - [ ] G3a: the coach radios read e.g. "Coach GHA · 30 free, Up to 9 seats side by side, Seating: 7 together". "Show all 6 coaches" is announced as collapsed/expanded. Continue → focus on "Where in the coach?".
 - [ ] G3b: changing the block announces "Seats 48 to 54 selected." Hold → focus on "Pay for Package B".
+- [ ] G3b → Customise seats → "Open the seat map". In the grid, a seat reads e.g. "Seat 9, middle, available, toggle button"; taken seats read "taken" and can't be chosen. In Bangla: "আসন ৯, মাঝখানে, খালি".
 
 ### Language switch (repeat the App flow in Bangla)
 
@@ -221,7 +223,7 @@ prototype/
   src/
     components/      Button, Field, Stepper, StatusPill (Badge), Notice, SeatMap, HoldTimer, AllowancePill, ScreenShell (+ LangSwitch), Route, Icon (+ *.stories.tsx)
     i18n/lang.tsx    LangProvider, useT(): t(), num(), taka(), masked(), name()
-    screens/         F01b, F03, F04a, G2a, G2b, G3a, G3b, G5, L1, S02, AppFlow (+ *.stories.tsx)
+    screens/         F01b, F03, F04a, G2a, G2b, G3a, G3b, G3, G5, L1, S02, AppFlow (+ *.stories.tsx)
     data/demo.ts     fictional data only
     styles/          tokens.css, base.css, components.css, screens.css, fonts.ts
     test/            setup.ts, axe.ts, stories.a11y.test.tsx, keyboard.test.tsx, language.test.tsx, content.test.ts
@@ -232,5 +234,5 @@ prototype/
 
 - There is no routing, backend or persistence. State is per screen, and the flow passes no data between screens except through fixed demo data.
 - All Bangla copy is a draft and needs review by a native writer (T11).
-- The seat map for "Customise seats" (G3) and the back-office screens (OP01–OP07, CT03, RV05) are in the Figma prototype only.
+- The back-office screens (OP01–OP07, CT03, RV05) are in the Figma prototype only.
 - Automated axe checks and jsdom keyboard tests don't replace manual testing with NVDA, TalkBack and VoiceOver.

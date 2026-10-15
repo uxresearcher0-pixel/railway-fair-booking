@@ -1,5 +1,6 @@
 import { useId, useMemo, useRef, useState, type KeyboardEvent } from 'react';
 import { Icon } from './Icon';
+import { useT } from '../i18n/lang';
 
 export type SeatState = 'available' | 'taken' | 'held';
 
@@ -33,6 +34,8 @@ export interface SeatMapProps {
   maxSelectable: number;
   /** Optional label for "held" seats, e.g. "Held for Package A". */
   heldLabel?: string;
+  /** Optional seat number shown instead of the row+column ID (e.g. coach seats numbered 1–100). */
+  seatNumber?: (row: number, col: string) => number;
 }
 
 /**
@@ -41,9 +44,18 @@ export interface SeatMapProps {
  * the first/last seat, Space/Enter toggles. Taken seats stay focusable with
  * aria-disabled so their state can be discovered.
  */
-export function SeatMap({ coach, seats, selected, onChange, maxSelectable, heldLabel = 'Held for your group' }: SeatMapProps) {
+export function SeatMap({ coach, seats, selected, onChange, maxSelectable, heldLabel: heldProp, seatNumber }: SeatMapProps) {
+  const { bn, t, num } = useT();
+  const heldLabel = heldProp ?? t('Held for your group', 'আপনার দলের জন্য হোল্ড');
+  /** What a seat is called: "4C", or its number ("17" / "১৭"). */
+  const label = (id: string) => {
+    const s = byIdRef.current.get(id);
+    return seatNumber && s ? num(seatNumber(s.row, s.col)) : id;
+  };
+  const byIdRef = useRef(new Map<string, Seat>());
   const rows = useMemo(() => Array.from(new Set(seats.map((s) => s.row))).sort((a, b) => a - b), [seats]);
   const byId = useMemo(() => new Map(seats.map((s) => [`${s.row}${s.col}`, s])), [seats]);
+  byIdRef.current = byId;
   const firstAvail = seats.find((s) => s.state === 'available') ?? seats[0];
   const [active, setActive] = useState<string>(selected[0] ?? `${firstAvail.row}${firstAvail.col}`);
   const summaryId = `${useId()}-summary`;
@@ -61,17 +73,17 @@ export function SeatMap({ coach, seats, selected, onChange, maxSelectable, heldL
   const toggle = (id: string) => {
     const seat = byId.get(id);
     if (!seat || seat.state !== 'available') {
-      setMessage(`Seat ${id} is not available.`);
+      setMessage(bn ? `আসন ${label(id)} খালি নেই।` : `Seat ${label(id)} is not available.`);
       return;
     }
     if (selected.includes(id)) {
       onChange(selected.filter((s) => s !== id));
-      setMessage(`Seat ${id} removed. ${selected.length - 1} of ${maxSelectable} chosen.`);
+      setMessage(bn ? `আসন ${label(id)} বাদ দেওয়া হয়েছে। ${num(maxSelectable)}টির মধ্যে ${num(selected.length - 1)}টি বেছে নেওয়া হয়েছে।` : `Seat ${label(id)} removed. ${selected.length - 1} of ${maxSelectable} chosen.`);
     } else if (selected.length >= maxSelectable) {
-      setMessage(`You have already chosen ${maxSelectable} seats. Remove one first.`);
+      setMessage(bn ? `আপনি ইতিমধ্যে ${num(maxSelectable)}টি আসন বেছে নিয়েছেন। আগে একটি বাদ দিন।` : `You have already chosen ${maxSelectable} seats. Remove one first.`);
     } else {
       onChange([...selected, id]);
-      setMessage(`Seat ${id} chosen. ${selected.length + 1} of ${maxSelectable} chosen.`);
+      setMessage(bn ? `আসন ${label(id)} বেছে নেওয়া হয়েছে। ${num(maxSelectable)}টির মধ্যে ${num(selected.length + 1)}টি বেছে নেওয়া হয়েছে।` : `Seat ${label(id)} chosen. ${selected.length + 1} of ${maxSelectable} chosen.`);
     }
   };
 
@@ -94,25 +106,38 @@ export function SeatMap({ coach, seats, selected, onChange, maxSelectable, heldL
   };
 
   const describe = (s: Seat, isSel: boolean) => {
+    const id = `${s.row}${s.col}`;
+    if (bn) {
+      const pos = { window: 'জানালার পাশে', aisle: 'আইলের পাশে', middle: 'মাঝখানে' }[position(s.col)];
+      const st = s.state === 'taken' ? 'বুক করা' : s.state === 'held' ? heldLabel : isSel ? 'বেছে নেওয়া' : 'খালি';
+      return `আসন ${label(id)}, ${pos}, ${st}`;
+    }
     const state = s.state === 'taken' ? 'taken' : s.state === 'held' ? heldLabel.toLowerCase() : isSel ? 'chosen' : 'available';
-    return `Seat ${s.row}${s.col}, ${position(s.col)}, ${state}`;
+    return `Seat ${label(id)}, ${position(s.col)}, ${state}`;
   };
 
   return (
     <div className="seatmap">
       <p className="seatmap__summary" id={summaryId}>
-        Coach <strong>{coach}</strong> · <span className="mono">{selected.length}</span> of{' '}
-        <span className="mono">{maxSelectable}</span> seats chosen
+        {bn ? (
+          <>
+            বগি <strong>{coach}</strong> · <span className="mono">{num(maxSelectable)}</span>টির মধ্যে <span className="mono">{num(selected.length)}</span>টি আসন বেছে নেওয়া হয়েছে
+          </>
+        ) : (
+          <>
+            Coach <strong>{coach}</strong> · <span className="mono">{selected.length}</span> of <span className="mono">{maxSelectable}</span> seats chosen
+          </>
+        )}
       </p>
       <div
         role="grid"
-        aria-label={`Coach ${coach} seats, 2 plus 3 layout. Use arrow keys to move, Space to choose.`}
+        aria-label={t(`Coach ${coach} seats, 2 plus 3 layout. Use arrow keys to move, Space to choose.`, `বগি ${coach}-এর আসন, ২ + ৩ বিন্যাস। সরাতে তীর চিহ্নের কী, বেছে নিতে স্পেস চাপুন।`)}
         aria-describedby={summaryId}
         className="seatmap__grid"
       >
         <div role="row" className="seatmap__row seatmap__row--head">
           <span role="columnheader" className="seatmap__rowhead">
-            <span className="visually-hidden">Row</span>
+            <span className="visually-hidden">{t('Row', 'সারি')}</span>
           </span>
           {SEAT_COLS.map((c) => (
             <span role="columnheader" key={c} className={`seatmap__colhead ${c === 'B' ? 'aisle-after' : ''}`}>
@@ -123,8 +148,8 @@ export function SeatMap({ coach, seats, selected, onChange, maxSelectable, heldL
         {rows.map((r) => (
           <div role="row" key={r} className="seatmap__row">
             <span role="rowheader" className="seatmap__rowhead mono">
-              <span className="visually-hidden">Row </span>
-              {r}
+              <span className="visually-hidden">{t('Row ', 'সারি ')}</span>
+              {num(r)}
             </span>
             {SEAT_COLS.map((c) => {
               const id = `${r}${c}`;
@@ -152,7 +177,7 @@ export function SeatMap({ coach, seats, selected, onChange, maxSelectable, heldL
                     data-seat={id}
                   >
                     {isSel ? <Icon name="check" size={16} /> : s.state === 'taken' ? <Icon name="x" size={14} /> : s.state === 'held' ? <Icon name="lock" size={14} /> : null}
-                    <span aria-hidden="true" className="seat__id mono">{id}</span>
+                    <span aria-hidden="true" className="seat__id mono">{label(id)}</span>
                   </button>
                 </div>
               );
@@ -160,10 +185,10 @@ export function SeatMap({ coach, seats, selected, onChange, maxSelectable, heldL
           </div>
         ))}
       </div>
-      <ul className="legend" aria-label="Seat legend">
-        <li><span className="seat seat--available seat--swatch" aria-hidden="true" /> Available</li>
-        <li><span className="seat seat--selected seat--swatch" aria-hidden="true"><Icon name="check" size={14} /></span> Chosen</li>
-        <li><span className="seat seat--taken seat--swatch" aria-hidden="true"><Icon name="x" size={12} /></span> Taken</li>
+      <ul className="legend" aria-label={t('Seat legend', 'আসনের চিহ্ন')}>
+        <li><span className="seat seat--available seat--swatch" aria-hidden="true" /> {t('Available', 'খালি')}</li>
+        <li><span className="seat seat--selected seat--swatch" aria-hidden="true"><Icon name="check" size={14} /></span> {t('Chosen', 'বেছে নেওয়া')}</li>
+        <li><span className="seat seat--taken seat--swatch" aria-hidden="true"><Icon name="x" size={12} /></span> {t('Taken', 'বুক করা')}</li>
         <li><span className="seat seat--held seat--swatch" aria-hidden="true"><Icon name="lock" size={12} /></span> {heldLabel}</li>
       </ul>
       <p className="visually-hidden" aria-live="polite" aria-atomic="true" data-testid="seat-live">
