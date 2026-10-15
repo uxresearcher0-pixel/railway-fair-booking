@@ -47,6 +47,12 @@ const preview: Preview = {
           styles: { width: '390px', height: '844px' },
           type: 'mobile',
         },
+        // Desktop layout (≥ 1024px): wider centred screen, two-column cards, footer actions on the right.
+        desktop1440: {
+          name: 'Desktop 1440 × 900',
+          styles: { width: '1440px', height: '900px' },
+          type: 'desktop',
+        },
       },
     },
     a11y: {

@@ -119,3 +119,78 @@ fieldset:disabled .radio-card { cursor: default; }
 /* Storybook component canvas */
 .story-pad { display: block; padding: var(--space-5) var(--space-4); max-width: var(--screen-max); }
 .radio-card__pill { margin-top: var(--space-1, 4px); }
+
+/* ---------- Fair access v2 ---------- */
+/* Wrapper that takes focus after an action (tabindex="-1"); it holds a notice. */
+.focus-target { display: grid; gap: var(--space-3); }
+.focus-target:empty { display: none; }
+.focus-target:focus { outline: none; }
+.focus-target:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); border-radius: var(--radius-md); }
+.steps { display: grid; gap: var(--space-2); }
+.deadline { border-top: 6px solid var(--ink); }
+.people li > span:has(> .pill), .people li > span:has(> .btn) { margin-top: var(--space-1); }
+.paid-report { display: flex; }
+
+/* Prototype home: journeys by role */
+.journeys { list-style: none; padding: 0; display: grid; gap: var(--space-2); }
+.journey {
+  display: flex; align-items: center; gap: var(--space-3);
+  min-height: 64px; padding: var(--space-3) var(--space-4);
+  border: 1.5px solid var(--border-strong); border-radius: var(--radius-md);
+  background: var(--surface); color: var(--ink); text-decoration: none;
+}
+.journey:hover { border-color: var(--ink); background: #fbfdf2; }
+.journey__text { display: grid; gap: 2px; flex: 1; min-width: 0; }
+.journey__title { font-weight: 600; }
+.journey__name { text-decoration: underline; text-underline-offset: 3px; }
+.journey__tag { font: 500 var(--text-xs)/1 var(--font-mono); color: var(--ink-2); text-decoration: none; display: inline-block; }
+.journey__desc { font-size: var(--text-sm); color: var(--ink-2); }
+.journey__arrow { flex: none; }
+
+/* App-level nav: Home link + screen picker */
+.proto-index__home {
+  display: inline-flex; align-items: center; min-height: var(--target-min); padding: 0 var(--space-3);
+  border: 1.5px solid var(--ink); border-radius: var(--radius-sm); background: var(--surface); color: var(--ink); font-weight: 600;
+}
+.proto-index__home:hover { background: var(--lime); }
+
+/* ---------- Desktop layout (≥ 1024px) ----------
+   Below 1024px nothing changes: the mobile layout (max 430px, sticky footer) stays exactly as it is.
+   At 1024px and wider the screen is a wider centred column, cards sit in two columns
+   in source order (no reordering, so reading and focus order match the visual order),
+   and the footer actions sit on the right instead of a full-width sticky bar. */
+@media (min-width: 1024px) {
+  :root { --screen-max-desktop: 960px; }
+  .screen, .proto-index, .flow__nav { max-width: var(--screen-max-desktop); }
+  .screen { min-height: 100vh; }
+  .topbar__row { padding: 0 var(--space-5); }
+  .screen__main {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-5);
+    padding: var(--space-6) var(--space-5) var(--space-5);
+    flex: none; /* footer actions follow the content instead of sitting at the bottom of the window */
+  }
+  /* Everything spans both columns by default (heading, notices, hold timer, forms) … */
+  .screen__main > * { grid-column: 1 / -1; }
+  /* … cards pair up in two columns, */
+  .screen__main > .card { grid-column: auto; align-content: start; }
+  /* except a screen with a single card, forms, and the seat map, which need the full width. */
+  .screen__main:not(:has(> .card ~ .card)) > .card,
+  .screen__main > form.card,
+  .screen__main > .card:has(.seatmap),
+  .screen__main > .home-group { grid-column: 1 / -1; }
+  .screen__head { max-width: 46rem; }
+
+  .screen__footer {
+    position: static;
+    display: flex; justify-content: flex-end;
+    padding: var(--space-4) var(--space-5) var(--space-6);
+    background: transparent;
+    border-top: 0;
+  }
+  .screen__footer .btn--block { width: auto; min-width: 16rem; }
+  .footer-stack { display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: var(--space-2) var(--space-3); }
+  .footer-actions { display: flex; justify-content: flex-end; gap: var(--space-3); }
+
+  .journeys { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

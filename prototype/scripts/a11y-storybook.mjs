@@ -5,6 +5,7 @@
 //
 //   npm run build-storybook && npm run test:a11y-storybook
 //   SCREENSHOTS=dir npm run test:a11y-storybook   # also save PNGs of screen stories
+// Stories tagged "desktop" run at 1440 × 900; all others at 390 × 844.
 import { createServer } from 'node:http';
 import { readFile, mkdir } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
@@ -54,7 +55,12 @@ if (shots) await mkdir(shots, { recursive: true });
 
 let total = 0;
 const failures = [];
+let desktopCount = 0;
 for (const s of stories) {
+  // Stories tagged "desktop" (viewport desktop1440) are checked at 1440 × 900, the rest at 390 × 844.
+  const isDesktop = (s.tags ?? []).includes('desktop');
+  if (isDesktop) desktopCount += 1;
+  await page.setViewportSize(isDesktop ? { width: 1440, height: 900 } : { width: 390, height: 844 });
   await page.goto(`${base}/iframe.html?id=${s.id}&viewMode=story`, { waitUntil: 'networkidle' });
   await page.waitForSelector('#storybook-root > *', { timeout: 15000 });
   await page.evaluate(() => document.fonts.ready);
@@ -73,7 +79,7 @@ for (const s of stories) {
   });
   total += result.violations.length;
   const tag = result.violations.length ? 'FAIL' : 'ok  ';
-  console.log(`${tag} ${s.title} › ${s.name}  (${result.passes} rules passed${result.incomplete.length ? `, needs review: ${result.incomplete.join(', ')}` : ''})`);
+  console.log(`${tag} ${s.title} › ${s.name}${isDesktop ? ' [1440]' : ''}  (${result.passes} rules passed${result.incomplete.length ? `, needs review: ${result.incomplete.join(', ')}` : ''})`);
   if (process.env.VERBOSE) for (const n of result.incompleteNodes) console.log(`     ? ${n}`);
   for (const v of result.violations) {
     console.log(`     - [${v.impact}] ${v.id}: ${v.help}\n       ${v.nodes.join('\n       ')}`);
@@ -86,5 +92,5 @@ for (const s of stories) {
 
 await browser.close();
 server.close();
-console.log(`\n${stories.length} stories checked in Chromium · ${total} axe violations`);
+console.log(`\n${stories.length} stories checked in Chromium (${desktopCount} at 1440 × 900) · ${total} axe violations`);
 process.exit(total ? 1 : 0);

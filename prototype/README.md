@@ -1,6 +1,6 @@
 # railfair prototype
 
-Accessible React + TypeScript + Storybook prototype of the railfair booking concept: linked group booking, the purchase limits (max 4 seats per booking, up to 2 bookings a day per NID), NID record checks and the staff ticket check.
+Accessible React + TypeScript + Storybook prototype of the railfair booking concept: linked group booking, the purchase limits (max 4 seats per booking, up to 2 bookings a day per NID), NID record checks and the staff ticket check, plus the proposed **fair access v2** screens (application window and random draw, fixed pay-by time, official total, extra-charge report, helper access). See `../docs/fair-access-v2.md`.
 
 > **Concept demo — not a real booking service.** Everything here is simulated. There is no backend. It is not affiliated with or branded as any railway operator. All people, ID numbers, phone numbers, codes and payments are fictional. Rules marked **(proposed)** or **(rule to confirm)** still need railway approval. See `../docs/ui-screen-map.md`.
 
@@ -11,7 +11,7 @@ Requires Node 20+ (tested with Node 22).
 ```bash
 cd prototype
 npm install
-npm run dev               # Vite app with a screen picker → http://localhost:5173
+npm run dev               # Vite app: Home (journeys by role) + screen picker → http://localhost:5173
 npm run storybook         # Storybook with the a11y panel → http://localhost:6006
 npm test                  # Vitest: axe on every story, keyboard and behaviour tests
 npm run typecheck         # tsc --noEmit
@@ -42,7 +42,7 @@ Vite 5, React 18, TypeScript 5, Storybook 8 (`@storybook/react-vite`, `addon-ess
 | `--focus` | `#1f5eff` | 3px outline, 2px offset: 5.1:1 on white, 4.6:1 on paper |
 | `--danger` / `--success` / `--warning` | `#b42318` / `#1a7f37` / `#9a6700` | 6.6 / 5.1 / 4.9:1 on white. Tinted fills carry `--ink` text. |
 
-Radii are 12–16px, the layout is mobile-first at a 390px width (max 430px), and touch targets are at least 44×44px.
+Radii are 12–16px, the layout is mobile-first at a 390px width (max 430px), and touch targets are at least 44×44px. From 1024px wide there is a desktop layout (see [Responsive layout](#responsive-layout)).
 
 ### Components (`src/components`, each with stories)
 
@@ -87,6 +87,33 @@ Every screen state has an English story and a Bangla ("বাংলা · …") 
 10. **G3b Where in the coach · 7 together**: with seats 1–9, 15–19, 48–54 and 92–100 free in coach GHA, it offers the front (1–7), middle (48–54) and back (94–100) blocks, or "Customise seats". It shows which seats Package A (4) and Package B (3) get and announces the change politely. A coach with no block of 7 offers only "Customise".
 11. **G3 Customise seats · 7 together**: the coach GHA seat map with seats numbered 1–100 (SeatMap with `seatNumber`), only free seats choosable, "Choose N more" until 7 are chosen, Package A/B split and a warning when the group sits in more than one place. Reached from G3b "Customise seats".
 12. **Flows / App flow**: G2a → G2b → G3a → G3b (→ G3) → G5 with buttons and a step nav (`aria-current="step"`). Focus moves to each new screen's `h1`.
+13. **Home · journeys by role**: the first screen of the Vite app (`#/home`). One `h1`, an `h2` per role (Passenger, Staff), and each journey as a link with a one-line description (the whole card is the link, so its name includes the description). v2 journeys carry a "(v2)" tag.
+
+### Fair access v2 screens (`src/screens/*v2*`, stories under "Screens v2/…")
+
+All rules are **proposed** (decisions #35–#44) and need railway approval. Every state has an English and a "বাংলা · …" story. The v1 screens above are unchanged.
+
+14. **P21·v2 Apply for the draw** (→ P21b·v2 Application received): window 08:00–10:00, result 10:30, pay by 11:00. "Applying at 08:00 or at 09:59 gives exactly the same chance." One application per traveller across app, website, counter and agent; the group gets one draw place. Duplicate check: "Rahim Karim is already in application AP-0031 made at Kamalapur counter", with "Remove Rahim Karim from this application". Apply → receipt AP-0214-7K, party **Locked** (pill with icon and text), free. Focus moves to the warning or the receipt.
+15. **P22·v2 Picked · pay by 11:00** (→ P22c·v2 Offer expired): draw place #0214, "Pay by 11:00 today. The time does not restart when you open this offer, change phone or retry a payment." HoldTimer counting down to that clock time. Official total ৳1,480 (4 × ৳350 + 4 × ৳20). Expired: seats passed to the next application in draw order, not charged.
+16. **P10·v2 Official total**: fare ৳1,400, service charge ৳80, assistance fee ৳40 (registered agent RA-118; demo, rate to confirm), total ৳1,520. "Pay ৳1,520" plus "Report an extra charge". Paid state: receipt by SMS to each adult traveller.
+17. **R3·v2 Report an extra charge** (→ R3b·v2): official total ৳1,520, amount paid (numeric, accepts Western or Bangla digits, shows how much more than the official total), paid to (optional), how (cash / mobile wallet radio). "Your ticket stays valid. Reporting never cancels it." "Who sees this: only the independent review team." Errors focus the first problem field. Send → reference OC-2207 and what happens next.
+18. **A1·v2 Who can act on my booking** (→ A1b·v2): booking RF-7Q2K-48. Abdul Karim (traveller · Booked by, full access) and Karim Uddin (helper: view and pay). "Remove Karim Uddin" → confirmation (`role="alert"`, focus moves to it; "Keep helper" returns focus to the remove button) → success with record AC-5521. Notes that SMS goes to the traveller's own phone, never to the helper, and that recovery works at any counter with the traveller's own NID.
+19. **Flows / v2 busy train**: P21·v2 → P22·v2 → P10·v2 (→ R3·v2), with a step nav and focus on each `h1`. Screen codes in the nav stay Latin (`lang="en"`).
+
+### Home screen and routing (`src/App.tsx`)
+
+The Vite app opens on **Home** (`#/home`). Hash routes (`#/<id>`) for every screen: `flow`, `apply-v2`, `p21v2`, `p22v2`, `p10v2`, `r3v2`, `a1v2`, `f01b`, `f03`, `f04a`, `g2a`, `g2b`, `g3a`, `g3b`, `g3`, `g5`, `l1`, `s02`. The App-level nav (`.proto-index`, "Prototype screens") keeps the screen picker for direct access and shows a **Home** link on every other screen. It is outside the screens, so stories are unaffected. After a route change, focus moves to the new screen's `h1`.
+
+### Responsive layout
+
+Below 1024px nothing changes: mobile-first, max 430px, sticky footer bar. From **1024px** (`@media (min-width: 1024px)` in `screens.css`):
+
+- The screen, top bar and nav are a centred column up to 960px.
+- Cards sit in a two-column grid **in source order** (no `dense` packing, so reading and focus order match what you see). Headings, notices, the hold timer, forms, the seat map, Home's role groups and screens with a single card stay full width.
+- Footer actions are no longer a full-width sticky bar: they follow the content and are aligned right, with buttons at their natural width (min 16rem).
+- Touch targets stay at least 44px and the `scroll-padding` rule on `<html>` is unchanged.
+
+Storybook has a `desktop1440` viewport (1440 × 900). Desktop stories (G3b, P21·v2, P10·v2, Home, some in Bangla) set `parameters.viewport.defaultViewport = 'desktop1440'` and the tag `desktop`; `test:a11y-storybook` runs those at 1440 × 900.
 
 ### Content rules (enforced by `src/test/content.test.ts`)
 
@@ -105,13 +132,14 @@ These are the results from the last run on this machine:
 
 | Check | Result |
 |---|---|
-| `npm test` (Vitest) | **4 files, 170 tests passed** |
-| ↳ axe-core on every story (135 stories: 42 component and 93 screen/flow states, English and Bangla) | **0 violations**. Rules: WCAG 2.0/2.1/2.2 A + AA + best practice, run on the whole document. Also asserts exactly one `h1` and one `main` per story, that all Bangla text is inside `lang="bn"`, and that Bangla stories use Bangla digits. |
+| `npm test` (Vitest) | **5 files, 229 tests passed** |
+| ↳ axe-core on every story (177 stories: 42 component and 135 screen/flow states, English and Bangla, including 33 v2 screen states, Home, the v2 flow and 8 desktop stories) | **0 violations**. Rules: WCAG 2.0/2.1/2.2 A + AA + best practice, run on the whole document. Also asserts exactly one `h1` and one `main` per story, that all Bangla text is inside `lang="bn"`, and that Bangla stories use Bangla digits. |
 | ↳ language (`language.test.tsx`, 16 tests) | Language switch (aria-pressed, `lang` on the screen, back to English). Staff check keeps the English name. G3a ordering, show-all and the disabled full coach. G3b front/middle/back blocks for the 1–9, 15–19, 48–54, 92–100 example, button and split update, Bangla coach letter and digits, no-block coach. F01b search in English and Bangla with the announced count. Flow G2b → G3a → G3b → G5 with focus on each h1. G3 numbered seats, taken seats, announcements in English and Bangla, run-based hold label, G3b → G3 link. |
 | ↳ axe harness sanity check | A deliberately broken fragment does produce `image-alt`, `label` and `button-name` violations |
 | ↳ keyboard and behaviour | SeatMap: single Tab stop, arrows, Home/End, Ctrl+End, edge clamping, Space/Enter, taken seats. Stepper: labels, bounds keep focus, live value, blocked increment. HoldTimer announces only at minute marks (fake timers). F03 limit guidance and allowance wording. G2a lede (4 + 3, counter option). L1 lede. G5 unpaid-hold note. G2a buyer list (only B travellers; child disabled with reason). F04a errors, masking and "NID record matched". |
-| ↳ content rules | 6 tests passed |
-| `npm run test:a11y-storybook` (Chromium 390×844, reduced motion) | **135 stories, 0 axe violations**, including `color-contrast` and `target-size`. Two Bangla items need review: on F03 · Over limit guidance and G5 · Low time, the longer Bangla text puts an element under the sticky footer in the full-page capture, so axe can't compute its background. Both are ink on solid fills. `scroll-padding` on `<html>` keeps focused items clear of the sticky bars (WCAG 2.2 · 2.4.11). On the Bangla G3 seat map axe marks `label-content-name-mismatch` as needs review: each seat's name ("আসন ১৭, …") does contain the visible number, but check it with a screen reader. |
+| ↳ v2 behaviour (`v2.test.tsx`, 17 tests) | P21·v2 timing text, apply → receipt AP-0214-7K with party locked, duplicate warning (AP-0031, Kamalapur counter) with focus and remove. P22·v2 deadline text, ৳1,480 breakdown, expired state, Bangla digits (#০২১৪, ৳১,৪৮০, ১১:০০). P10·v2 ৳1,400 + ৳80 + ৳40 = ৳1,520 and the report link. R3·v2 errors and focus, extra-amount note, send → OC-2207, Bangla digit parsing. A1·v2 rights, confirm/keep/remove with focus, record AC-5521, Bangla name and digits. v2 flow P21 → P22 → P10 → R3 with focus on each h1. Home: one h1, h2 per role, 8 passenger links, links navigate by hash and back via the Home link, every link matches a route, Bangla switch. |
+| ↳ content rules | 5 tests passed |
+| `npm run test:a11y-storybook` (Chromium 390×844, desktop stories at 1440×900, reduced motion) | **177 stories (8 at 1440 × 900), 0 axe violations**, including `color-contrast` and `target-size`. Three Bangla items need review: on F03 · Over limit guidance, G5 · Low time and P21·v2 · Duplicate found, the longer Bangla text puts an element under the sticky footer in the full-page capture, so axe can't compute its background. All three are ink on solid fills. `scroll-padding` on `<html>` keeps focused items clear of the sticky bars (WCAG 2.2 · 2.4.11). On the Bangla G3 seat map axe marks `label-content-name-mismatch` as needs review: each seat's name ("আসন ১৭, …") does contain the visible number, but check it with a screen reader. |
 | `npm run build` | passes (tsc + Vite) |
 | `npm run build-storybook` | passes (warns about large chunks from Storybook's own docs and axe bundles, which is expected) |
 
@@ -223,16 +251,19 @@ prototype/
   src/
     components/      Button, Field, Stepper, StatusPill (Badge), Notice, SeatMap, HoldTimer, AllowancePill, ScreenShell (+ LangSwitch), Route, Icon (+ *.stories.tsx)
     i18n/lang.tsx    LangProvider, useT(): t(), num(), taka(), masked(), name()
-    screens/         F01b, F03, F04a, G2a, G2b, G3a, G3b, G3, G5, L1, S02, AppFlow (+ *.stories.tsx)
+    screens/         Home, F01b, F03, F04a, G2a, G2b, G3a, G3b, G3, G5, L1, S02, AppFlow,
+                     v2: P21v2ApplyDraw, P22v2Offer, P10v2OfficialTotal, R3v2ReportCharge, A1v2BookingAccess, ApplyFlowV2 (+ *.stories.tsx)
     data/demo.ts     fictional data only
     styles/          tokens.css, base.css, components.css, screens.css, fonts.ts
-    test/            setup.ts, axe.ts, stories.a11y.test.tsx, keyboard.test.tsx, language.test.tsx, content.test.ts
-    App.tsx, main.tsx   Vite app (screen picker)
+    test/            setup.ts, axe.ts, stories.a11y.test.tsx, keyboard.test.tsx, language.test.tsx, v2.test.tsx, content.test.ts
+    App.tsx, main.tsx   Vite app (Home, hash routes, screen picker)
 ```
 
 ## Known limits
 
-- There is no routing, backend or persistence. State is per screen, and the flow passes no data between screens except through fixed demo data.
+- Routing is hash-only and there is no backend or persistence. State is per screen, and the flows pass no data between screens except through fixed demo data.
+- v2 covers P21/P21b, P22/P22c, P10, R3/R3b and A1/A1b only. P24, H1, G2, F05, P14, P25, CT04, PA1, DK03 and OP08–OP10 from `docs/fair-access-v2.md` are in Figma only. The Bangla v2 copy is a first draft (the spec has English v2 only).
+- The P22·v2 offer total (৳1,480) has no assistance fee; P10·v2 (৳1,520) shows a booking helped by registered agent RA-118, so it adds the ৳40 fee. These are the two example totals from the brief.
 - All Bangla copy is a draft and needs review by a native writer (T11).
 - The back-office screens (OP01–OP07, CT03, RV05) are in the Figma prototype only.
 - Automated axe checks and jsdom keyboard tests don't replace manual testing with NVDA, TalkBack and VoiceOver.

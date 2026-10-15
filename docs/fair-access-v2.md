@@ -90,6 +90,15 @@ From section 10 of the proposal, to be run against a real backend in a test envi
 
 ## Not in v2 yet
 
-- **Bangla:** the v2 screens are in English. Bangla drafts follow the same rules as page 02b once the v2 wording is agreed.
-- **Coded prototype:** v2 is in Figma only. The coded prototype still shows v1.
-- **Desktop versions** of the passenger journey and the **"Start here" navigation** for the whole file are still planned.
+Done on 15 Oct (second pass):
+
+- **Bangla:** page **02d • UI v2 — বাংলা (draft, proposed)** has Bangla copies of all 21 v2 screens and the overview, in the same positions as 02c. Same rules as 02b: Bangla digits, coach letters (বগি ড, ঘ-৩১), class (শোভন চেয়ার, স্নিগ্ধা), payment brands (বিকাশ), নগদ টাকা; codes (AP-0214-7K, RF-7Q2K-48, RA-118) stay Latin. Needs native review.
+- **Coded prototype:** P21·v2 (with the duplicate state), P22·v2 (with the expired state), P10·v2, R3·v2 and A1·v2 are coded, with a flow P21 → P22 → P10 → R3 (`#apply-v2`). There is a role-based Home screen and a desktop layout from 1024px. See [prototype/README.md](../prototype/README.md).
+- **Desktop passenger journey:** page **02e • UI — Desktop passenger journey (1440, website)** has 8 screens (DW01–DW08): search, results, apply, picked and seats, pay, tickets, manage booking and report an extra charge. It is a prototype flow, "Desktop · book a busy train".
+- **Start here:** page **00 • Start here** lists every page and has 12 role cards with links to the first screen of each flow (English, Bangla, v2, desktop).
+
+Still not done:
+
+- The other v2 screens (G2·v2, F05·v2, H1·v2, P24·v2, P14·v2, P25·v2, CT04·v2, PA1·v2, DK03·v2, OP08–OP10·v2) are in Figma only, not in the coded prototype.
+- Desktop versions of the staff, counter and group journeys. Staff back-office screens are already desktop.
+- Native-speaker review of all Bangla, v1 and v2.

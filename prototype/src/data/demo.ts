@@ -102,3 +102,36 @@ export const destinations = [
   { name: 'Sylhet', nameBn: 'সিলেট', code: 'SYT' },
   { name: 'Khulna', nameBn: 'খুলনা', code: 'KLN' },
 ];
+
+// ---------- Fair access v2 (proposed; docs/fair-access-v2.md) ----------
+// Every rule below is proposed and needs railway approval (decisions #35–#44).
+
+/** Application window for a busy train, result time and pay-by time (demo, today). */
+export const DRAW = {
+  opens: '08:00',
+  closes: '10:00',
+  /** The last minute inside the window, used for "08:00 or 09:59 gives the same chance". */
+  lastMinute: '09:59',
+  result: '10:30',
+  payBy: '11:00',
+};
+/** This party's application reference and draw place. */
+export const APPLICATION_REF = 'AP-0214-7K';
+export const DRAW_PLACE = '0214';
+/** Another application that already includes Rahim Karim (duplicate-check example). */
+export const DUPLICATE_APPLICATION = { ref: 'AP-0031', place: 'Kamalapur counter', placeBn: 'কমলাপুর কাউন্টার' };
+/** Party for the v2 draw: 4 travellers, one draw place. */
+export const drawParty: Traveller[] = [abdul, salma, rahim, ayesha];
+
+/** Assistance fee of a registered agent (demo; rate to confirm). */
+export const ASSISTANCE_FEE = 40;
+export const AGENT_ID = 'RA-118';
+
+/** A helper with limited rights on a booking (A1·v2). Fictional. */
+export const helper = { name: 'Karim Uddin', nameBn: 'করিম উদ্দিন' };
+/** Record of the access change after the helper is removed. */
+export const ACCESS_RECORD = 'AC-5521';
+/** Reference of an extra-charge report (R3·v2). */
+export const REPORT_REF = 'OC-2207';
+/** The traveller's own phone, last 2 digits (codes and SMS go here, never to the helper). */
+export const OWN_PHONE_LAST2 = '62';
