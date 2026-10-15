@@ -256,3 +256,47 @@ export const SMS_DEMO = {
 
 /** Counter for an assisted report (CT05·v2): passenger with no phone or lost access. */
 export const COUNTER_DESK = { id: 'C-12', station: 'Kamalapur', stationBn: 'কমলাপুর', staff: '207' };
+
+// ---------- Desktop group of 7 (DW09–DW12; G2·v2, G3·v2, G5·v2, G4·v2) ----------
+// Fictional. The group of 7 on the evening train: Package A (4, paid by Abdul Karim) and
+// Package B (3, paid by Salma Karim). One application, one draw place, one class (proposed).
+export const nadia: Traveller = { id: 'g4', name: 'Nadia Rahman', nameBn: 'নাদিয়া রহমান', kind: 'adult', idType: 'NID', idLast4: '2208', seat: '4' };
+export const imran: Traveller = { id: 'g6', name: 'Imran Hossain', nameBn: 'ইমরান হোসেন', kind: 'adult', idType: 'NID', idLast4: '6631', seat: '6' };
+export const tania: Traveller = { id: 'g7', name: 'Tania Akter', nameBn: 'তানিয়া আক্তার', kind: 'adult', idType: 'NID', idLast4: '4410', seat: '7' };
+/** Seats GHA 1–7 in order: Package A 1–4, Package B 5–7. Ayesha (child, seat 2) sits next to Abdul (seat 1), on the same side of the aisle. */
+export const GROUP_V2 = {
+  packageA: [
+    { ...abdul, seat: '1' },
+    { ...ayesha, seat: '2' },
+    { ...rahim, seat: '3' },
+    nadia,
+  ] as Traveller[],
+  packageB: [{ ...salma, seat: '5' }, imran, tania] as Traveller[],
+  refA: 'RF-7Q2K-48',
+  refB: 'RF-7Q2K-49',
+  coach: 'GHA',
+  coachBn: 'ঘ',
+  /** Departure of the evening train 701. */
+  departs: '18:00',
+  payBy: '11:00',
+  /** Package A paid by Abdul Karim, bKash ••9024. */
+  paidA: { time: '10:21', method: 'bKash', methodBn: 'বিকাশ', last4: '9024' },
+  /** One-time code sent to Salma Karim (the Package B buyer), and the time of a resend. */
+  codeSent: '10:22',
+  codeResent: '10:24',
+  paidB: '10:31',
+};
+
+// ---------- Station counter terminal (CTD01–CTD04; desktop-first, proposed) ----------
+// Fictional. Staff screens show English names (decision #31).
+export const COUNTER_TERMINAL = { id: 'C-2', station: 'Kamalapur', stationBn: 'কমলাপুর', shiftFrom: '08:00', shiftTo: '14:00', staff: '207' };
+/** Walk-in passengers applying at the counter (CTD02). */
+export const walkIns = [
+  { id: 'w1', name: 'Mohammad Ali', idLast4: '7730' },
+  { id: 'w2', name: 'Rokeya Begum', idLast4: '5512' },
+];
+/** The application CTD02 prints, and the shift summary before the CTD03 payment. */
+export const WALK_IN_APPLICATION = 'AP-0415-3M';
+export const SHIFT = { cash: 18240, digital: 6660, receipts: 14 };
+/** Ticket recovery record at the counter (CTD04). */
+export const RECOVERY = { record: 'RC-0907', time: '10:42' };

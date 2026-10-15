@@ -103,6 +103,12 @@ Done on 15 Oct (third pass):
 - **Desktop group and counter:** page 02e also has the group of 7 on the website (DW09–DW12) and the station counter terminal (CTD01–CTD04). Guard, TT and exit staff stay mobile because they use handheld devices.
 - **Two-way SMS (HELP / EXTRA / STATUS):** page 02c section v2-5 (SMS01–SMS13, R3c·v2, CT05·v2), with Bangla on 02d. There is an optional branch on page 03 and SMS objects on page 04. It is coded at `#/sms`, `#/r3cv2` and `#/ct05v2`. See [sms-help-extra.md](sms-help-extra.md).
 
+Done on 15 Oct (fourth pass):
+
+- **Desktop in Bangla:** page 02f (DW01–DW12, CTD01–CTD04).
+- **Desktop counter and group in code:** `#/ctd01`–`#/ctd04`, `#/g3v2`, `#/g5v2` and `#/g4v2`. The P14·v2 SMS preview now reuses the SM01 text from the SMS engine.
+- **Full journey:** page 99 has 79 screens in 10 acts, a full interactive prototype and a Bangla step-by-step guide ([journey-bangla.md](journey-bangla.md)).
+
 Still not done:
 
 - Native-speaker review of all Bangla, v1, v2 and SMS.

@@ -22,6 +22,7 @@ import { OP08v2DrawRun } from '../screens/OP08v2DrawRun';
 import { OP09v2SeatReconciliation, seatsInStates } from '../screens/OP09v2SeatReconciliation';
 import { OP10v2AgentReports } from '../screens/OP10v2AgentReports';
 import { App } from '../App';
+import { bookingMain, receiptMessage } from '../sms/engine';
 
 const inBangla = (ui: ReactNode) => render(<LangProvider initial="bn">{ui}</LangProvider>);
 const h1 = () => screen.getByRole('heading', { level: 1 });
@@ -222,7 +223,7 @@ describe('Home · journeys by role', () => {
     expect(screen.queryByRole('link', { name: 'Home' })).not.toBeInTheDocument();
 
     const passenger = screen.getByRole('region', { name: 'Passenger' });
-    expect(within(passenger).getAllByRole('link')).toHaveLength(16);
+    expect(within(passenger).getAllByRole('link')).toHaveLength(19);
     const report = within(passenger).getByRole('link', { name: /Report an extra charge \(v2\)/ });
     expect(report).toHaveAttribute('href', '#/r3v2');
     expect(report).toHaveAccessibleName(/Tell the independent review team privately/);
@@ -265,7 +266,7 @@ describe('Home · journeys by role', () => {
 describe('G2·v2 one group, one chance', () => {
   it('shows one application for 7 with both packages and the all-or-none choice', () => {
     render(<G2v2Group />);
-    expect(h1()).toHaveTextContent('Your group');
+    expect(h1()).toHaveTextContent('One group, one chance');
     expect(screen.getByRole('heading', { level: 2, name: 'Party · locked at 10:00' })).toBeInTheDocument();
     expect(screen.getByText('4 travellers · paid by Abdul Karim')).toBeInTheDocument();
     expect(screen.getByText('3 travellers · paid by Salma Karim')).toBeInTheDocument();
@@ -373,7 +374,13 @@ describe('P14·v2 your receipt', () => {
     expect(within(table).getByRole('row', { name: /Assistance fee · RA-118 .* ৳40/ })).toBeInTheDocument();
     expect(within(table).getByRole('row', { name: 'Official total ৳1,520' })).toBeInTheDocument();
     expect(screen.getByText('Karim Uddin · bKash ••9024')).toBeInTheDocument();
-    expect(screen.getByText(/^railfair: RF-7Q2K-48 confirmed\. Official total ৳1,520 \(fare 1,400 · service 80 · assistance 40\)\..*Demo message\.$/)).toBeInTheDocument();
+    // The SM01 text, from the SMS engine (one source of truth with the SMS demo and docs/sms-help-extra.md)
+    expect(
+      screen.getByText(
+        'railfair: RF-7Q2K-48 confirmed. Fare Tk 1,400; service Tk 80; assistance Tk 40. Official total Tk 1,520 for this booking (4 travellers). Reply HELP for assistance or EXTRA to report paying more.',
+      ),
+    ).toHaveTextContent(receiptMessage(bookingMain).text.en);
+    expect(screen.getByText(/No real SMS is sent/)).toBeInTheDocument();
     expect(screen.getByText(/Sent to the 3 adult travellers’ own phones/)).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Report an extra charge' })).toHaveAttribute('href', '#/r3v2');
   });
@@ -382,7 +389,9 @@ describe('P14·v2 your receipt', () => {
     inBangla(<P14v2Receipt />);
     expect(screen.getByRole('row', { name: 'অফিসিয়াল মোট ৳১,৫২০' })).toBeInTheDocument();
     expect(screen.getByText('করিম উদ্দিন · বিকাশ ••৯০২৪')).toBeInTheDocument();
-    expect(screen.getByText(/অফিসিয়াল মোট ৳১,৫২০ \(ভাড়া ১,৪০০ · সার্ভিস ৮০ · সহায়তা ৪০\)/)).toBeInTheDocument();
+    // The engine's Bangla SM01: Bangla digits and ৳, code and keywords in Latin
+    expect(screen.getByText(receiptMessage(bookingMain).text.bn)).toBeInTheDocument();
+    expect(screen.getByText(/^railfair: RF-7Q2K-48 নিশ্চিত। ভাড়া ৳১,৪০০; সার্ভিস ৳৮০; সহায়তা ৳৪০। এই বুকিংয়ের অফিসিয়াল মোট ৳১,৫২০ \(৪ জন যাত্রী\)।/)).toBeInTheDocument();
   });
 });
 

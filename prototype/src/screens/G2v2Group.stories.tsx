@@ -7,7 +7,7 @@ const meta = {
   component: G2v2Group,
   parameters: {
     ...screenParams,
-    docs: { description: { component: 'Fair access v2 (proposed). Group of 7, one application and one draw place. Package A (4, paid by Abdul Karim) and Package B (3, paid by Salma Karim). "All 7 travel, or none" is chosen before the draw; party locked at 10:00.' } },
+    docs: { description: { component: 'Fair access v2 (proposed), Figma DW09. Group of 7, one application and one draw place. Package A (4, paid by Abdul Karim) and Package B (3, paid by Salma Karim). "All 7 travel, or none" is chosen before the draw; party locked at 10:00.' } },
   },
 } satisfies Meta<typeof G2v2Group>;
 export default meta;
@@ -15,7 +15,9 @@ type Story = StoryObj<typeof meta>;
 
 export const Review: Story = {};
 export const Confirmed: Story = { args: { initialPhase: 'confirmed' } };
+export const PackageACanTravel: Story = { name: 'Package A can still travel', args: { initialChoice: 'a-travels' } };
 export const Desktop: Story = { ...desktop, tags: ['desktop'], name: 'Desktop · Review' };
+export const DesktopConfirmed: Story = { ...desktop, tags: ['desktop'], name: 'Desktop · Confirmed', args: { initialPhase: 'confirmed' } };
 
 export const BanglaReview: Story = { ...bangla, name: 'বাংলা · Review' };
 export const BanglaConfirmed: Story = { ...Confirmed, ...bangla, name: 'বাংলা · Confirmed' };

@@ -33,6 +33,13 @@ import { OP10v2AgentReports } from './screens/OP10v2AgentReports';
 import { SmsDemo } from './screens/SmsDemo';
 import { R3cV2CaseInApp } from './screens/R3cV2CaseInApp';
 import { CT05v2CounterReport } from './screens/CT05v2CounterReport';
+import { G3v2GroupSeats } from './screens/G3v2GroupSeats';
+import { G5v2EachPackagePays } from './screens/G5v2EachPackagePays';
+import { G4v2GroupTickets } from './screens/G4v2GroupTickets';
+import { CTD01FindBooking } from './screens/CTD01FindBooking';
+import { CTD02WalkInApply } from './screens/CTD02WalkInApply';
+import { CTD03TakePayment } from './screens/CTD03TakePayment';
+import { CTD04RecoverTicket } from './screens/CTD04RecoverTicket';
 import { LangProvider, useT } from './i18n/lang';
 
 export const screens: { id: string; label: string; C: ComponentType }[] = [
@@ -55,7 +62,10 @@ export const screens: { id: string; label: string; C: ComponentType }[] = [
   { id: 'p10v2', label: 'P10·v2 Official total', C: P10v2OfficialTotal },
   { id: 'r3v2', label: 'R3·v2 Report an extra charge', C: R3v2ReportCharge },
   { id: 'a1v2', label: 'A1·v2 Who can act on my booking', C: A1v2BookingAccess },
-  { id: 'g2v2', label: 'G2·v2 One group, one chance', C: G2v2Group },
+  { id: 'g2v2', label: 'G2·v2 One group, one chance (DW09)', C: G2v2Group },
+  { id: 'g3v2', label: 'G3·v2 Choose where the group sits (DW10)', C: G3v2GroupSeats },
+  { id: 'g5v2', label: 'G5·v2 Each package pays its own share (DW11)', C: G5v2EachPackagePays },
+  { id: 'g4v2', label: 'G4·v2 Group tickets (DW12)', C: G4v2GroupTickets },
   { id: 'f05v2', label: 'F05·v2 Who does what', C: F05v2Roles },
   { id: 'h1v2', label: 'H1·v2 Hold paused', C: H1v2HoldPaused },
   { id: 'p24v2', label: 'P24·v2 Waiting list · place kept', C: P24v2Waitlist },
@@ -70,6 +80,10 @@ export const screens: { id: string; label: string; C: ComponentType }[] = [
   { id: 'sms', label: 'SM01–SM13 SMS help and reports (simulation)', C: SmsDemo },
   { id: 'r3cv2', label: 'R3c·v2 Report OC-2207 in the app', C: R3cV2CaseInApp },
   { id: 'ct05v2', label: 'CT05·v2 Counter-assisted report (staff)', C: CT05v2CounterReport },
+  { id: 'ctd01', label: 'CTD01 Counter · find a booking or start one', C: CTD01FindBooking },
+  { id: 'ctd02', label: 'CTD02 Counter · apply for a walk-in passenger', C: CTD02WalkInApply },
+  { id: 'ctd03', label: 'CTD03 Counter · take payment', C: CTD03TakePayment },
+  { id: 'ctd04', label: 'CTD04 Counter · recover a ticket', C: CTD04RecoverTicket },
 ];
 
 const fromHash = () => {

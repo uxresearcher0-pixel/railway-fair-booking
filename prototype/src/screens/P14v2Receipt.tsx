@@ -5,6 +5,7 @@ import { Notice } from '../components/Notice';
 import { useActionFocus } from '../components/useActionFocus';
 import { AGENT_ID, BOOKING_REF, FARE, PAYMENT, SERVICE_CHARGE, drawParty, helper } from '../data/demo';
 import { officialTotal } from './P10v2OfficialTotal';
+import { bookingMain, receiptMessage } from '../sms/engine';
 import { useT } from '../i18n/lang';
 
 export interface P14v2Props {
@@ -18,12 +19,13 @@ export interface P14v2Props {
  * that each adult traveller gets on their own phone, with a way to report an extra charge.
  */
 export function P14v2Receipt({ focusHeading, onShowTickets }: P14v2Props) {
-  const { t, num, taka, masked, name } = useT();
+  const { t, num, taka, masked, name, lang } = useT();
+  // One source of truth: the SM01 receipt text from the SMS engine (English or its Bangla equivalent).
+  const sms = receiptMessage(bookingMain).text;
   const { n, fare, charge, fee, total } = officialTotal();
   const adults = drawParty.filter((p) => p.kind === 'adult').length;
   const [note, setNote] = useState(false);
   const { ref, acted } = useActionFocus([note]);
-  const plain = (v: number) => num(v.toLocaleString('en-US'));
 
   return (
     <ScreenShell
@@ -121,14 +123,12 @@ export function P14v2Receipt({ focusHeading, onShowTickets }: P14v2Props) {
         <figure className="sms">
           <figcaption className="visually-hidden">{t('Demo SMS message', 'ডেমো SMS বার্তা')}</figcaption>
           <blockquote className="sms__bubble">
-            <p>
-              {t(
-                `railfair: ${BOOKING_REF} confirmed. Official total ${taka(total)} (fare ${plain(fare)} · service ${plain(charge)} · assistance ${plain(fee)}). Paid more? Report at railfair.example/report or any counter. Demo message.`,
-                `railfair: ${BOOKING_REF} নিশ্চিত। অফিসিয়াল মোট ${taka(total)} (ভাড়া ${plain(fare)} · সার্ভিস ${plain(charge)} · সহায়তা ${plain(fee)})। বেশি দিয়েছেন? railfair.example/report-এ বা যেকোনো কাউন্টারে জানান। ডেমো বার্তা।`,
-              )}
-            </p>
+            <p>{sms[lang]}</p>
           </blockquote>
         </figure>
+        <p className="small-note">
+          {t('Demo message', 'ডেমো বার্তা')} (<span lang="en">SM01</span>){t('. No real SMS is sent.', '। কোনো আসল SMS পাঠানো হয় না।')}
+        </p>
       </section>
     </ScreenShell>
   );

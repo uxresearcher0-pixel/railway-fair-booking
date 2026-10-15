@@ -43,6 +43,15 @@ export interface ScreenShellProps {
   focusHeading?: boolean;
   /** Sticky footer actions. */
   footer?: ReactNode;
+  /** Small context line above the h1 (e.g. "Station counter · shift 08:00–14:00"). */
+  eyebrow?: ReactNode;
+  /**
+   * Side-rail navigation (a <nav>), rendered between the header and <main>. At ≥ 1024px it sits
+   * in a column on the left; below that it is a wrapping list above the content.
+   */
+  rail?: ReactNode;
+  /** Wider desktop column (main + side layouts). */
+  wide?: boolean;
   children: ReactNode;
 }
 
@@ -55,6 +64,9 @@ export function ScreenShell({
   onBack,
   focusHeading = false,
   footer,
+  eyebrow,
+  rail,
+  wide = false,
   children,
 }: ScreenShellProps) {
   const { lang, bn, t } = useT();
@@ -64,7 +76,7 @@ export function ScreenShell({
   }, [focusHeading]);
 
   return (
-    <div className="screen" lang={lang}>
+    <div className={['screen', wide || rail ? 'screen--wide' : '', rail ? 'screen--rail' : ''].filter(Boolean).join(' ')} lang={lang}>
       <header className="topbar">
         <a className="skip-link" href="#main">
           {t('Skip to main content', 'মূল অংশে যান')}
@@ -86,8 +98,10 @@ export function ScreenShell({
           <LangSwitch />
         </div>
       </header>
+      {rail}
       <main id="main" className="screen__main">
         <div className="screen__head">
+          {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
           <h1 ref={h1} tabIndex={-1}>
             {title}
             {titleBn && !bn ? (
