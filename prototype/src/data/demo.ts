@@ -135,3 +135,103 @@ export const ACCESS_RECORD = 'AC-5521';
 export const REPORT_REF = 'OC-2207';
 /** The traveller's own phone, last 2 digits (codes and SMS go here, never to the helper). */
 export const OWN_PHONE_LAST2 = '62';
+
+// ---------- Fair access v2 · second pass (G2, F05, H1, P24, P14, P25, CT04, PA1, DK03, OP08–OP10) ----------
+// Fictional. Every rule is proposed (decisions #35–#44); values marked "rule to confirm" are examples.
+
+/** Ayesha's age, shown on F05·v2. */
+export const AYESHA_AGE = 8;
+/** The group's party locks when the application window closes (G2·v2). */
+export const PARTY_LOCK = '10:00';
+
+/** Hold pause after repeated unpaid holds on one train (H1·v2; values to confirm). */
+export const HOLD_PAUSE = { unpaidHolds: 3, minutes: 30, resumes: '10:40' };
+
+/** The evening train used by the waiting list, agent receipt, audit and operations screens. */
+export const evening = {
+  number: '701',
+  name: 'Evening Express',
+  nameBn: 'ইভনিং এক্সপ্রেস',
+  date: 'Fri 17 Oct',
+  dateBn: 'শুক্র ১৭ অক্টো',
+  /** Class code in English; Bangla shows the class name. */
+  classCode: 'S_CHAIR',
+  classBn: 'শোভন চেয়ার',
+};
+
+/** Waiting list (P24·v2): your place, how many seats you need, and today's releases. */
+export const WAITLIST = {
+  place: 3,
+  need: 4,
+  releases: [
+    { time: '09:40', seats: 2, offeredTo: 1 },
+    { time: '10:05', seats: 1, offeredTo: 2 },
+    { time: '10:20', seats: 3, offeredTo: 4 },
+  ],
+};
+
+/** How the helper paid for booking RF-7Q2K-48 (F05·v2, P14·v2). */
+export const PAYMENT = { method: 'bKash', methodBn: 'বিকাশ', last4: '9024' };
+/** Ayesha's booking: the traveller's own phone, last 2 digits (P25·v2). */
+export const TRAVELLER_PHONE_LAST2 = '41';
+
+/** Printed receipt from a registered agent (CT04·v2). The fee is a demo amount, rate to confirm. */
+export const AGENT_RECEIPT = { agent: 'RA-118', place: 'Mirpur', placeBn: 'মিরপুর', application: 'AP-0388-2C', travellers: 2, fee: 20 };
+
+/** Public draw audit and draw run (PA1·v2, OP08·v2). */
+export const DRAW_AUDIT = {
+  id: 'DRAW-17OCT-EVE',
+  frozenAt: '10:00',
+  committedAt: '10:00:04',
+  applications: 1862,
+  duplicatesMerged: 41,
+  seats: 212,
+  fingerprint: '9f3a…c71e',
+  beacon: '10:05',
+  picked: 53,
+  waiting: 1809,
+  replay: '10:31',
+  policy: 'v4',
+  algorithm: 'v1.2',
+};
+/** Demo lookups for "Check my application number" on PA1·v2 (place in draw order). */
+export const AUDIT_LOOKUP: Record<string, { picked: boolean; place: number }> = {
+  'AP-0388-2C': { picked: true, place: 12 },
+  'AP-1502-9D': { picked: false, place: 640 },
+};
+
+/** Desk correction case (DK03·v2). Dates are DD/MM/YYYY. */
+export const CORRECTION = {
+  ref: 'CV-206',
+  desk: 'D-03',
+  station: 'Kamalapur',
+  stationBn: 'কমলাপুর',
+  officer: '118',
+  reviewer: 'RV-07',
+  ticketDob: '05/07/1993',
+  nidDob: '05/07/1992',
+  versionFrom: 'v3',
+  versionTo: 'v4',
+};
+
+/** Seat reconciliation for train 701, Fri 17 Oct, S_CHAIR (OP09·v2). The states add up to the coach plan. */
+export const SEAT_PLAN = 240;
+export const SEAT_STATES = [
+  { id: 'sold', en: 'Sold', bn: 'বিক্রি হয়েছে', count: 198 },
+  { id: 'held', en: 'Held (open offers)', bn: 'হোল্ডে (খোলা প্রস্তাব)', count: 8 },
+  { id: 'waitlist', en: 'Waiting-list offers', bn: 'অপেক্ষমাণ তালিকার প্রস্তাব', count: 6 },
+  { id: 'blocked', en: 'Blocked (approved)', bn: 'আটকানো (অনুমোদিত)', count: 27 },
+  { id: 'unexplained', en: 'Unexplained', bn: 'ব্যাখ্যাহীন', count: 1 },
+] as const;
+export const UNEXPLAINED_SEAT = { coach: 'GHA', coachBn: 'ঘ', seat: '31', blockedAt: '09:58', by: 'OPS-11', lastRun: '10:40' };
+/** Signed-in operations account on OP08–OP10. */
+export const OPS_ACCOUNT = { id: 'OPS-07', sessionEnds: '13:00' };
+
+/** Registered agents, last 30 days (OP10·v2). */
+export const AGENTS = [
+  { id: 'RA-118', place: 'Mirpur', placeBn: 'মিরপুর', applications: 412, reports: 0, status: 'normal' },
+  { id: 'RA-204', place: 'Tejgaon', placeBn: 'তেজগাঁও', applications: 390, reports: 6, status: 'review' },
+  { id: 'RA-311', place: 'Gazipur', placeBn: 'গাজীপুর', applications: 88, reports: 1, status: 'normal' },
+] as const;
+/** Extra-charge report OC-2207 as the review team sees it (OP10·v2). */
+export const REPORT_CASE = { ref: 'OC-2207', paid: 2500, named: 'RA-204' };

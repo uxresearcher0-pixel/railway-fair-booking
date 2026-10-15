@@ -154,6 +154,37 @@ fieldset:disabled .radio-card { cursor: default; }
 }
 .proto-index__home:hover { background: var(--lime); }
 
+/* ---------- Fair access v2 · second pass ---------- */
+/* Links that look like buttons (navigation to another route). */
+a.btn { text-decoration: none; }
+a.btn--ghost { text-decoration: underline; text-underline-offset: 3px; }
+/* A short, emphasised answer inside a card ("All 7 travel, or none", "GHA-31"). */
+.big-answer { font: 700 var(--text-xl)/1.25 var(--font-display); }
+/* Staff / operations context line under the heading. */
+.staff-context { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1) var(--space-3); font-size: var(--text-sm); color: var(--ink-2); }
+/* Helper rights (F05·v2): row header + answer. */
+.rights { width: 100%; border-collapse: collapse; }
+.rights th, .rights td { text-align: left; vertical-align: top; padding: var(--space-3) 0; border-bottom: 1px solid var(--border); }
+.rights tr:last-child th, .rights tr:last-child td { border-bottom: 0; }
+.rights th { font-weight: 600; padding-right: var(--space-3); width: 40%; }
+/* Waiting-list releases (P24·v2). */
+.timeline { list-style: none; padding: 0; display: grid; }
+.timeline li { display: grid; gap: var(--space-1); padding: var(--space-3) 0; border-bottom: 1px solid var(--border); }
+.timeline li:last-child { border-bottom: 0; }
+.timeline__when { font-weight: 600; }
+/* Demo SMS (P14·v2). */
+.sms { margin: 0; }
+.sms__bubble { margin: 0; padding: var(--space-3) var(--space-4); border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 4px; background: var(--paper); border: 1px solid var(--border-strong); font-size: var(--text-sm); overflow-wrap: anywhere; }
+/* Ticket vs NID record (DK03·v2) and data tables (OP10·v2). */
+.compare, .data-table { width: 100%; border-collapse: collapse; }
+.compare th, .compare td, .data-table th, .data-table td { text-align: left; vertical-align: top; padding: var(--space-2) var(--space-2) var(--space-2) 0; border-bottom: 1px solid var(--border); }
+.compare thead th, .data-table thead th { font-size: var(--text-sm); font-weight: 600; color: var(--ink-2); }
+.compare tbody th, .data-table tbody th { font-weight: 600; }
+.data-table .num { text-align: right; padding-right: var(--space-3); }
+/* Reconciliation rows (OP09·v2). */
+.cost .is-plan th, .cost .is-plan td { font-weight: 600; border-bottom: 1px solid var(--border); }
+.cost .is-flagged th, .cost .is-flagged td { font-weight: 700; }
+
 /* ---------- Desktop layout (≥ 1024px) ----------
    Below 1024px nothing changes: the mobile layout (max 430px, sticky footer) stays exactly as it is.
    At 1024px and wider the screen is a wider centred column, cards sit in two columns

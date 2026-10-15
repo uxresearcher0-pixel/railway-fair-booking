@@ -21,7 +21,7 @@ export function ApplyFlowV2({ start = 'p21', timerPaused = false }: { start?: St
   const labels: Record<StepId, [string, string]> = {
     p21: ['P21·v2', t('Apply', 'আবেদন')],
     p22: ['P22·v2', t('Picked', 'নির্বাচিত')],
-    p10: ['P10·v2', t('Official total', 'অফিশিয়াল মোট')],
+    p10: ['P10·v2', t('Official total', 'অফিসিয়াল মোট')],
     r3: ['R3·v2', t('Report a charge', 'বাড়তি টাকার রিপোর্ট')],
   };
 

@@ -78,9 +78,9 @@ export function R3v2ReportCharge({ initialPhase = 'form', initialAmount = '', in
   return (
     <ScreenShell
       screenId={sent ? 'R3b·v2' : 'R3·v2'}
-      title={sent ? t('Report sent', 'রিপোর্ট পাঠানো হয়েছে') : t('Report an extra charge', 'বাড়তি টাকা চাওয়ার কথা জানান')}
+      title={sent ? t('Report sent', 'রিপোর্ট পাঠানো হয়েছে') : t('Report an extra charge', 'বাড়তি টাকার অভিযোগ করুন')}
       lede={t(`Booking ${BOOKING_REF}`, `বুকিং ${BOOKING_REF}`)}
-      backLabel={t('Back to the official total', 'অফিশিয়াল মোটে ফিরে যান')}
+      backLabel={t('Back to the official total', 'অফিসিয়াল মোটে ফিরে যান')}
       onBack={onBack}
       focusHeading={focusHeading}
       footer={
@@ -115,7 +115,7 @@ export function R3v2ReportCharge({ initialPhase = 'form', initialAmount = '', in
           </ol>
           <dl className="kv">
             <div>
-              <dt>{t('Official total', 'অফিশিয়াল মোট')}</dt>
+              <dt>{t('Official total', 'অফিসিয়াল মোট')}</dt>
               <dd className="mono">{taka(total)}</dd>
             </div>
             {!Number.isNaN(paid) ? (
@@ -133,7 +133,7 @@ export function R3v2ReportCharge({ initialPhase = 'form', initialAmount = '', in
           </h2>
           <dl className="kv">
             <div>
-              <dt>{t('Official total', 'অফিশিয়াল মোট')}</dt>
+              <dt>{t('Official total', 'অফিসিয়াল মোট')}</dt>
               <dd className="mono">{taka(total)}</dd>
             </div>
           </dl>
@@ -148,7 +148,7 @@ export function R3v2ReportCharge({ initialPhase = 'form', initialAmount = '', in
             error={amountError}
           />
           <p className={extra > 0 ? 'small-note' : 'visually-hidden'} aria-live="polite">
-            {extra > 0 ? t(`That is ${taka(extra)} more than the official total.`, `এটি অফিশিয়াল মোটের চেয়ে ${taka(extra)} বেশি।`) : ''}
+            {extra > 0 ? t(`That is ${taka(extra)} more than the official total.`, `এটি অফিসিয়াল মোটের চেয়ে ${taka(extra)} বেশি।`) : ''}
           </p>
           <Field
             id="r3-paid-to"

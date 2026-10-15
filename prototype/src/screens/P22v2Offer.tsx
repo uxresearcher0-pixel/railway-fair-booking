@@ -98,10 +98,10 @@ export function P22v2Offer({ initialPhase = 'offer', secondsToDeadline = 25 * 60
 
           <section className="card" aria-labelledby="p22-total">
             <h2 id="p22-total" className="section-title">
-              {t('Official total', 'অফিশিয়াল মোট')}
+              {t('Official total', 'অফিসিয়াল মোট')}
             </h2>
             <table className="cost">
-              <caption className="visually-hidden">{t('Official total for this offer', 'এই অফারের অফিশিয়াল মোট')}</caption>
+              <caption className="visually-hidden">{t('Official total for this offer', 'এই অফারের অফিসিয়াল মোট')}</caption>
               <tbody>
                 <tr>
                   <th scope="row">

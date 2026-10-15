@@ -42,7 +42,7 @@ export function P10v2OfficialTotal({ initialPhase = 'total', focusHeading, onRep
   return (
     <ScreenShell
       screenId="P10·v2"
-      title={t('Official total', 'অফিশিয়াল মোট')}
+      title={t('Official total', 'অফিসিয়াল মোট')}
       lede={t(`Booking ${BOOKING_REF} · ${n} travellers · helped by registered agent ${AGENT_ID}`, `বুকিং ${BOOKING_REF} · ${num(n)} জন যাত্রী · সাহায্য করেছেন নিবন্ধিত এজেন্ট ${AGENT_ID}`)}
       focusHeading={focusHeading}
       footer={
@@ -52,7 +52,7 @@ export function P10v2OfficialTotal({ initialPhase = 'total', focusHeading, onRep
               {t(`Pay ${taka(total)}`, `${taka(total)} পরিশোধ করুন`)}
             </Button>
             <Button block variant="ghost" onClick={onReport} disabled={phase === 'paying'}>
-              {t('Report an extra charge', 'বাড়তি টাকা চাওয়ার কথা জানান')}
+              {t('Report an extra charge', 'বাড়তি টাকার অভিযোগ করুন')}
             </Button>
           </div>
         ) : undefined
@@ -63,7 +63,7 @@ export function P10v2OfficialTotal({ initialPhase = 'total', focusHeading, onRep
           {t('What you pay', 'আপনি যা পরিশোধ করবেন')}
         </h2>
         <table className="cost">
-          <caption className="visually-hidden">{t('Itemised official total', 'অফিশিয়াল মোটের বিস্তারিত হিসাব')}</caption>
+          <caption className="visually-hidden">{t('Itemised official total', 'অফিসিয়াল মোটের বিস্তারিত হিসাব')}</caption>
           <tbody>
             <tr>
               <th scope="row">
@@ -117,7 +117,7 @@ export function P10v2OfficialTotal({ initialPhase = 'total', focusHeading, onRep
           </Notice>
           <p className="paid-report">
             <Button variant="ghost" onClick={onReport}>
-              {t('Report an extra charge', 'বাড়তি টাকা চাওয়ার কথা জানান')}
+              {t('Report an extra charge', 'বাড়তি টাকার অভিযোগ করুন')}
             </Button>
           </p>
         </div>

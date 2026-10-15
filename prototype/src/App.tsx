@@ -18,6 +18,18 @@ import { P22v2Offer } from './screens/P22v2Offer';
 import { P10v2OfficialTotal } from './screens/P10v2OfficialTotal';
 import { R3v2ReportCharge } from './screens/R3v2ReportCharge';
 import { A1v2BookingAccess } from './screens/A1v2BookingAccess';
+import { G2v2Group } from './screens/G2v2Group';
+import { F05v2Roles } from './screens/F05v2Roles';
+import { H1v2HoldPaused } from './screens/H1v2HoldPaused';
+import { P24v2Waitlist } from './screens/P24v2Waitlist';
+import { P14v2Receipt } from './screens/P14v2Receipt';
+import { P25v2Recover } from './screens/P25v2Recover';
+import { CT04v2AgentReceipt } from './screens/CT04v2AgentReceipt';
+import { PA1v2DrawAudit } from './screens/PA1v2DrawAudit';
+import { DK03v2Correction } from './screens/DK03v2Correction';
+import { OP08v2DrawRun } from './screens/OP08v2DrawRun';
+import { OP09v2SeatReconciliation } from './screens/OP09v2SeatReconciliation';
+import { OP10v2AgentReports } from './screens/OP10v2AgentReports';
 import { LangProvider, useT } from './i18n/lang';
 
 export const screens: { id: string; label: string; C: ComponentType }[] = [
@@ -40,6 +52,18 @@ export const screens: { id: string; label: string; C: ComponentType }[] = [
   { id: 'p10v2', label: 'P10·v2 Official total', C: P10v2OfficialTotal },
   { id: 'r3v2', label: 'R3·v2 Report an extra charge', C: R3v2ReportCharge },
   { id: 'a1v2', label: 'A1·v2 Who can act on my booking', C: A1v2BookingAccess },
+  { id: 'g2v2', label: 'G2·v2 One group, one chance', C: G2v2Group },
+  { id: 'f05v2', label: 'F05·v2 Who does what', C: F05v2Roles },
+  { id: 'h1v2', label: 'H1·v2 Hold paused', C: H1v2HoldPaused },
+  { id: 'p24v2', label: 'P24·v2 Waiting list · place kept', C: P24v2Waitlist },
+  { id: 'p14v2', label: 'P14·v2 Your receipt', C: P14v2Receipt },
+  { id: 'p25v2', label: 'P25·v2 Recover a ticket', C: P25v2Recover },
+  { id: 'ct04v2', label: 'CT04·v2 Agent receipt', C: CT04v2AgentReceipt },
+  { id: 'pa1v2', label: 'PA1·v2 Draw audit (public)', C: PA1v2DrawAudit },
+  { id: 'dk03v2', label: 'DK03·v2 Correction — same person only (desk)', C: DK03v2Correction },
+  { id: 'op08v2', label: 'OP08·v2 Draw run and replay (ops)', C: OP08v2DrawRun },
+  { id: 'op09v2', label: 'OP09·v2 Every seat accounted for (ops)', C: OP09v2SeatReconciliation },
+  { id: 'op10v2', label: 'OP10·v2 Agents and extra-charge reports (ops)', C: OP10v2AgentReports },
 ];
 
 const fromHash = () => {
