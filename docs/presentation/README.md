@@ -2,6 +2,7 @@
 
 - `railfair-proposal.pptx`: 18 slides with Bangla headings, English subtitles and speaker notes.
 - `railfair-proposal.pdf`: a PDF preview, rendered without the Bangla font, so letter spacing differs a little from PowerPoint.
+- `script.md`: the speaker script for all 18 slides, in Bangla and English, with timing and a demo order.
 - `build-deck.js`: the script that builds the deck (pptxgenjs). The screenshots come from the coded prototype in Bangla mode.
 
 Bangla text uses Nirmala UI, which ships with Windows and Office. On a Mac, install a Bangla font such as Noto Sans Bengali before presenting.
